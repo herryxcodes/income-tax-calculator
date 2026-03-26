@@ -13,7 +13,7 @@ export function getStaticPaths() {
 const { province } = Astro.props;
 
 const title = `${province.name} Income Tax Calculator 2025 — Free & Private | CalcTax`;
-const description = `Calculate your 2025 ${province.name} income tax in seconds. See federal + provincial tax, CPP, EI, and compare all provinces. Free, no signup, 100% private.`;
+const description = `Estimate your 2025 ${province.name} income tax in seconds. See federal + provincial tax, CPP, EI, and compare all provinces. Free, no signup, 100% private.`;
 
 // Build bracket table rows
 const bracketRows = province.brackets.map((b, i) => {
@@ -26,13 +26,17 @@ const bracketRows = province.brackets.map((b, i) => {
 ---
 
 <Base title={title} description={description}>
-  <div class="max-w-6xl mx-auto px-4 py-8">
-    <div class="text-center mb-10">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-        {province.name} Income Tax Calculator 2025
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="mb-14">
+      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 animate-fade-up border border-teal-100" style="animation-delay: 0s">
+        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span>
+        {province.abbreviation} — 2025 Tax Year
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
+        {province.name} Income Tax Calculator
       </h1>
-      <p class="text-lg text-gray-500 max-w-2xl mx-auto">
-        Calculate your {province.name} income tax for 2025. See your combined federal +
+      <p class="text-lg text-slate-500 max-w-xl leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
+        Estimate your {province.name} income tax for 2025. See your combined federal +
         provincial tax, CPP, EI, and compare with all other provinces.
       </p>
     </div>

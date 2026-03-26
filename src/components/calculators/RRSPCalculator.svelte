@@ -73,14 +73,14 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Inputs -->
     <div class="space-y-5">
-      <h2 class="text-lg font-semibold text-gray-900">Your RRSP Contribution</h2>
+      <h2 class="text-lg font-semibold text-slate-900 font-display">Your RRSP Contribution</h2>
 
       <div>
-        <label for="province" class="block text-sm font-medium text-gray-700 mb-1">Province / Territory</label>
+        <label for="province" class="block text-sm font-medium text-slate-700 mb-1">Province / Territory</label>
         <select
           id="province"
           bind:value={selectedProvince}
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+          class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
         >
           {#each provinces as prov}
             <option value={prov.slug}>{prov.name}</option>
@@ -89,11 +89,11 @@
       </div>
 
       <div>
-        <label for="income" class="block text-sm font-medium text-gray-700 mb-1">
+        <label for="income" class="block text-sm font-medium text-slate-700 mb-1">
           Annual Income (Employment)
         </label>
         <div class="relative">
-          <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+          <span class="absolute left-3 top-2.5 text-slate-400">$</span>
           <input
             id="income"
             type="text"
@@ -101,18 +101,18 @@
             value={income || ""}
             oninput={(e) => (income = parseInput((e.target as HTMLInputElement).value))}
             placeholder="75,000"
-            class="w-full rounded-lg border border-gray-300 pl-7 pr-4 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+            class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
         </div>
       </div>
 
       <div>
-        <label for="rrsp" class="block text-sm font-medium text-gray-700 mb-1">
+        <label for="rrsp" class="block text-sm font-medium text-slate-700 mb-1">
           RRSP Contribution
         </label>
         <div class="relative flex gap-2">
           <div class="relative flex-1">
-            <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+            <span class="absolute left-3 top-2.5 text-slate-400">$</span>
             <input
               id="rrsp"
               type="text"
@@ -120,28 +120,28 @@
               value={rrspContribution || ""}
               oninput={(e) => (rrspContribution = parseInput((e.target as HTMLInputElement).value))}
               placeholder="10,000"
-              class="w-full rounded-lg border border-gray-300 pl-7 pr-4 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
             />
           </div>
           <button
             type="button"
             onclick={() => { if (income > 0) rrspContribution = maxContribution; }}
             disabled={income <= 0}
-            class="px-4 py-2.5 rounded-lg text-sm font-semibold transition
+            class="px-4 py-2.5 rounded-xl text-sm font-semibold transition
               {income > 0
-                ? 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed'}"
+                ? 'bg-teal-600 text-white hover:bg-teal-700 cursor-pointer'
+                : 'bg-slate-100 text-slate-400 cursor-not-allowed'}"
           >
             Max
           </button>
         </div>
         {#if income > 0}
-          <p class="text-xs mt-1 {isOverContributing ? 'text-amber-600 font-medium' : 'text-gray-400'}">
+          <p class="text-xs mt-1 {isOverContributing ? 'text-amber-600 font-medium' : 'text-slate-400'}">
             Your 2025 limit: {formatCurrency(maxContribution)} (18% of income, max $32,490)
             {#if isOverContributing} — you may be over-contributing{/if}
           </p>
         {:else}
-          <p class="text-xs text-gray-400 mt-1">2025 max: $32,490 or 18% of earned income</p>
+          <p class="text-xs text-slate-400 mt-1">2025 max: $32,490 or 18% of earned income</p>
         {/if}
       </div>
     </div>
@@ -149,14 +149,14 @@
     <!-- Results -->
     <div>
       {#if resultWithRRSP && income > 0 && rrspContribution > 0}
-        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 space-y-5">
-          <h2 class="text-lg font-semibold text-gray-900">Your RRSP Tax Savings</h2>
+        <div class="bg-gradient-to-br from-emerald-50/60 to-teal-50/30 rounded-2xl p-6 space-y-5 border border-emerald-100/50">
+          <h2 class="text-lg font-semibold text-slate-900 font-display">Your RRSP Tax Savings</h2>
 
           <!-- Hero number -->
           <div class="bg-white rounded-xl p-5 shadow-sm text-center">
-            <p class="text-sm text-gray-500">You'll save in taxes</p>
+            <p class="text-sm text-slate-500">You'll save in taxes</p>
             <p class="text-4xl font-bold text-green-600">{formatCurrency(taxSavings)}</p>
-            <p class="text-sm text-gray-500 mt-1">
+            <p class="text-sm text-slate-500 mt-1">
               on a {formatCurrency(rrspContribution)} RRSP contribution
             </p>
           </div>
@@ -165,29 +165,29 @@
           <div class="bg-white rounded-xl p-4 shadow-sm">
             <div class="flex justify-between items-center">
               <div>
-                <p class="text-sm text-gray-500">After-tax cost of contributing</p>
-                <p class="text-xl font-bold text-gray-900">{formatCurrency(afterTaxCost)}</p>
+                <p class="text-sm text-slate-500">After-tax cost of contributing</p>
+                <p class="text-xl font-bold text-slate-900">{formatCurrency(afterTaxCost)}</p>
               </div>
               <div class="text-right">
-                <p class="text-sm text-gray-500">Your marginal rate</p>
-                <p class="text-xl font-bold text-gray-900">{formatPercent(resultWithoutRRSP?.marginalRate ?? 0)}</p>
+                <p class="text-sm text-slate-500">Your marginal rate</p>
+                <p class="text-xl font-bold text-slate-900">{formatPercent(resultWithoutRRSP?.marginalRate ?? 0)}</p>
               </div>
             </div>
-            <p class="text-xs text-gray-400 mt-2">
+            <p class="text-xs text-slate-400 mt-2">
               Your {formatCurrency(rrspContribution)} contribution only costs you {formatCurrency(afterTaxCost)} after the tax refund.
             </p>
           </div>
 
           <!-- Before/after comparison -->
           <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-sm font-semibold text-gray-700 mb-3">Tax Comparison</h3>
+            <h3 class="text-sm font-semibold text-slate-700 mb-3">Tax Comparison</h3>
             <div class="space-y-2 text-sm">
               <div class="flex justify-between">
-                <span class="text-gray-600">Tax without RRSP</span>
+                <span class="text-slate-600">Tax without RRSP</span>
                 <span class="font-medium">{formatCurrency(resultWithoutRRSP?.totalTax ?? 0)}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-600">Tax with RRSP</span>
+                <span class="text-slate-600">Tax with RRSP</span>
                 <span class="font-medium">{formatCurrency(resultWithRRSP.totalTax)}</span>
               </div>
               <div class="border-t pt-2 flex justify-between font-semibold">
@@ -198,9 +198,9 @@
           </div>
 
           <!-- RRSP vs TFSA callout -->
-          <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-            <h3 class="text-sm font-semibold text-blue-900 mb-1">RRSP vs TFSA?</h3>
-            <p class="text-xs text-blue-700">
+          <div class="bg-teal-50 rounded-xl p-4 border border-teal-100">
+            <h3 class="text-sm font-semibold text-teal-900 mb-1">RRSP vs TFSA?</h3>
+            <p class="text-xs text-teal-700">
               At your marginal rate of {formatPercent(resultWithoutRRSP?.marginalRate ?? 0)},
               RRSP saves you {formatCurrency(taxSavings)} upfront.
               TFSA gives no tax deduction now, but withdrawals are 100% tax-free.
@@ -215,7 +215,7 @@
           <button
             type="button"
             onclick={() => (showComparison = !showComparison)}
-            class="w-full bg-green-600 text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-green-700 transition"
+            class="w-full bg-green-600 text-white rounded-xl px-4 py-2 text-sm font-medium hover:bg-green-700 transition"
           >
             {showComparison ? "Hide" : "Compare"} Savings by Province
           </button>
@@ -225,25 +225,30 @@
             href="https://www.wealthsimple.com/en-ca/tax"
             target="_blank"
             rel="noopener sponsored"
-            class="block bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:border-green-300 hover:shadow-md transition group"
+            class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
           >
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-sm font-semibold text-gray-900 group-hover:text-green-700 transition">Claim your RRSP deduction</p>
-                <p class="text-xs text-gray-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax</p>
+                <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Claim your RRSP deduction</p>
+                <p class="text-xs text-slate-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
               </div>
               <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
             </div>
           </a>
         </div>
       {:else if income > 0 && rrspContribution === 0}
-        <div class="bg-gray-50 rounded-2xl p-8 text-center">
-          <p class="text-gray-400 text-lg">Enter an RRSP contribution to see your tax savings</p>
+        <div class="bg-slate-50/50 rounded-2xl p-10 text-center border border-slate-100 border-dashed">
+          <p class="text-slate-500 text-lg font-medium">Enter an RRSP contribution to see your tax savings</p>
         </div>
       {:else}
-        <div class="bg-gray-50 rounded-2xl p-8 text-center">
-          <p class="text-gray-400 text-lg">Enter your income and RRSP contribution</p>
-          <p class="text-gray-300 text-sm mt-2">See exactly how much tax you'll save</p>
+        <div class="bg-slate-50/50 rounded-2xl p-10 text-center border border-slate-100 border-dashed">
+          <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <p class="text-slate-500 text-lg font-medium">Enter your income and RRSP contribution</p>
+          <p class="text-slate-400 text-sm mt-2">See exactly how much tax you'll save</p>
         </div>
       {/if}
     </div>
@@ -252,23 +257,23 @@
   <!-- Province Comparison: RRSP savings -->
   {#if showComparison && allSavings.length > 0}
     <div class="mt-8">
-      <h2 class="text-lg font-semibold text-gray-900 mb-4">
+      <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">
         RRSP Tax Savings by Province
-        <span class="text-sm font-normal text-gray-500">({formatCurrency(rrspContribution)} contribution on {formatCurrency(income)} income)</span>
+        <span class="text-sm font-normal text-slate-500">({formatCurrency(rrspContribution)} contribution on {formatCurrency(income)} income)</span>
       </h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b-2 border-gray-200">
-              <th class="text-left py-3 px-3 font-semibold text-gray-700">Province</th>
-              <th class="text-right py-3 px-3 font-semibold text-gray-700">Tax Savings</th>
-              <th class="text-right py-3 px-3 font-semibold text-gray-700">After-Tax Cost</th>
-              <th class="text-right py-3 px-3 font-semibold text-gray-700">Marginal Rate</th>
+            <tr class="border-b-2 border-slate-200">
+              <th class="text-left py-3 px-3 font-semibold text-slate-700">Province</th>
+              <th class="text-right py-3 px-3 font-semibold text-slate-700">Tax Savings</th>
+              <th class="text-right py-3 px-3 font-semibold text-slate-700">After-Tax Cost</th>
+              <th class="text-right py-3 px-3 font-semibold text-slate-700">Marginal Rate</th>
             </tr>
           </thead>
           <tbody>
             {#each allSavings as s}
-              <tr class="border-b border-gray-100 {s.province.slug === selectedProvince ? 'bg-green-50 font-medium' : 'hover:bg-gray-50'}">
+              <tr class="border-b border-slate-100 {s.province.slug === selectedProvince ? 'bg-green-50 font-medium' : 'hover:bg-slate-50'}">
                 <td class="py-2.5 px-3">
                   {s.province.name}
                   {#if s.province.slug === selectedProvince}
@@ -286,9 +291,15 @@
     </div>
   {/if}
 
-  <p class="mt-6 text-xs text-gray-400 text-center">
-    Your data stays in your browser. Calculations based on 2025 CRA-published tax rates.
-    <a href="/disclaimer" class="underline hover:text-gray-600">Disclaimer</a> |
-    <a href="/income-tax-calculator" class="underline hover:text-gray-600">Need a full tax breakdown? Use our Income Tax Calculator</a>
-  </p>
+  <div class="mt-6 bg-slate-50 rounded-xl p-3 text-xs text-slate-400 leading-relaxed">
+    <p>
+      These calculations are <strong>estimates</strong> based on 2025 CRA-published tax rates.
+      Your actual tax savings may differ. <a href="/disclaimer" class="underline hover:text-slate-600">Full disclaimer</a>.
+      Consult a qualified tax professional before making financial decisions.
+    </p>
+    <p class="mt-1">
+      Your data stays in your browser — nothing is sent to any server.
+      <a href="/income-tax-calculator" class="underline hover:text-slate-600">Need a full tax breakdown?</a>
+    </p>
+  </div>
 </div>

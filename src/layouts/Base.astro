@@ -22,6 +22,11 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <link rel="canonical" href={canonicalUrl} />
     <meta name="robots" content="index, follow" />
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Outfit:wght@300..700&display=swap" rel="stylesheet" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -35,67 +40,101 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="bg-white text-gray-900 antialiased">
+  <body class="bg-[#FAFAF8] text-slate-800 antialiased">
     <!-- Header -->
-    <header class="border-b border-gray-100">
-      <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-700 transition">
+    <header class="sticky top-0 z-50 bg-slate-900/[0.97] backdrop-blur-xl border-b border-white/[0.06]">
+      <nav class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-teal-400 tracking-tight hover:text-teal-300 transition-colors font-display">
           CalcTax
         </a>
-        <div class="flex items-center gap-6 text-sm">
-          <a href="/income-tax-calculator" class="text-gray-600 hover:text-gray-900 transition">Tax Calculator</a>
-          <a href="/rrsp-calculator" class="text-gray-600 hover:text-gray-900 transition">RRSP</a>
-          <a href="/self-employed-tax-calculator" class="text-gray-600 hover:text-gray-900 transition">Self-Employed</a>
-          <a href="/blog" class="text-gray-600 hover:text-gray-900 transition">Blog</a>
+
+        <!-- Mobile menu button -->
+        <button
+          type="button"
+          id="menu-toggle"
+          class="md:hidden text-slate-400 hover:text-white transition-colors"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-7 text-sm">
+          <a href="/income-tax-calculator" class="text-slate-400 hover:text-white transition-colors nav-link">Tax Calculator</a>
+          <a href="/rrsp-calculator" class="text-slate-400 hover:text-white transition-colors nav-link">RRSP</a>
+          <a href="/self-employed-tax-calculator" class="text-slate-400 hover:text-white transition-colors nav-link">Self-Employed</a>
+          <a href="/blog" class="text-slate-400 hover:text-white transition-colors nav-link">Blog</a>
         </div>
       </nav>
+
+      <!-- Mobile nav -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-white/[0.06]">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 text-sm">
+          <a href="/income-tax-calculator" class="text-slate-400 hover:text-white transition-colors py-1.5">Tax Calculator</a>
+          <a href="/rrsp-calculator" class="text-slate-400 hover:text-white transition-colors py-1.5">RRSP</a>
+          <a href="/self-employed-tax-calculator" class="text-slate-400 hover:text-white transition-colors py-1.5">Self-Employed</a>
+          <a href="/blog" class="text-slate-400 hover:text-white transition-colors py-1.5">Blog</a>
+        </div>
+      </div>
     </header>
 
-    <main>
+    <main class="animate-fade-in">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-100 mt-16">
-      <div class="max-w-6xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+    <footer class="bg-slate-900 text-slate-400 mt-20">
+      <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+          <div class="col-span-2 md:col-span-1">
+            <a href="/" class="text-lg font-bold text-teal-400 font-display">CalcTax</a>
+            <p class="mt-3 text-slate-500 text-xs leading-relaxed max-w-[220px]">
+              Free, privacy-first tax calculators for Canadians. Your data never leaves your browser.
+            </p>
+          </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-3">Calculators</h3>
-            <ul class="space-y-2 text-gray-500">
-              <li><a href="/income-tax-calculator" class="hover:text-gray-900 transition">Income Tax Calculator</a></li>
-              <li><a href="/rrsp-calculator" class="hover:text-gray-900 transition">RRSP Calculator</a></li>
-              <li><a href="/self-employed-tax-calculator" class="hover:text-gray-900 transition">Self-Employed Tax</a></li>
-              <li><a href="/capital-gains-tax-calculator" class="hover:text-gray-900 transition">Capital Gains Tax</a></li>
+            <h3 class="font-semibold text-slate-300 mb-4 text-xs uppercase tracking-wider">Calculators</h3>
+            <ul class="space-y-2.5">
+              <li><a href="/income-tax-calculator" class="hover:text-slate-200 transition-colors">Income Tax</a></li>
+              <li><a href="/rrsp-calculator" class="hover:text-slate-200 transition-colors">RRSP Savings</a></li>
+              <li><a href="/self-employed-tax-calculator" class="hover:text-slate-200 transition-colors">Self-Employed</a></li>
             </ul>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-3">By Province</h3>
-            <ul class="space-y-2 text-gray-500 columns-2">
-              <li><a href="/ontario-income-tax-calculator" class="hover:text-gray-900 transition">Ontario</a></li>
-              <li><a href="/quebec-income-tax-calculator" class="hover:text-gray-900 transition">Quebec</a></li>
-              <li><a href="/bc-income-tax-calculator" class="hover:text-gray-900 transition">British Columbia</a></li>
-              <li><a href="/alberta-income-tax-calculator" class="hover:text-gray-900 transition">Alberta</a></li>
-              <li><a href="/manitoba-income-tax-calculator" class="hover:text-gray-900 transition">Manitoba</a></li>
-              <li><a href="/saskatchewan-income-tax-calculator" class="hover:text-gray-900 transition">Saskatchewan</a></li>
+            <h3 class="font-semibold text-slate-300 mb-4 text-xs uppercase tracking-wider">By Province</h3>
+            <ul class="space-y-2.5">
+              <li><a href="/ontario-income-tax-calculator" class="hover:text-slate-200 transition-colors">Ontario</a></li>
+              <li><a href="/quebec-income-tax-calculator" class="hover:text-slate-200 transition-colors">Quebec</a></li>
+              <li><a href="/bc-income-tax-calculator" class="hover:text-slate-200 transition-colors">BC</a></li>
+              <li><a href="/alberta-income-tax-calculator" class="hover:text-slate-200 transition-colors">Alberta</a></li>
+              <li><a href="/manitoba-income-tax-calculator" class="hover:text-slate-200 transition-colors">Manitoba</a></li>
+              <li><a href="/saskatchewan-income-tax-calculator" class="hover:text-slate-200 transition-colors">Saskatchewan</a></li>
             </ul>
           </div>
           <div>
-            <h3 class="font-semibold text-gray-900 mb-3">Legal</h3>
-            <ul class="space-y-2 text-gray-500">
-              <li><a href="/about" class="hover:text-gray-900 transition">About</a></li>
-              <li><a href="/privacy" class="hover:text-gray-900 transition">Privacy Policy</a></li>
-              <li><a href="/terms" class="hover:text-gray-900 transition">Terms of Service</a></li>
-              <li><a href="/disclaimer" class="hover:text-gray-900 transition">Disclaimer</a></li>
-              <li><a href="/disclosure" class="hover:text-gray-900 transition">Affiliate Disclosure</a></li>
-              <li><a href="/contact" class="hover:text-gray-900 transition">Contact</a></li>
+            <h3 class="font-semibold text-slate-300 mb-4 text-xs uppercase tracking-wider">Legal</h3>
+            <ul class="space-y-2.5">
+              <li><a href="/about" class="hover:text-slate-200 transition-colors">About</a></li>
+              <li><a href="/privacy" class="hover:text-slate-200 transition-colors">Privacy</a></li>
+              <li><a href="/terms" class="hover:text-slate-200 transition-colors">Terms</a></li>
+              <li><a href="/disclaimer" class="hover:text-slate-200 transition-colors">Disclaimer</a></li>
+              <li><a href="/disclosure" class="hover:text-slate-200 transition-colors">Disclosure</a></li>
             </ul>
           </div>
         </div>
-        <div class="mt-8 pt-6 border-t border-gray-100 text-xs text-gray-400 text-center">
-          <p>&copy; {new Date().getFullYear()} CalcTax. This calculator provides estimates only. Not financial advice. <a href="/disclaimer" class="underline">See disclaimer</a>.</p>
-          <p class="mt-1">Calculations are based on 2025 CRA-published tax rates. Your data never leaves your browser.</p>
+        <div class="mt-10 pt-6 border-t border-slate-800 text-xs text-slate-600 flex flex-col md:flex-row justify-between gap-2">
+          <p>&copy; {new Date().getFullYear()} CalcTax. Estimates only — not financial advice. <a href="/disclaimer" class="underline hover:text-slate-400 transition-colors">Disclaimer</a>.</p>
+          <p>2025 CRA rates. Your data never leaves your browser.</p>
         </div>
       </div>
     </footer>
+
+    <script>
+      document.getElementById('menu-toggle')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+      });
+    </script>
   </body>
 </html>

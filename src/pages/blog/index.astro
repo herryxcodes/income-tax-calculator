@@ -137,11 +137,11 @@ const articles = [
 ];
 
 const tagColors: Record<string, string> = {
-  red: "bg-red-50 text-red-700",
-  green: "bg-green-50 text-green-700",
-  orange: "bg-orange-50 text-orange-700",
-  blue: "bg-blue-50 text-blue-700",
-  gray: "bg-gray-100 text-gray-600",
+  red: "bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/60",
+  green: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200/60",
+  orange: "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200/60",
+  blue: "bg-teal-50 text-teal-700 ring-1 ring-inset ring-teal-200/60",
+  gray: "bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-200/60",
 };
 ---
 
@@ -149,33 +149,35 @@ const tagColors: Record<string, string> = {
   title="Canadian Tax Guides 2025 — Filing Tips, Calculators & More | CalcTax"
   description="Practical tax guides for the 2025 tax year. Tax brackets, RRSP strategies, self-employment, gig worker rules, and province-specific guides."
 >
-  <div class="max-w-3xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-bold text-gray-900 mb-3">Canadian Tax Guides — 2025 Tax Year</h1>
-    <p class="text-lg text-gray-500 mb-4">
-      Practical tax guides for Canadians filing their 2025 return. Plain language, no jargon, with calculators to see your exact numbers.
-    </p>
+  <div class="max-w-3xl mx-auto px-4 py-16">
+    <div class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up">Canadian Tax Guides</h1>
+      <p class="text-lg text-slate-500 leading-relaxed animate-fade-up" style="animation-delay: 0.1s">
+        Practical tax guides for Canadians filing their 2025 return. Plain language, no jargon, with calculators to see your exact numbers.
+      </p>
+    </div>
 
     <!-- Filing season banner -->
-    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-10">
-      <p class="text-sm text-red-800">
+    <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-10 animate-fade-up" style="animation-delay: 0.15s">
+      <p class="text-sm text-rose-800">
         <strong>Tax season is open.</strong> The deadline to file your 2025 return is
         <strong>April 30, 2026</strong> (self-employed: June 15, 2026).
-        <a href="/income-tax-calculator" class="underline font-semibold hover:text-red-900">Estimate your tax now</a>
+        <a href="/income-tax-calculator" class="underline font-semibold hover:text-rose-900">Estimate your tax now</a>
       </p>
     </div>
 
     <div class="space-y-6">
       {articles.map((article) => (
-        <article class="border-b border-gray-100 pb-6">
-          <span class={`text-xs font-medium px-2 py-0.5 rounded-full ${tagColors[article.tagColor]}`}>
+        <article class="border-b border-slate-100 pb-6 group">
+          <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[article.tagColor]}`}>
             {article.tag}
           </span>
-          <h2 class="text-lg font-semibold text-gray-900 mt-2">
-            <a href={article.href} class="hover:text-blue-600 transition">
+          <h2 class="text-lg font-semibold text-slate-900 mt-2.5">
+            <a href={article.href} class="group-hover:text-teal-600 transition-colors">
               {article.title}
             </a>
           </h2>
-          <p class="text-sm text-gray-500 mt-1.5 leading-relaxed">
+          <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">
             {article.description}
           </p>
         </article>
