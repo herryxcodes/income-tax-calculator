@@ -1,0 +1,101 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const siteUrl = "https://calctax.ca";
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="CalcTax" />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="en-CA" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-white text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="border-b border-gray-100">
+      <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-700 transition">
+          CalcTax
+        </a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/income-tax-calculator" class="text-gray-600 hover:text-gray-900 transition">Tax Calculator</a>
+          <a href="/rrsp-calculator" class="text-gray-600 hover:text-gray-900 transition">RRSP</a>
+          <a href="/self-employed-tax-calculator" class="text-gray-600 hover:text-gray-900 transition">Self-Employed</a>
+          <a href="/blog" class="text-gray-600 hover:text-gray-900 transition">Blog</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 mt-16">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Calculators</h3>
+            <ul class="space-y-2 text-gray-500">
+              <li><a href="/income-tax-calculator" class="hover:text-gray-900 transition">Income Tax Calculator</a></li>
+              <li><a href="/rrsp-calculator" class="hover:text-gray-900 transition">RRSP Calculator</a></li>
+              <li><a href="/self-employed-tax-calculator" class="hover:text-gray-900 transition">Self-Employed Tax</a></li>
+              <li><a href="/capital-gains-tax-calculator" class="hover:text-gray-900 transition">Capital Gains Tax</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">By Province</h3>
+            <ul class="space-y-2 text-gray-500 columns-2">
+              <li><a href="/ontario-income-tax-calculator" class="hover:text-gray-900 transition">Ontario</a></li>
+              <li><a href="/quebec-income-tax-calculator" class="hover:text-gray-900 transition">Quebec</a></li>
+              <li><a href="/bc-income-tax-calculator" class="hover:text-gray-900 transition">British Columbia</a></li>
+              <li><a href="/alberta-income-tax-calculator" class="hover:text-gray-900 transition">Alberta</a></li>
+              <li><a href="/manitoba-income-tax-calculator" class="hover:text-gray-900 transition">Manitoba</a></li>
+              <li><a href="/saskatchewan-income-tax-calculator" class="hover:text-gray-900 transition">Saskatchewan</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900 mb-3">Legal</h3>
+            <ul class="space-y-2 text-gray-500">
+              <li><a href="/about" class="hover:text-gray-900 transition">About</a></li>
+              <li><a href="/privacy" class="hover:text-gray-900 transition">Privacy Policy</a></li>
+              <li><a href="/terms" class="hover:text-gray-900 transition">Terms of Service</a></li>
+              <li><a href="/disclaimer" class="hover:text-gray-900 transition">Disclaimer</a></li>
+              <li><a href="/disclosure" class="hover:text-gray-900 transition">Affiliate Disclosure</a></li>
+              <li><a href="/contact" class="hover:text-gray-900 transition">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-gray-100 text-xs text-gray-400 text-center">
+          <p>&copy; {new Date().getFullYear()} CalcTax. This calculator provides estimates only. Not financial advice. <a href="/disclaimer" class="underline">See disclaimer</a>.</p>
+          <p class="mt-1">Calculations are based on 2025 CRA-published tax rates. Your data never leaves your browser.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

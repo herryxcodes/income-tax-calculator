@@ -1,0 +1,78 @@
+---
+import Base from "../layouts/Base.astro";
+import RRSPCalculator from "../components/calculators/RRSPCalculator.svelte";
+---
+
+<Base
+  title="RRSP Tax Savings Calculator 2025 — See Your Refund | CalcTax"
+  description="Calculate how much tax you'll save with RRSP contributions in 2025. See your refund by province. $32,490 max contribution limit."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        RRSP Tax Savings Calculator 2025
+      </h1>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        See exactly how much tax you'll save with an RRSP contribution.
+        The 2025 limit is <strong>$32,490</strong> or 18% of earned income.
+      </p>
+    </div>
+
+    <RRSPCalculator client:load />
+
+    <section class="mt-16 max-w-3xl mx-auto prose">
+      <h2>How RRSP Contributions Reduce Your Tax</h2>
+      <p>
+        RRSP (Registered Retirement Savings Plan) contributions are <strong>tax-deductible</strong>.
+        When you contribute to your RRSP, the amount is subtracted from your taxable income,
+        reducing the tax you owe. The higher your marginal tax rate, the more you save.
+      </p>
+
+      <h2>2025 RRSP Contribution Limits</h2>
+      <table>
+        <thead>
+          <tr><th>Detail</th><th>2025 Limit</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Maximum contribution</td><td><strong>$32,490</strong></td></tr>
+          <tr><td>Percentage of earned income</td><td>18%</td></tr>
+          <tr><td>RRSP contribution deadline</td><td>March 3, 2026 (for 2025 tax year)</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Your actual contribution room may be higher if you have unused room carried forward
+        from previous years. Check your CRA My Account or your Notice of Assessment.
+      </p>
+
+      <h2>RRSP Tax Savings by Income Level</h2>
+      <p>
+        Your tax savings from an RRSP contribution depend on your marginal tax rate. At higher
+        incomes, each dollar contributed saves more in taxes:
+      </p>
+      <ul>
+        <li>At <strong>$50,000</strong> income (Ontario): ~$1,500 saved on a $5,000 RRSP contribution</li>
+        <li>At <strong>$100,000</strong> income (Ontario): ~$2,150 saved on a $5,000 RRSP contribution</li>
+        <li>At <strong>$200,000</strong> income (Ontario): ~$2,650 saved on a $5,000 RRSP contribution</li>
+      </ul>
+      <p>
+        Enter your income and RRSP contribution in the calculator above to see your exact savings.
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Should I contribute to RRSP or TFSA?</h3>
+      <p>
+        Generally, if you expect your tax rate in retirement to be <strong>lower</strong> than
+        your current rate, RRSP is better. If you expect it to be the same or higher, TFSA
+        may be better. RRSP gives you a tax deduction now but you pay tax on withdrawals.
+        TFSA gives no deduction but withdrawals are tax-free.
+      </p>
+
+      <h3>What is the RRSP deadline for 2025?</h3>
+      <p>
+        To claim an RRSP deduction on your 2025 tax return, you must contribute by
+        <strong>March 3, 2026</strong> (60 days after the end of the tax year).
+      </p>
+    </section>
+  </div>
+</Base>

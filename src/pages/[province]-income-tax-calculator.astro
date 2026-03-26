@@ -1,0 +1,139 @@
+---
+import Base from "../layouts/Base.astro";
+import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.svelte";
+import { provinces } from "../data/tax-rates/2025/index";
+
+export function getStaticPaths() {
+  return provinces.map((p) => ({
+    params: { province: p.slug },
+    props: { province: p },
+  }));
+}
+
+const { province } = Astro.props;
+
+const title = `${province.name} Income Tax Calculator 2025 — Free & Private | CalcTax`;
+const description = `Calculate your 2025 ${province.name} income tax in seconds. See federal + provincial tax, CPP, EI, and compare all provinces. Free, no signup, 100% private.`;
+
+// Build bracket table rows
+const bracketRows = province.brackets.map((b, i) => {
+  const min = b.min.toLocaleString("en-CA");
+  const max = b.max === Infinity ? "and over" : b.max.toLocaleString("en-CA");
+  const range = b.max === Infinity ? `Over $${min}` : `$${min} – $${max}`;
+  const rate = (b.rate * 100).toFixed(2) + "%";
+  return { range, rate };
+});
+---
+
+<Base title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        {province.name} Income Tax Calculator 2025
+      </h1>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        Calculate your {province.name} income tax for 2025. See your combined federal +
+        provincial tax, CPP, EI, and compare with all other provinces.
+      </p>
+    </div>
+
+    <IncomeTaxCalculator client:load initialProvince={province.slug} />
+
+    <section class="mt-16 max-w-3xl mx-auto prose">
+      <h2>{province.name} Tax Brackets 2025</h2>
+      <p>
+        {province.name} ({province.abbreviation}) uses a progressive tax system with
+        {province.brackets.length} tax brackets for 2025. These provincial rates are applied
+        on top of federal income tax.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Taxable Income</th>
+            <th>{province.name} Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bracketRows.map((row) => (
+            <tr>
+              <td>{row.range}</td>
+              <td>{row.rate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p>
+        The {province.name} basic personal amount for 2025 is
+        <strong>${province.basicPersonalAmount.toLocaleString("en-CA")}</strong>.
+        This means you pay no provincial tax on the first ${province.basicPersonalAmount.toLocaleString("en-CA")}
+        of taxable income.
+      </p>
+
+      {province.surtax && (
+        <div>
+          <h3>{province.name} Surtax</h3>
+          <p>
+            {province.name} applies a surtax on provincial tax payable above certain thresholds.
+            This effectively increases the tax rate for higher-income earners.
+          </p>
+        </div>
+      )}
+
+      {province.slug === "quebec" && (
+        <div>
+          <h3>Quebec's Unique Tax System</h3>
+          <p>
+            Quebec is the only province that collects its own income tax independently through
+            Revenu Qu&eacute;bec. Quebec residents file two tax returns: one federal (CRA) and one
+            provincial (Revenu Qu&eacute;bec). Quebec also has its own pension plan (QPP) and
+            parental insurance plan (QPIP) instead of CPP.
+          </p>
+          <p>
+            In exchange, Quebec residents receive a 16.5% federal tax abatement, which reduces
+            their federal tax payable. This calculator applies the Quebec abatement automatically.
+          </p>
+        </div>
+      )}
+
+      <h2>How {province.name} Income Tax Is Calculated</h2>
+      <p>
+        Your total income tax in {province.name} is the sum of:
+      </p>
+      <ul>
+        <li><strong>Federal income tax</strong> — 5 brackets from 15% to 33%</li>
+        <li><strong>{province.name} provincial tax</strong> — {province.brackets.length} brackets shown above</li>
+        <li><strong>{province.slug === "quebec" ? "QPP" : "CPP"} contributions</strong> — on employment and self-employment income</li>
+        <li><strong>EI premiums</strong> — on employment income</li>
+        {province.slug === "quebec" && <li><strong>QPIP premiums</strong> — Quebec Parental Insurance Plan</li>}
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What is {province.name}'s top tax rate?</h3>
+      <p>
+        The top combined (federal + provincial) marginal tax rate in {province.name} for 2025 is
+        approximately {((0.33 + province.brackets[province.brackets.length - 1].rate) * 100).toFixed(2)}%
+        on income above the highest bracket threshold.
+      </p>
+
+      <h3>How does {province.name} compare to other provinces?</h3>
+      <p>
+        Use the "Compare All Provinces" button in the calculator above to see exactly how
+        {province.name} compares to every other province at your income level.
+      </p>
+    </section>
+  </div>
+
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": `${province.name} Income Tax Calculator 2025`,
+    "url": `https://calctax.ca/${province.slug}-income-tax-calculator`,
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "description": `Free ${province.name} income tax calculator for 2025. Calculate federal and ${province.name} provincial tax, CPP, EI contributions.`
+  })}</script>`} />
+</Base>

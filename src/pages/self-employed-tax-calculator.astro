@@ -1,0 +1,74 @@
+---
+import Base from "../layouts/Base.astro";
+import SelfEmployedCalculator from "../components/calculators/SelfEmployedCalculator.svelte";
+---
+
+<Base
+  title="Self-Employed Tax Calculator Canada 2025 — CPP, EI & More | CalcTax"
+  description="Calculate your 2025 self-employment tax in Canada. See both halves of CPP, federal + provincial tax, and your total tax burden. Free and private."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        Self-Employed Tax Calculator Canada 2025
+      </h1>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        Enter your revenue and expenses to see your total tax including
+        <strong>both halves of CPP</strong> (11.9%), quarterly installments, and GST/HST obligation.
+      </p>
+    </div>
+
+    <SelfEmployedCalculator client:load />
+
+    <section class="mt-16 max-w-3xl mx-auto prose">
+      <h2>How Self-Employment Tax Works in Canada</h2>
+      <p>
+        Self-employed Canadians pay the same income tax rates as employees, but there are
+        key differences in how CPP and EI are handled:
+      </p>
+
+      <h3>CPP: You Pay Both Halves</h3>
+      <p>
+        Employees pay 5.95% CPP and their employer matches it. As a self-employed person,
+        you pay <strong>both halves — 11.9% total</strong> on pensionable earnings between
+        $3,500 and $71,300. Plus enhanced contributions (8%) on earnings between $71,300 and $81,200.
+      </p>
+
+      <h3>EI: Optional for Self-Employed</h3>
+      <p>
+        Self-employed individuals are <strong>not required</strong> to pay EI premiums.
+        You can opt in to receive EI special benefits (maternity, parental, sickness, compassionate care)
+        but not regular employment benefits. This calculator shows EI only on employment income.
+      </p>
+
+      <h3>Filing Deadline: June 15</h3>
+      <p>
+        Self-employed Canadians have until <strong>June 15</strong> to file their tax return
+        (vs April 30 for employees). However, any balance owing is still due by
+        <strong>April 30</strong> — the extended deadline is only for filing, not payment.
+      </p>
+
+      <h2>Self-Employment Deductions</h2>
+      <p>
+        Before entering your income in the calculator, subtract your eligible business expenses.
+        Common deductions include:
+      </p>
+      <ul>
+        <li>Home office expenses (prorated by square footage)</li>
+        <li>Vehicle expenses (business use portion)</li>
+        <li>Professional fees and subscriptions</li>
+        <li>Advertising and marketing</li>
+        <li>Office supplies and equipment</li>
+        <li>Business insurance</li>
+        <li>50% of meals and entertainment</li>
+      </ul>
+
+      <h2>GST/HST Registration</h2>
+      <p>
+        If your business revenue exceeds <strong>$30,000</strong> in any four consecutive
+        calendar quarters, you must register for and collect GST/HST. Below that threshold,
+        registration is optional.
+      </p>
+    </section>
+  </div>
+</Base>

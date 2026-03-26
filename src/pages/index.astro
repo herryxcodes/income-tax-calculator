@@ -1,0 +1,133 @@
+---
+import Base from "../layouts/Base.astro";
+import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.svelte";
+---
+
+<Base
+  title="Canadian Income Tax Calculator 2025 — Free & Private | CalcTax"
+  description="Calculate your 2025 Canadian income tax in seconds. Federal + provincial tax, CPP, EI. Compare all 13 provinces. Free, no signup, 100% private."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Hero -->
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+        Canada Income Tax Calculator 2025
+      </h1>
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        Calculate your federal and provincial income tax in seconds.
+        Compare all 13 provinces. 100% private — your data never leaves your browser.
+      </p>
+    </div>
+
+    <!-- Calculator -->
+    <IncomeTaxCalculator client:load />
+
+    <!-- SEO Content -->
+    <section class="mt-16 max-w-3xl mx-auto prose">
+      <h2>How Canadian Income Tax Works</h2>
+      <p>
+        Canada uses a <strong>progressive tax system</strong> where your income is taxed at
+        increasingly higher rates as it increases. You pay both federal tax and provincial/territorial
+        tax, each with their own set of brackets and rates.
+      </p>
+      <p>
+        For 2025, the federal government reduced the lowest tax bracket rate from 15% to 14%
+        effective July 1, 2025. A blended rate of 14.5% applies for the 2025 tax year,
+        saving most Canadians several hundred dollars compared to 2024.
+      </p>
+
+      <h2>2025 Federal Tax Brackets</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Taxable Income</th>
+            <th>Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>$0 – $57,375</td><td>14.5%*</td></tr>
+          <tr><td>$57,375 – $114,750</td><td>20.5%</td></tr>
+          <tr><td>$114,750 – $177,882</td><td>26%</td></tr>
+          <tr><td>$177,882 – $253,414</td><td>29%</td></tr>
+          <tr><td>Over $253,414</td><td>33%</td></tr>
+        </tbody>
+      </table>
+
+      <h2>What This Calculator Includes</h2>
+      <ul>
+        <li><strong>Federal income tax</strong> — all 5 brackets for 2025</li>
+        <li><strong>Provincial income tax</strong> — all 13 provinces and territories</li>
+        <li><strong>CPP/QPP contributions</strong> — including enhanced contributions on higher earnings</li>
+        <li><strong>EI premiums</strong> — reduced rate for Quebec</li>
+        <li><strong>RRSP deductions</strong> — see your tax savings from RRSP contributions</li>
+        <li><strong>Capital gains</strong> — 50% inclusion rate applied automatically</li>
+        <li><strong>Dividend income</strong> — eligible and ineligible with gross-up and tax credits</li>
+        <li><strong>Self-employment income</strong> — both halves of CPP calculated</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>How much tax do I pay on $75,000 in Canada?</h3>
+      <p>
+        On $75,000 of employment income in Ontario for 2025, you would pay approximately
+        $12,700 in combined federal and provincial income tax, plus about $4,100 in CPP and
+        EI contributions, for a total tax of roughly $16,800 and an effective rate of about 22.4%.
+        Use the calculator above to see your exact number based on your province.
+      </p>
+
+      <h3>Which province has the lowest income tax?</h3>
+      <p>
+        Nunavut generally has the lowest provincial income tax rates, followed by Alberta
+        (which has the highest basic personal amount at $22,323). Use the "Compare All Provinces"
+        feature above to see the exact difference for your income level.
+      </p>
+
+      <h3>Is this calculator accurate?</h3>
+      <p>
+        This calculator uses 2025 tax rates published by the CRA and provincial finance departments.
+        It applies the basic personal amount tax credit but does not account for all possible credits
+        and deductions. For a complete tax assessment, consult a tax professional.
+      </p>
+
+      <h3>Is my data safe?</h3>
+      <p>
+        Yes. All calculations happen in your browser using JavaScript. No data is ever sent to
+        our servers or any third party. We don't track your income or tax information.
+      </p>
+    </section>
+  </div>
+
+  <!-- JSON-LD Schema -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Canada Income Tax Calculator 2025",
+    "url": "https://calctax.ca/",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "description": "Free Canadian income tax calculator for 2025. Calculate federal and provincial tax, CPP, EI contributions for all 13 provinces."
+  })}</script>`} />
+
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much tax do I pay on $75,000 in Canada?",
+        "acceptedAnswer": { "@type": "Answer", "text": "On $75,000 of employment income in Ontario for 2025, you would pay approximately $12,700 in combined federal and provincial income tax, plus about $4,100 in CPP and EI contributions." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which province has the lowest income tax?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Nunavut generally has the lowest provincial income tax rates, followed by Alberta which has the highest basic personal amount at $22,323." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator accurate?",
+        "acceptedAnswer": { "@type": "Answer", "text": "This calculator uses 2025 tax rates published by the CRA and provincial finance departments. It applies the basic personal amount tax credit but does not account for all possible credits and deductions." }
+      }
+    ]
+  })}</script>`} />
+</Base>
