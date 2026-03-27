@@ -127,6 +127,22 @@ const bracketRows = province.brackets.map((b, i) => {
         Use the "Compare All Provinces" button in the calculator above to see exactly how
         {province.name} compares to every other province at your income level.
       </p>
+
+      <h3>What is the basic personal amount in {province.name}?</h3>
+      <p>
+        The {province.name} basic personal amount for 2025 is
+        <strong>${province.basicPersonalAmount.toLocaleString("en-CA")}</strong>.
+        You pay no {province.name} provincial tax on the first ${province.basicPersonalAmount.toLocaleString("en-CA")} of taxable income.
+        The federal basic personal amount is $16,129.
+      </p>
+
+      <h3>How much tax do I pay on $75,000 in {province.name}?</h3>
+      <p>
+        The exact amount depends on your income type and deductions. Use the
+        <a href={`/${province.slug}-income-tax-calculator`}>calculator above</a> to see
+        your precise {province.name} tax at any income level. You can also
+        <a href="/income-tax-calculator">compare all provinces</a> side by side.
+      </p>
     </section>
   </div>
 
@@ -139,5 +155,32 @@ const bracketRows = province.brackets.map((b, i) => {
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
     "description": `Free ${province.name} income tax calculator for 2025. Calculate federal and ${province.name} provincial tax, CPP, EI contributions.`
+  })}</script>`} />
+
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `What is ${province.name}'s top tax rate?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `The top combined (federal + provincial) marginal tax rate in ${province.name} for 2025 is approximately ${((0.33 + province.brackets[province.brackets.length - 1].rate) * 100).toFixed(2)}% on income above the highest bracket threshold.` }
+      },
+      {
+        "@type": "Question",
+        "name": `How does ${province.name} compare to other provinces?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `Use the Compare All Provinces feature on the ${province.name} income tax calculator to see exactly how ${province.name} compares to every other province at your income level.` }
+      },
+      {
+        "@type": "Question",
+        "name": `What is the basic personal amount in ${province.name}?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `The ${province.name} basic personal amount for 2025 is $${province.basicPersonalAmount.toLocaleString("en-CA")}. You pay no provincial tax on the first $${province.basicPersonalAmount.toLocaleString("en-CA")} of taxable income.` }
+      },
+      {
+        "@type": "Question",
+        "name": `How much tax do I pay on $75,000 in ${province.name}?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `The exact amount depends on your income type and deductions. Use the ${province.name} income tax calculator at calctax.ca to see your precise tax at any income level.` }
+      }
+    ]
   })}</script>`} />
 </Base>

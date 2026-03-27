@@ -129,4 +129,15 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
     "publisher": { "@type": "Organization", "name": "CalcTax", "url": siteUrl },
     "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
   })}</script>`} />
+
+  <!-- BreadcrumbList JSON-LD -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": siteUrl + "/blog" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": canonicalUrl }
+    ]
+  })}</script>`} />
 </Base>

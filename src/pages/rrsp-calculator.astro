@@ -79,6 +79,67 @@ import RRSPCalculator from "../components/calculators/RRSPCalculator.svelte";
         This deadline has passed. Any contributions made after this date will
         count toward the 2026 tax year instead.
       </p>
+
+      <h3>How do I check my RRSP contribution room?</h3>
+      <p>
+        Log in to <strong>CRA My Account</strong> online, or check your most recent
+        Notice of Assessment — your available RRSP room is listed there. It includes
+        any unused room carried forward from previous years.
+      </p>
+
+      <h3>What is the FHSA and how does it compare?</h3>
+      <p>
+        The First Home Savings Account (FHSA) lets first-time home buyers contribute
+        up to <strong>$8,000/year</strong> (lifetime max $40,000) with the same tax
+        deduction as an RRSP, but withdrawals for a home purchase are tax-free like a TFSA.
+        If you're saving for your first home, FHSA is typically the best choice.
+      </p>
+
+      <h3>Is RRSP or TFSA better at my income?</h3>
+      <p>
+        At marginal rates above 30%, RRSP is usually better (bigger upfront deduction).
+        Below 30%, TFSA may be better since you won't benefit as much from the deduction.
+        Use the <a href="/rrsp-calculator">calculator above</a> to see your exact savings.
+      </p>
     </section>
   </div>
+
+  <!-- WebApplication + FAQ Schema -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "RRSP Tax Savings Calculator 2025",
+    "url": "https://calctax.ca/rrsp-calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "description": "Free RRSP tax savings calculator for 2025. See how much tax you'll save with RRSP contributions by province."
+  })}</script>`} />
+
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Should I contribute to RRSP or TFSA?",
+        "acceptedAnswer": { "@type": "Answer", "text": "If you expect your tax rate in retirement to be lower than your current rate, RRSP is better. If same or higher, TFSA may be better. RRSP gives a tax deduction now but withdrawals are taxed. TFSA gives no deduction but withdrawals are tax-free." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the RRSP contribution limit for 2025?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The 2025 RRSP contribution limit is $32,490 or 18% of your previous year's earned income, whichever is less. The contribution deadline for the 2025 tax year was March 3, 2026." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I check my RRSP contribution room?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Log in to CRA My Account online, or check your most recent Notice of Assessment. Your available RRSP room is listed there, including any unused room carried forward from previous years." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is RRSP or TFSA better at my income?",
+        "acceptedAnswer": { "@type": "Answer", "text": "At marginal rates above 30%, RRSP is usually better due to the larger upfront deduction. Below 30%, TFSA may be better since you won't benefit as much from the deduction." }
+      }
+    ]
+  })}</script>`} />
 </Base>

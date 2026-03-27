@@ -20,7 +20,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,6 +44,21 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Organization Schema (site-wide) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CalcTax",
+      "url": "https://calctax.ca",
+      "description": "Free, privacy-first Canadian income tax calculators.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@calctax.ca",
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      }
+    })} />
   </head>
   <body class="bg-[#FAFAF8] text-slate-800 antialiased">
     <!-- Header -->

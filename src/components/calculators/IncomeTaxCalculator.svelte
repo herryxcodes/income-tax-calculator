@@ -330,7 +330,7 @@
       {#if result && result.totalIncome > 0}
         <div class="bg-white border border-slate-200/70 rounded-2xl p-6 space-y-5 shadow-sm">
           <h2 class="text-lg font-semibold text-slate-900 font-display">
-            Your 2025 Tax Estimate (approximate)
+            Your 2025 Tax Estimate
             <span class="text-sm font-normal text-slate-500">({result.province.name})</span>
           </h2>
 

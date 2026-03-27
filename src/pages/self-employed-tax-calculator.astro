@@ -73,6 +73,77 @@ import SelfEmployedCalculator from "../components/calculators/SelfEmployedCalcul
         calendar quarters, you must register for and collect GST/HST. Below that threshold,
         registration is optional.
       </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>How much CPP do self-employed people pay in 2025?</h3>
+      <p>
+        Self-employed Canadians pay both the employee and employer portions of CPP —
+        a total of <strong>11.9%</strong> on pensionable earnings between $3,500 and $71,300.
+        Plus enhanced CPP2 contributions of 8% on earnings between $71,300 and $81,200.
+        <a href="/self-employed-tax-calculator">Use our calculator</a> to see your exact CPP amount.
+      </p>
+
+      <h3>Do I need to incorporate my business?</h3>
+      <p>
+        Most freelancers and small businesses don't need to incorporate right away.
+        As a sole proprietor, you report business income on your personal tax return (T2125).
+        Incorporation may save tax when your business earns more than you need to live on
+        (typically $150K+), but adds accounting complexity and cost.
+      </p>
+
+      <h3>How much should I set aside for taxes?</h3>
+      <p>
+        A common rule of thumb is <strong>25-30% of gross revenue</strong>. Use the
+        <a href="/self-employed-tax-calculator">self-employed calculator</a> above to see
+        your exact rate — it depends on your province, expenses, and total income.
+      </p>
+
+      <h3>What is the self-employed filing deadline?</h3>
+      <p>
+        Self-employed Canadians have until <strong>June 15, 2026</strong> to file their
+        2025 tax return. However, any balance owing is still due <strong>April 30, 2026</strong>.
+        The extended deadline is only for filing, not payment.
+      </p>
     </section>
   </div>
+
+  <!-- WebApplication + FAQ Schema -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Self-Employed Tax Calculator Canada 2025",
+    "url": "https://calctax.ca/self-employed-tax-calculator",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+    "description": "Free self-employed tax calculator for Canada 2025. See both halves of CPP, quarterly installments, and total tax burden."
+  })}</script>`} />
+
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much CPP do self-employed people pay in 2025?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Self-employed Canadians pay both halves of CPP — 11.9% total on pensionable earnings between $3,500 and $71,300, plus enhanced CPP2 of 8% on earnings between $71,300 and $81,200." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to incorporate my business?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Most freelancers don't need to incorporate right away. As a sole proprietor, you report business income on your personal return (T2125). Incorporation may save tax when business earns more than $150K+." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much should I set aside for taxes as self-employed?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A common rule of thumb is 25-30% of gross revenue. The exact rate depends on your province, expenses, and total income." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the self-employed filing deadline?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Self-employed Canadians have until June 15, 2026 to file their 2025 tax return. However, any balance owing is still due April 30, 2026." }
+      }
+    ]
+  })}</script>`} />
 </Base>
