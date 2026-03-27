@@ -106,9 +106,9 @@ const bracketRows = province.brackets.map((b, i) => {
         Your total income tax in {province.name} is the sum of:
       </p>
       <ul>
-        <li><strong>Federal income tax</strong> — 5 brackets from 15% to 33%</li>
+        <li><strong>Federal income tax</strong> — 5 brackets from 14.5% to 33%</li>
         <li><strong>{province.name} provincial tax</strong> — {province.brackets.length} brackets shown above</li>
-        <li><strong>{province.slug === "quebec" ? "QPP" : "CPP"} contributions</strong> — on employment and self-employment income</li>
+        <li><strong>{province.slug === "quebec" ? "QPP" : "CPP"} contributions</strong> — on employment income</li>
         <li><strong>EI premiums</strong> — on employment income</li>
         {province.slug === "quebec" && <li><strong>QPIP premiums</strong> — Quebec Parental Insurance Plan</li>}
       </ul>

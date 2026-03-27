@@ -7,6 +7,7 @@
     type TaxInput,
   } from "../../lib/tax-engine";
   import { provinces, cpp, qpp } from "../../data/tax-rates/2025/index";
+  import { parseInput, formatInputDisplay, enforceMaxDigits } from "../../lib/input-utils";
 
   // Focused inputs for self-employed
   let grossRevenue = $state(0);
@@ -60,9 +61,23 @@
       : 0
   );
 
-  function parseInput(value: string): number {
-    const num = Number(value.replace(/[$,\s]/g, ""));
-    return isNaN(num) ? 0 : Math.max(0, num);
+  let activeField: string | null = $state(null);
+
+  function handleInput(field: string, setter: (v: number) => void) {
+    return (e: Event) => {
+      const el = e.target as HTMLInputElement;
+      const enforced = enforceMaxDigits(el.value);
+      if (enforced !== el.value.replace(/[$,\s]/g, "")) el.value = enforced;
+      setter(parseInput(enforced));
+    };
+  }
+  function handleFocus(field: string) { return () => { activeField = field; }; }
+  function handleBlur(field: string, value: number) {
+    return (e: Event) => { activeField = null; (e.target as HTMLInputElement).value = formatInputDisplay(value); };
+  }
+  function displayValue(field: string, value: number): string {
+    if (activeField === field) return value ? String(value) : "";
+    return formatInputDisplay(value);
   }
 </script>
 
@@ -95,8 +110,8 @@
             id="revenue"
             type="text"
             inputmode="decimal"
-            value={grossRevenue || ""}
-            oninput={(e) => (grossRevenue = parseInput((e.target as HTMLInputElement).value))}
+            value={displayValue("revenue", grossRevenue)}
+            oninput={handleInput("revenue", (v) => grossRevenue = v)} onfocus={handleFocus("revenue")} onblur={handleBlur("revenue", grossRevenue)}
             placeholder="80,000"
             class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
@@ -113,8 +128,8 @@
             id="expenses"
             type="text"
             inputmode="decimal"
-            value={businessExpenses || ""}
-            oninput={(e) => (businessExpenses = parseInput((e.target as HTMLInputElement).value))}
+            value={displayValue("expenses", businessExpenses)}
+            oninput={handleInput("expenses", (v) => businessExpenses = v)} onfocus={handleFocus("expenses")} onblur={handleBlur("expenses", businessExpenses)}
             placeholder="15,000"
             class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
@@ -140,8 +155,8 @@
             id="rrsp"
             type="text"
             inputmode="decimal"
-            value={rrspContribution || ""}
-            oninput={(e) => (rrspContribution = parseInput((e.target as HTMLInputElement).value))}
+            value={displayValue("rrsp", rrspContribution)}
+            oninput={handleInput("rrsp", (v) => rrspContribution = v)} onfocus={handleFocus("rrsp")} onblur={handleBlur("rrsp", rrspContribution)}
             placeholder="0"
             class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
@@ -167,8 +182,8 @@
               id="employment"
               type="text"
               inputmode="decimal"
-              value={otherEmploymentIncome || ""}
-              oninput={(e) => (otherEmploymentIncome = parseInput((e.target as HTMLInputElement).value))}
+              value={displayValue("t4", otherEmploymentIncome)}
+              oninput={handleInput("t4", (v) => otherEmploymentIncome = v)} onfocus={handleFocus("t4")} onblur={handleBlur("t4", otherEmploymentIncome)}
               placeholder="0"
               class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
             />

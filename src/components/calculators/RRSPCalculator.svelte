@@ -9,6 +9,7 @@
     type TaxResult,
   } from "../../lib/tax-engine";
   import { provinces } from "../../data/tax-rates/2025/index";
+  import { parseInput, formatInputDisplay, enforceMaxDigits } from "../../lib/input-utils";
 
   // Focused inputs — just income, RRSP, province
   let income = $state(0);
@@ -63,9 +64,23 @@
     }).sort((a, b) => b.savings - a.savings);
   });
 
-  function parseInput(value: string): number {
-    const num = Number(value.replace(/[$,\s]/g, ""));
-    return isNaN(num) ? 0 : Math.max(0, num);
+  let activeField: string | null = $state(null);
+
+  function handleInput(field: string, setter: (v: number) => void) {
+    return (e: Event) => {
+      const el = e.target as HTMLInputElement;
+      const enforced = enforceMaxDigits(el.value);
+      if (enforced !== el.value.replace(/[$,\s]/g, "")) el.value = enforced;
+      setter(parseInput(enforced));
+    };
+  }
+  function handleFocus(field: string) { return () => { activeField = field; }; }
+  function handleBlur(field: string, value: number) {
+    return (e: Event) => { activeField = null; (e.target as HTMLInputElement).value = formatInputDisplay(value); };
+  }
+  function displayValue(field: string, value: number): string {
+    if (activeField === field) return value ? String(value) : "";
+    return formatInputDisplay(value);
   }
 </script>
 
@@ -98,8 +113,10 @@
             id="income"
             type="text"
             inputmode="decimal"
-            value={income || ""}
-            oninput={(e) => (income = parseInput((e.target as HTMLInputElement).value))}
+            value={displayValue("income", income)}
+            oninput={handleInput("income", (v) => income = v)}
+            onfocus={handleFocus("income")}
+            onblur={handleBlur("income", income)}
             placeholder="75,000"
             class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
@@ -117,8 +134,10 @@
               id="rrsp"
               type="text"
               inputmode="decimal"
-              value={rrspContribution || ""}
-              oninput={(e) => (rrspContribution = parseInput((e.target as HTMLInputElement).value))}
+              value={displayValue("rrsp", rrspContribution)}
+              oninput={handleInput("rrsp", (v) => rrspContribution = v)}
+              onfocus={handleFocus("rrsp")}
+              onblur={handleBlur("rrsp", rrspContribution)}
               placeholder="10,000"
               class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
             />

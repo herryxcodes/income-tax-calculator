@@ -9,6 +9,7 @@
     type TaxResult,
   } from "../../lib/tax-engine";
   import { provinces } from "../../data/tax-rates/2025/index";
+  import { parseInput, formatInputDisplay, enforceMaxDigits } from "../../lib/input-utils";
 
   // Props
   let { initialProvince = "ontario" }: { initialProvince?: string } = $props();
@@ -84,10 +85,34 @@
     if (params.has("prov")) selectedProvince = params.get("prov")!;
   });
 
-  // Parse currency input — strip $ and commas
-  function parseInput(value: string): number {
-    const num = Number(value.replace(/[$,\s]/g, ""));
-    return isNaN(num) ? 0 : Math.max(0, num);
+  // Track which field is being edited (don't format while typing)
+  let activeField: string | null = $state(null);
+
+  function handleInput(field: string, setter: (v: number) => void) {
+    return (e: Event) => {
+      const el = e.target as HTMLInputElement;
+      const enforced = enforceMaxDigits(el.value);
+      if (enforced !== el.value.replace(/[$,\s]/g, "")) {
+        el.value = enforced;
+      }
+      setter(parseInput(enforced));
+    };
+  }
+
+  function handleFocus(field: string) {
+    return () => { activeField = field; };
+  }
+
+  function handleBlur(field: string, value: number) {
+    return (e: Event) => {
+      activeField = null;
+      (e.target as HTMLInputElement).value = formatInputDisplay(value);
+    };
+  }
+
+  function displayValue(field: string, value: number): string {
+    if (activeField === field) return value ? String(value) : "";
+    return formatInputDisplay(value);
   }
 </script>
 
@@ -124,8 +149,10 @@
             id="employment"
             type="text"
             inputmode="decimal"
-            value={employmentIncome || ""}
-            oninput={(e) => (employmentIncome = parseInput((e.target as HTMLInputElement).value))}
+            value={displayValue("employment", employmentIncome)}
+            oninput={handleInput("employment", (v) => employmentIncome = v)}
+            onfocus={handleFocus("employment")}
+            onblur={handleBlur("employment", employmentIncome)}
             placeholder="75,000"
             class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
           />
@@ -154,8 +181,10 @@
               id="rrsp"
               type="text"
               inputmode="decimal"
-              value={rrspContribution || ""}
-              oninput={(e) => (rrspContribution = parseInput((e.target as HTMLInputElement).value))}
+              value={displayValue("rrsp", rrspContribution)}
+              oninput={handleInput("rrsp", (v) => rrspContribution = v)}
+              onfocus={handleFocus("rrsp")}
+              onblur={handleBlur("rrsp", rrspContribution)}
               placeholder="0"
               class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
             />
@@ -188,8 +217,10 @@
               id="fhsa"
               type="text"
               inputmode="decimal"
-              value={fhsaContribution || ""}
-              oninput={(e) => (fhsaContribution = parseInput((e.target as HTMLInputElement).value))}
+              value={displayValue("fhsa", fhsaContribution)}
+              oninput={handleInput("fhsa", (v) => fhsaContribution = v)}
+              onfocus={handleFocus("fhsa")}
+              onblur={handleBlur("fhsa", fhsaContribution)}
               placeholder="0"
               class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
             />
@@ -225,8 +256,10 @@
                 id="capitalGains"
                 type="text"
                 inputmode="decimal"
-                value={capitalGains || ""}
-                oninput={(e) => (capitalGains = parseInput((e.target as HTMLInputElement).value))}
+                value={displayValue("capitalGains", capitalGains)}
+                oninput={handleInput("capitalGains", (v) => capitalGains = v)}
+                onfocus={handleFocus("capitalGains")}
+                onblur={handleBlur("capitalGains", capitalGains)}
                 placeholder="0"
                 class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
               />
@@ -242,8 +275,10 @@
                 id="eligibleDiv"
                 type="text"
                 inputmode="decimal"
-                value={eligibleDividends || ""}
-                oninput={(e) => (eligibleDividends = parseInput((e.target as HTMLInputElement).value))}
+                value={displayValue("eligibleDiv", eligibleDividends)}
+                oninput={handleInput("eligibleDiv", (v) => eligibleDividends = v)}
+                onfocus={handleFocus("eligibleDiv")}
+                onblur={handleBlur("eligibleDiv", eligibleDividends)}
                 placeholder="0"
                 class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
               />
@@ -258,8 +293,10 @@
                 id="ineligibleDiv"
                 type="text"
                 inputmode="decimal"
-                value={ineligibleDividends || ""}
-                oninput={(e) => (ineligibleDividends = parseInput((e.target as HTMLInputElement).value))}
+                value={displayValue("ineligibleDiv", ineligibleDividends)}
+                oninput={handleInput("ineligibleDiv", (v) => ineligibleDividends = v)}
+                onfocus={handleFocus("ineligibleDiv")}
+                onblur={handleBlur("ineligibleDiv", ineligibleDividends)}
                 placeholder="0"
                 class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
               />
@@ -274,8 +311,10 @@
                 id="otherIncome"
                 type="text"
                 inputmode="decimal"
-                value={otherIncome || ""}
-                oninput={(e) => (otherIncome = parseInput((e.target as HTMLInputElement).value))}
+                value={displayValue("otherIncome", otherIncome)}
+                oninput={handleInput("otherIncome", (v) => otherIncome = v)}
+                onfocus={handleFocus("otherIncome")}
+                onblur={handleBlur("otherIncome", otherIncome)}
                 placeholder="0"
                 class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
               />
