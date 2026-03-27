@@ -94,3 +94,9 @@ Self-employed Canadians (and their spouses) have until **June 15, 2026** to file
 The 2025 tax filing deadline is **April 30, 2026** for most Canadians and **June 15, 2026** for the self-employed. Late filing penalties start at 5% of your balance owing and grow every month, so filing on time -- even if you cannot pay everything at once -- is always the smartest move.
 
 Do not wait until the last minute. Use our free tools to estimate what you owe, plan your payment, and file with confidence.
+
+## Related Guides
+
+- [2025 Canadian Tax Brackets: Federal and Provincial Rates](/blog/2025-canadian-tax-brackets) — All 5 federal brackets and provincial rates explained
+- [9 Tax Changes for 2025 That Affect Your Return](/blog/9-tax-changes-2025) — Rate cuts, CPP2, gig worker rules, and more
+- [Self-Employed Tax Guide Canada 2025](/blog/self-employed-tax-guide-canada-2025) — CPP both halves, deductions, and the June 15 deadline

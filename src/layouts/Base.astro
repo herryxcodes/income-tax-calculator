@@ -33,11 +33,13 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="CalcTax" />
+    <meta property="og:image" content="https://calctax.ca/logo.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://calctax.ca/logo.png" />
 
     <!-- hreflang -->
     <link rel="alternate" hreflang="en-CA" href={canonicalUrl} />
@@ -52,6 +54,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
       "name": "CalcTax",
       "url": "https://calctax.ca",
       "description": "Free, privacy-first Canadian income tax calculators.",
+      "logo": "https://calctax.ca/logo.png",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "hello@calctax.ca",
@@ -64,8 +67,9 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-slate-900/[0.97] backdrop-blur-xl border-b border-white/[0.06]">
       <nav class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold text-teal-400 tracking-tight hover:text-teal-300 transition-colors font-display">
-          CalcTax
+        <a href="/" class="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <img src="/logo.png" alt="CalcTax" class="h-8 w-8" />
+          <span class="text-xl font-bold text-teal-400 tracking-tight font-display">CalcTax</span>
         </a>
 
         <!-- Mobile menu button -->
@@ -109,7 +113,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
       <div class="max-w-6xl mx-auto px-4 py-12">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
           <div class="col-span-2 md:col-span-1">
-            <a href="/" class="text-lg font-bold text-teal-400 font-display">CalcTax</a>
+            <a href="/" class="flex items-center gap-2">
+              <img src="/logo.png" alt="CalcTax" class="h-7 w-7" />
+              <span class="text-lg font-bold text-teal-400 font-display">CalcTax</span>
+            </a>
             <p class="mt-3 text-slate-500 text-xs leading-relaxed max-w-[220px]">
               Free, privacy-first tax calculators for Canadians. Your data never leaves your browser.
             </p>

@@ -110,3 +110,9 @@ Not necessarily. Many self-employed Canadians operate as sole proprietors for ye
 ### How much should I set aside for taxes?
 
 A safe starting point is **25% to 30%** of your net self-employment income (after deducting business expenses). This covers federal and provincial income tax plus both halves of CPP. If you are in a higher tax bracket or live in a high-tax province, push that closer to 35%. The most reliable way to get an accurate number is to run your actual income and deductions through our [self-employed tax calculator](/self-employed-tax-calculator) -- it accounts for CPP, CPP2, federal and provincial rates, and the basic personal amount.
+
+## Related Guides
+
+- [9 Tax Changes for 2025 That Affect Your Return](/blog/9-tax-changes-2025) — CPP2 increase, gig worker reporting rules, and other changes
+- [2025 Tax Deadline Canada: Key Dates and Penalties](/blog/2025-tax-deadline-canada) — April 30 payment deadline vs June 15 filing deadline
+- [2025 Canadian Tax Brackets: Federal and Provincial Rates](/blog/2025-canadian-tax-brackets) — The same brackets apply to your net self-employment income

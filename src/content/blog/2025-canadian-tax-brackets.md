@@ -115,4 +115,12 @@ If you are self-employed, the same federal and provincial tax brackets apply to 
 
 ---
 
+## Related Guides
+
+- [How Much Tax Do I Pay on $50K, $75K, $100K in Canada?](/blog/how-much-tax-on-salary-canada) — Pre-calculated breakdowns for 10 common salary levels
+- [9 Tax Changes for 2025 That Affect Your Return](/blog/9-tax-changes-2025) — Federal rate cut, capital gains, CPP2, and more
+- [2025 Tax Deadline Canada: Key Dates and Penalties](/blog/2025-tax-deadline-canada) — Filing deadlines, late penalties, and what to do if you owe
+
+---
+
 *Tax rules can change, and individual circumstances vary. This article is for informational purposes and does not constitute tax advice. For personalized guidance, consult a qualified tax professional or visit the [CRA website](https://www.canada.ca/en/revenue-agency.html).*

@@ -118,3 +118,9 @@ For most salaried Canadians, total tax (federal, provincial, CPP, and EI combine
 The estimates above give you a reliable starting point, but your exact number depends on your full financial picture. Use our calculator to enter your specific salary, province, and deductions for a personalized breakdown.
 
 **[Calculate your exact 2025 tax now -->](/income-tax-calculator)**
+
+## Related Guides
+
+- [2025 Canadian Tax Brackets: Federal and Provincial Rates](/blog/2025-canadian-tax-brackets) — How each bracket works with the new 14.5% blended rate
+- [9 Tax Changes for 2025 That Affect Your Return](/blog/9-tax-changes-2025) — Federal rate cut, CPP2, and other changes that affect your take-home pay
+- [Self-Employed Tax Guide Canada 2025](/blog/self-employed-tax-guide-canada-2025) — If you have freelance or side income on top of your salary

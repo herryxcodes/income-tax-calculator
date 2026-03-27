@@ -73,3 +73,9 @@ The federal rate cut and the cancellation of the capital gains inclusion increas
 On the other side of the ledger, gig workers face new scrutiny, and CPP2 continues to expand. If you are self-employed or earn platform income, accurate record-keeping is more important than ever.
 
 The best way to understand how these changes affect you personally is to run your numbers. Use our [income tax calculator](/income-tax-calculator) to get a quick estimate of your 2025 federal and provincial tax, and plan accordingly before the April 30 deadline.
+
+## Related Guides
+
+- [2025 Canadian Tax Brackets: Federal and Provincial Rates](/blog/2025-canadian-tax-brackets) — Complete bracket tables and how progressive tax works
+- [2025 Tax Deadline Canada: Key Dates and Penalties](/blog/2025-tax-deadline-canada) — Filing deadlines, late filing penalties, and what to do
+- [How Much Tax Do I Pay on $50K, $75K, $100K in Canada?](/blog/how-much-tax-on-salary-canada) — Pre-calculated tax for 10 salary levels across 4 provinces
