@@ -8,9 +8,9 @@ calculatorLink: "/rrsp-calculator"
 draft: false
 ---
 
-The 2025 RRSP contribution limit is **$32,490** or **18% of your 2024 earned income**, whichever is lower. If you were planning to contribute for the 2025 tax year, the deadline was **March 3, 2026** — and it has already passed. Any contributions you make now will count toward the 2026 tax year instead.
+The 2025 RRSP contribution limit is **$32,490** or **18% of your 2024 earned income**, whichever is lower. The deadline to contribute for the 2025 tax year was **March 3, 2026** — it has passed. Unused RRSP room carries forward indefinitely, so any room you didn't use is still available. You can check your current room on CRA My Account or your most recent Notice of Assessment.
 
-That said, understanding how RRSP room works is still worth your time. Unused room carries forward indefinitely, so the contribution space you didn't use in 2025 isn't lost. It's sitting there waiting for you.
+Contributions made after March 3, 2026 count toward the 2026 tax year. Here's how RRSP room works, what counts as earned income, and how much you'll actually save in taxes.
 
 ## How Much Room Do You Actually Have?
 

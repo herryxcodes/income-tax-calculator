@@ -8,7 +8,7 @@ calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-Your marginal tax rate is the rate on your next dollar of income. Your effective tax rate is the average rate you actually pay across all your income. They're never the same number, and confusing them is one of the most common tax misunderstandings in Canada.
+Your **marginal tax rate** is the tax rate on your next dollar of income — the highest bracket you fall into. Your **effective (average) tax rate** is your total tax paid divided by your total income. The effective rate is always lower than the marginal rate. For example, on $90,000 in Ontario, your marginal rate is about 29.65% but your effective rate is only about 22%. Earning more never results in less take-home pay — that's a myth.
 
 ## The Simple Definitions
 

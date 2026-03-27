@@ -8,9 +8,9 @@ calculatorLink: "/self-employed-tax-calculator"
 draft: false
 ---
 
-Being self-employed in Canada comes with real tax advantages -- and real tax obligations that can catch you off guard if you are not prepared. Unlike employees, nobody withholds tax from your income. You are responsible for calculating what you owe, setting money aside, and remitting it on time.
+Self-employed Canadians pay both halves of CPP — a total rate of **11.9%** on net earnings between $3,500 and $71,300, plus 8% enhanced CPP2 on earnings up to $81,200. The self-employed filing deadline is **June 15, 2026**, but any balance owing is due **April 30, 2026**. You must register for GST/HST if your revenue exceeds $30,000 in four consecutive quarters.
 
-This guide covers everything you need to know about self-employed taxes for the 2025 tax year, from CPP contributions to deductible expenses to the filing deadlines that actually matter.
+Nobody withholds tax from self-employment income — you're responsible for calculating what you owe, setting it aside, and paying on time. Here's everything you need to know for the 2025 tax year.
 
 ## You Pay Both Halves of CPP
 

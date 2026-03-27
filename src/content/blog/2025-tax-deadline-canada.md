@@ -8,9 +8,9 @@ calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-Tax season is here, and there is no time to waste. If you earned income in 2025, the Canada Revenue Agency (CRA) expects your return soon. Missing the deadline can cost you real money in penalties and interest, but the good news is that filing on time is straightforward once you know the key dates.
+The 2025 Canadian tax filing deadline is **April 30, 2026** for most Canadians. Self-employed individuals have until **June 15, 2026** to file, but any balance owing is still due April 30. The RRSP contribution deadline for the 2025 tax year was March 3, 2026. Late filing penalties start at 5% of your balance owing plus 1% for each month you're late, up to 12 months.
 
-Here is everything you need to know about the 2025 tax deadline in Canada and what happens if you file late.
+Here's a complete breakdown of every deadline, what happens if you miss them, and how to avoid penalties.
 
 ## Key Tax Deadlines for the 2025 Tax Year
 

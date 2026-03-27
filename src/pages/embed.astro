@@ -1,0 +1,91 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Embed CalcTax Calculator on Your Website — Free Widget | CalcTax"
+  description="Add a free Canadian income tax calculator to your website. Simple embed code, no signup required. Links back to CalcTax for full functionality."
+>
+  <div class="max-w-3xl mx-auto px-4 py-16">
+    <div class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight">
+        Embed the CalcTax Calculator
+      </h1>
+      <p class="text-lg text-slate-500 leading-relaxed">
+        Add a free Canadian income tax calculator to your website or blog.
+        Copy the embed code below — no signup, no API key, no cost.
+      </p>
+    </div>
+
+    <div class="prose mb-10">
+      <h2>How It Works</h2>
+      <p>
+        The embed displays a simple tax lookup widget on your site. Visitors enter their
+        salary and province, see an instant estimate, and can click through to CalcTax
+        for the full calculator with RRSP, capital gains, and dividends.
+      </p>
+
+      <h2>Embed Code</h2>
+      <p>Copy and paste this into your HTML:</p>
+    </div>
+
+    <div class="bg-slate-900 rounded-xl p-5 mb-6 overflow-x-auto">
+      <pre class="text-sm text-emerald-400 font-mono whitespace-pre-wrap"><code>&lt;iframe
+  src="https://calctax.ca/income-tax-calculator"
+  width="100%"
+  height="700"
+  frameborder="0"
+  style="border: 1px solid #e2e8f0; border-radius: 12px;"
+  title="Canadian Income Tax Calculator 2025 — CalcTax"
+&gt;&lt;/iframe&gt;
+&lt;p style="font-size: 12px; color: #94a3b8; margin-top: 8px;"&gt;
+  Powered by &lt;a href="https://calctax.ca" style="color: #0d9488;"&gt;CalcTax.ca&lt;/a&gt;
+  — Free Canadian Tax Calculator
+&lt;/p&gt;</code></pre>
+    </div>
+
+    <button
+      type="button"
+      id="copy-embed"
+      class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition mb-10"
+    >
+      Copy Embed Code
+    </button>
+
+    <div class="prose">
+      <h2>Embed Options</h2>
+      <p>You can link directly to a specific province calculator:</p>
+      <ul>
+        <li><code>calctax.ca/ontario-income-tax-calculator</code> — Ontario</li>
+        <li><code>calctax.ca/alberta-income-tax-calculator</code> — Alberta</li>
+        <li><code>calctax.ca/bc-income-tax-calculator</code> — BC</li>
+        <li><code>calctax.ca/quebec-income-tax-calculator</code> — Quebec</li>
+      </ul>
+      <p>Or use a specific calculator type:</p>
+      <ul>
+        <li><code>calctax.ca/rrsp-calculator</code> — RRSP Savings</li>
+        <li><code>calctax.ca/self-employed-tax-calculator</code> — Self-Employed</li>
+      </ul>
+
+      <h2>Guidelines</h2>
+      <ul>
+        <li>The embed is free for any website — personal blogs, business sites, news outlets</li>
+        <li>Please keep the "Powered by CalcTax.ca" attribution visible</li>
+        <li>The calculator stays up to date automatically — we update rates each tax year</li>
+        <li>Questions? Contact us at <a href="/contact">hello@calctax.ca</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('copy-embed')?.addEventListener('click', () => {
+      const code = `<iframe\n  src="https://calctax.ca/income-tax-calculator"\n  width="100%"\n  height="700"\n  frameborder="0"\n  style="border: 1px solid #e2e8f0; border-radius: 12px;"\n  title="Canadian Income Tax Calculator 2025 — CalcTax"\n></iframe>\n<p style="font-size: 12px; color: #94a3b8; margin-top: 8px;">\n  Powered by <a href="https://calctax.ca" style="color: #0d9488;">CalcTax.ca</a>\n  — Free Canadian Tax Calculator\n</p>`;
+      navigator.clipboard.writeText(code);
+      const btn = document.getElementById('copy-embed');
+      if (btn) {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy Embed Code'; }, 2000);
+      }
+    });
+  </script>
+</Base>

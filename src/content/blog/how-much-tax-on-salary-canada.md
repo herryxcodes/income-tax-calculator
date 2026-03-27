@@ -8,9 +8,9 @@ calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-If you have ever Googled "how much tax on 75000 in Canada" or "how much tax do I pay on 100k," you are not alone. These are among the most common tax questions Canadians search for every year. The short answer is: it depends on your province, your deductions, and the type of income you earn. But we can give you solid ballpark numbers to work with.
+On a $75,000 salary in Ontario for 2025, you'll pay approximately $16,200 in total tax (federal, provincial, CPP, and EI) and take home roughly $58,800. On $100,000, total tax is approximately $24,400 with $75,600 take-home. Alberta is the lowest-tax province — you'd save about $1,100 per year at $75,000 compared to Ontario. Quebec is the highest.
 
-Below you will find approximate tax figures for 10 common salary levels in Ontario, a province-by-province comparison, and practical ways to reduce your tax bill. All figures are for the 2025 tax year and assume employment income with only the basic personal amount claimed (no RRSP deductions, no dependents, no other credits).
+Below are pre-calculated tax estimates for 10 salary levels from $30,000 to $200,000 across Ontario, Alberta, BC, and Quebec, plus strategies to reduce your tax bill. All figures are for the 2025 tax year, assuming employment income with no deductions.
 
 **[Calculate your exact tax based on your situation -->](/income-tax-calculator)**
 

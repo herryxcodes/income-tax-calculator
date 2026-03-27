@@ -8,9 +8,9 @@ calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-The 2025 tax year brought a notable change for Canadian taxpayers: a lower federal tax rate on the first portion of your income. Thanks to Bill C-4, which received Royal Assent in 2025, the lowest federal tax bracket dropped from 15% to 14%, effective July 1, 2025. Because the change took effect mid-year, the Canada Revenue Agency applies a blended rate of 14.5% for the entire 2025 tax year.
+The 2025 Canadian federal tax brackets are: 14.5% on income up to $57,375, 20.5% on $57,375 to $114,750, 26% on $114,750 to $177,882, 29% on $177,882 to $253,414, and 33% on income over $253,414. The federal basic personal amount is $16,129 — you pay no federal tax on the first $16,129 of income. Provincial tax is added on top at rates that vary by province.
 
-Below is everything you need to know about the 2025 federal and provincial tax brackets, how progressive taxation actually works, and what it all means for your take-home pay.
+The 14.5% rate on the lowest bracket is new for 2025. Bill C-4 reduced it from 15% to 14% effective July 1, 2025, and the CRA applies a blended rate of 14.5% for the full tax year. Below is a detailed breakdown of all federal and provincial brackets, how progressive taxation works, and what it means for your take-home pay.
 
 ## 2025 Federal Tax Brackets
 
