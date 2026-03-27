@@ -488,7 +488,7 @@
 
           <!-- Wealthsimple Tax CTA -->
           <a
-            href="https://www.wealthsimple.com/en-ca/tax"
+            href="https://sovrn.co/3pcm8xa"
             target="_blank"
             rel="noopener sponsored"
             class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"

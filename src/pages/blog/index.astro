@@ -1,140 +1,10 @@
 ---
 import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
 
-// Article data — ordered by priority
-const articles = [
-  // ── FILING SEASON (publish now) ──────────────────────────────────
-  {
-    tag: "Tax Season 2025",
-    tagColor: "red",
-    title: "2025 Canadian Tax Brackets: Federal and Provincial Rates Explained",
-    href: "/income-tax-calculator",
-    description: "Complete guide to all 5 federal brackets (including the new 14.5% blended rate) and every provincial rate. See exactly how your income is taxed.",
-  },
-  {
-    tag: "Tax Season 2025",
-    tagColor: "red",
-    title: "How Much Tax Do I Pay on $50K, $75K, $100K in Canada? (2025)",
-    href: "/income-tax-calculator",
-    description: "Pre-calculated tax breakdowns for 10 common salary levels across Ontario, BC, Alberta, and Quebec. Find your income and see your take-home pay.",
-  },
-  {
-    tag: "Tax Season 2025",
-    tagColor: "red",
-    title: "9 Tax Changes for 2025 That Affect Your Return",
-    href: "/income-tax-calculator",
-    description: "Federal rate cut to 14.5%, capital gains increase cancelled, new CRA gig worker reporting rules, CPP2 second ceiling, and more.",
-  },
-  {
-    tag: "Deadlines",
-    tagColor: "red",
-    title: "2025 Tax Deadline Canada: Key Dates, Penalties, and Late Filing",
-    href: "/income-tax-calculator",
-    description: "April 30 general deadline, June 15 self-employed filing, RRSP deadline passed March 3. What happens if you file late (5% + 1%/month penalty).",
-  },
-  {
-    tag: "CRA",
-    tagColor: "red",
-    title: "Where's My Tax Refund? CRA Processing Times 2026",
-    href: "/income-tax-calculator",
-    description: "How long CRA takes to process your return (2 weeks online, 8 weeks paper), how to check your refund status, and tips for faster processing.",
-  },
-  // ── RRSP / TFSA / FHSA ──────────────────────────────────────────
-  {
-    tag: "RRSP",
-    tagColor: "green",
-    title: "RRSP Contribution Limit 2025: $32,490 Maximum Explained",
-    href: "/rrsp-calculator",
-    description: "How RRSP deductions reduce your tax, how to check your contribution room, and tax savings examples by income level and province.",
-  },
-  {
-    tag: "Savings Accounts",
-    tagColor: "green",
-    title: "RRSP vs TFSA vs FHSA: Which Account Should You Prioritize?",
-    href: "/rrsp-calculator",
-    description: "Decision tree based on your income, marginal tax rate, and whether you're saving for a home. The FHSA is the clear winner for first-time buyers.",
-  },
-  {
-    tag: "FHSA",
-    tagColor: "green",
-    title: "FHSA Guide 2025: First Home Savings Account Rules and Tax Benefits",
-    href: "/income-tax-calculator",
-    description: "$8,000/year limit, $40,000 lifetime, carry-forward rules, and how to combine FHSA + HBP for a $100K+ tax-advantaged down payment.",
-  },
-  // ── SELF-EMPLOYED ────────────────────────────────────────────────
-  {
-    tag: "Self-Employed",
-    tagColor: "orange",
-    title: "Self-Employed Tax Guide Canada 2025: CPP, Deductions, Deadlines",
-    href: "/self-employed-tax-calculator",
-    description: "Both halves of CPP (11.9%), deductible business expenses, June 15 filing deadline, and GST/HST registration rules.",
-  },
-  {
-    tag: "Gig Workers",
-    tagColor: "orange",
-    title: "Gig Worker Taxes 2025: New CRA Reporting Rules for Uber, DoorDash & Etsy",
-    href: "/self-employed-tax-calculator",
-    description: "NEW: Digital platforms now report your income directly to CRA. What this means for Uber drivers, DoorDash couriers, Etsy sellers, and Airbnb hosts.",
-  },
-  // ── PROVINCES ────────────────────────────────────────────────────
-  {
-    tag: "Ontario",
-    tagColor: "blue",
-    title: "Ontario Income Tax 2025: Brackets, Surtax, and How Much You'll Pay",
-    href: "/ontario-income-tax-calculator",
-    description: "Ontario's 5 brackets (5.05% to 13.16%), the Ontario surtax, Health Premium, and pre-calculated examples for common salaries.",
-  },
-  {
-    tag: "Alberta",
-    tagColor: "blue",
-    title: "Alberta Income Tax 2025: Why Alberta Has the Lowest Tax",
-    href: "/alberta-income-tax-calculator",
-    description: "No PST, highest basic personal amount ($22,323), 8% starting rate. See how much you'd save vs Ontario and BC.",
-  },
-  {
-    tag: "Quebec",
-    tagColor: "blue",
-    title: "Quebec Income Tax 2025: Two Tax Returns, Abatement, and QPP Explained",
-    href: "/quebec-income-tax-calculator",
-    description: "Why Quebec files two returns, the 16.5% federal abatement, QPP vs CPP, and how the math actually works.",
-  },
-  // ── EVERGREEN ────────────────────────────────────────────────────
-  {
-    tag: "Tax Basics",
-    tagColor: "gray",
-    title: "Marginal vs Effective Tax Rate: What's the Difference?",
-    href: "/income-tax-calculator",
-    description: "Why earning $1 more doesn't tax ALL your income at a higher rate. Clear explanation with calculator examples.",
-  },
-  {
-    tag: "Capital Gains",
-    tagColor: "gray",
-    title: "Capital Gains Tax Canada 2025: The Inclusion Rate Saga Explained",
-    href: "/income-tax-calculator",
-    description: "Proposed increase to 66.67%, deferred, then cancelled. For 2025: inclusion rate is 50% for everyone. What this means for your investments.",
-  },
-  {
-    tag: "Work From Home",
-    tagColor: "gray",
-    title: "Work From Home Tax Deduction 2025: The Flat-Rate Method Is Gone",
-    href: "/income-tax-calculator",
-    description: "The $2/day flat-rate method ended. Here's how to claim WFH expenses using the detailed method, T2200, and what's eligible.",
-  },
-  {
-    tag: "Crypto",
-    tagColor: "gray",
-    title: "Crypto Tax Canada 2025: How to Report Bitcoin & Ethereum to the CRA",
-    href: "/income-tax-calculator",
-    description: "Capital gains vs business income, how to calculate ACB, exchange reporting, and why CRA is increasing crypto audits.",
-  },
-  {
-    tag: "Tax Basics",
-    tagColor: "gray",
-    title: "Do I Need to File Taxes in Canada? (Yes, Even If You Owe Nothing)",
-    href: "/income-tax-calculator",
-    description: "Filing unlocks GST/HST credit, Canada Child Benefit, and provincial benefits. Here's who must file and why you should even if you don't have to.",
-  },
-];
+// Get published blog posts from content collection
+const publishedPosts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
 const tagColors: Record<string, string> = {
   red: "bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/60",
@@ -167,18 +37,18 @@ const tagColors: Record<string, string> = {
     </div>
 
     <div class="space-y-6">
-      {articles.map((article) => (
+      {publishedPosts.map((post) => (
         <article class="border-b border-slate-100 pb-6 group">
-          <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[article.tagColor]}`}>
-            {article.tag}
+          <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[post.data.tagColor] || tagColors.gray}`}>
+            {post.data.tag}
           </span>
           <h2 class="text-lg font-semibold text-slate-900 mt-2.5">
-            <a href={article.href} class="group-hover:text-teal-600 transition-colors">
-              {article.title}
+            <a href={`/blog/${post.id}`} class="group-hover:text-teal-600 transition-colors">
+              {post.data.title}
             </a>
           </h2>
           <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">
-            {article.description}
+            {post.data.description}
           </p>
         </article>
       ))}

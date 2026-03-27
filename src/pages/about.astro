@@ -1,0 +1,81 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="About CalcTax — Free Canadian Tax Calculators"
+  description="CalcTax.ca provides free, privacy-first income tax calculators for Canadians. Learn how our calculations work and where our data comes from."
+>
+  <div class="max-w-2xl mx-auto px-4 py-16 prose">
+    <h1>About CalcTax</h1>
+
+    <p>
+      CalcTax.ca is a free tax calculator built for Canadians. We provide
+      fast, accurate income tax estimates for all 13 provinces and territories
+      — with no signup, no ads, and no data collection.
+    </p>
+
+    <h2>Why We Built This</h2>
+    <p>
+      Most tax calculators online are either behind a signup wall, loaded with
+      ads, or send your financial data to a server. We believe Canadians deserve
+      a simple tool that respects their privacy. CalcTax runs entirely in your
+      browser — your income, deductions, and tax results never leave your device.
+    </p>
+
+    <h2>How Our Calculations Work</h2>
+    <p>
+      Every calculation is performed client-side using JavaScript. We apply the
+      same progressive tax bracket math that the CRA uses:
+    </p>
+    <ul>
+      <li>Federal income tax across all 5 brackets (including the 2025 blended 14.5% rate)</li>
+      <li>Provincial/territorial income tax with province-specific brackets and surtaxes</li>
+      <li>CPP/QPP contributions (base + enhanced CPP2 on higher earnings)</li>
+      <li>EI premiums (with Quebec's reduced rate)</li>
+      <li>QPIP for Quebec residents</li>
+      <li>Dividend gross-up and tax credits (eligible and ineligible)</li>
+      <li>Capital gains at 50% inclusion</li>
+      <li>RRSP and FHSA deductions</li>
+    </ul>
+
+    <h2>Our Data Sources</h2>
+    <p>
+      All tax rates, brackets, and thresholds are sourced from official publications:
+    </p>
+    <ul>
+      <li><strong>Canada Revenue Agency (CRA)</strong> — federal tax brackets, CPP/EI rates, basic personal amounts</li>
+      <li><strong>Provincial finance departments</strong> — provincial tax brackets and credits</li>
+      <li><strong>Revenu Qu&eacute;bec</strong> — Quebec-specific rates (QPP, QPIP, provincial brackets)</li>
+    </ul>
+    <p>
+      Rates are verified against multiple sources and updated for each tax year.
+      Our 2025 rates reflect all changes as of March 2026, including the federal
+      rate reduction introduced by Bill C-4.
+    </p>
+
+    <h2>Limitations</h2>
+    <p>
+      CalcTax provides <strong>estimates only</strong>. Our calculators apply the
+      basic personal amount tax credit but do not account for all possible credits,
+      deductions, or individual circumstances. For a complete tax assessment,
+      consult a qualified tax professional. See our
+      <a href="/disclaimer">full disclaimer</a>.
+    </p>
+
+    <h2>How We Earn Revenue</h2>
+    <p>
+      CalcTax earns revenue through affiliate partnerships. After you use our
+      calculators, we may recommend relevant products like tax filing software.
+      If you sign up through our link, we receive a referral commission at no
+      extra cost to you. Affiliate relationships never influence calculator
+      results. See our <a href="/disclosure">affiliate disclosure</a> for details.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Have a question, found an error, or interested in partnering with us?
+      Reach out at <a href="/contact">our contact page</a>.
+    </p>
+  </div>
+</Base>

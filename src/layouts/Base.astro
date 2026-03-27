@@ -34,6 +34,11 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content="CalcTax" />
 
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <!-- hreflang -->
     <link rel="alternate" hreflang="en-CA" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />

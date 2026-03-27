@@ -1,0 +1,132 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  tag: string;
+  tagColor: string;
+  calculatorLink: string;
+}
+
+const { title, description, publishDate, updatedDate, tag, tagColor, calculatorLink } = Astro.props;
+
+const tagColors: Record<string, string> = {
+  red: "bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/60",
+  green: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200/60",
+  orange: "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200/60",
+  blue: "bg-teal-50 text-teal-700 ring-1 ring-inset ring-teal-200/60",
+  gray: "bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-200/60",
+};
+
+const calculatorNames: Record<string, string> = {
+  "/income-tax-calculator": "Income Tax Calculator",
+  "/rrsp-calculator": "RRSP Calculator",
+  "/self-employed-tax-calculator": "Self-Employed Tax Calculator",
+};
+
+const formattedDate = publishDate.toLocaleDateString("en-CA", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const formattedUpdate = updatedDate?.toLocaleDateString("en-CA", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const siteUrl = "https://calctax.ca";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<Base title={`${title} | CalcTax`} description={description}>
+  <article class="max-w-3xl mx-auto px-4 py-16">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-400 mb-8 animate-fade-up" style="animation-delay: 0s">
+      <a href="/" class="hover:text-slate-600 transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href="/blog" class="hover:text-slate-600 transition-colors">Blog</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-500">{title}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-10">
+      <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[tagColor] || tagColors.gray} animate-fade-up`} style="animation-delay: 0.05s">
+        {tag}
+      </span>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mt-4 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
+        {title}
+      </h1>
+      <div class="flex items-center gap-3 text-sm text-slate-400 animate-fade-up" style="animation-delay: 0.15s">
+        <time datetime={publishDate.toISOString()}>{formattedDate}</time>
+        {formattedUpdate && (
+          <span>· Updated {formattedUpdate}</span>
+        )}
+      </div>
+    </header>
+
+    <!-- Article content -->
+    <div class="prose animate-fade-up" style="animation-delay: 0.2s">
+      <slot />
+    </div>
+
+    <!-- Calculator CTA -->
+    <div class="mt-12 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-6 border border-teal-100 animate-fade-up" style="animation-delay: 0.25s">
+      <h3 class="text-lg font-semibold text-slate-900 font-display mb-2">
+        See your exact numbers
+      </h3>
+      <p class="text-sm text-slate-600 mb-4">
+        Use our free calculator to estimate your 2025 tax based on your specific income, province, and deductions.
+      </p>
+      <a
+        href={calculatorLink}
+        class="inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition"
+      >
+        Open {calculatorNames[calculatorLink] || "Calculator"} &rarr;
+      </a>
+    </div>
+
+    <!-- Wealthsimple CTA -->
+    <div class="mt-6">
+      <a
+        href="https://sovrn.co/3pcm8xa"
+        target="_blank"
+        rel="noopener sponsored"
+        class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your 2025 return?</p>
+            <p class="text-xs text-slate-500 mt-0.5">File your taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
+          </div>
+          <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="mt-8 text-xs text-slate-400 text-center">
+      This article is for informational purposes only and does not constitute tax advice.
+      Calculations based on 2025 CRA-published rates.
+      <a href="/disclaimer" class="underline hover:text-slate-500">Disclaimer</a>
+    </p>
+  </article>
+
+  <!-- Article JSON-LD -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "datePublished": publishDate.toISOString(),
+    "dateModified": (updatedDate || publishDate).toISOString(),
+    "author": { "@type": "Organization", "name": "CalcTax", "url": siteUrl },
+    "publisher": { "@type": "Organization", "name": "CalcTax", "url": siteUrl },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
+  })}</script>`} />
+</Base>
