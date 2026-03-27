@@ -328,35 +328,35 @@
     <!-- Results Section -->
     <div>
       {#if result && result.totalIncome > 0}
-        <div class="bg-white border border-slate-200/70 rounded-2xl p-6 space-y-5 shadow-sm">
+        <div class="bg-white border border-slate-200/70 rounded-2xl p-6 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_6px_24px_rgba(0,0,0,0.03)]">
           <h2 class="text-lg font-semibold text-slate-900 font-display">
             Your 2025 Tax Estimate
             <span class="text-sm font-normal text-slate-500">({result.province.name})</span>
           </h2>
 
           <!-- Big numbers -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white rounded-xl p-4 shadow-sm">
-              <p class="text-sm text-slate-500">Total Tax</p>
-              <p class="text-2xl font-bold text-red-600">{formatCurrency(result.totalTax)}</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-gradient-to-br from-red-50/80 to-white rounded-xl p-4 border border-red-100/50">
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Total Tax</p>
+              <p class="text-2xl font-bold text-red-600 font-mono tracking-tight">{formatCurrency(result.totalTax)}</p>
             </div>
-            <div class="bg-white rounded-xl p-4 shadow-sm">
-              <p class="text-sm text-slate-500">After-Tax Income</p>
-              <p class="text-2xl font-bold text-green-600">{formatCurrency(result.afterTaxIncome)}</p>
+            <div class="bg-gradient-to-br from-emerald-50/80 to-white rounded-xl p-4 border border-emerald-100/50">
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">After-Tax Income</p>
+              <p class="text-2xl font-bold text-emerald-600 font-mono tracking-tight">{formatCurrency(result.afterTaxIncome)}</p>
             </div>
-            <div class="bg-white rounded-xl p-4 shadow-sm">
-              <p class="text-sm text-slate-500">Average Tax Rate</p>
-              <p class="text-xl font-bold text-slate-900">{formatPercent(result.averageRate)}</p>
+            <div class="bg-white rounded-xl p-4 border border-slate-100">
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Effective Rate</p>
+              <p class="text-xl font-bold text-slate-900 font-mono">{formatPercent(result.averageRate)}</p>
             </div>
-            <div class="bg-white rounded-xl p-4 shadow-sm">
-              <p class="text-sm text-slate-500">Marginal Tax Rate</p>
-              <p class="text-xl font-bold text-slate-900">{formatPercent(result.marginalRate)}</p>
+            <div class="bg-white rounded-xl p-4 border border-slate-100">
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Marginal Rate</p>
+              <p class="text-xl font-bold text-slate-900 font-mono">{formatPercent(result.marginalRate)}</p>
             </div>
           </div>
 
           <!-- Tax Breakdown -->
           <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-sm font-semibold text-slate-700 mb-3">Tax Breakdown</h3>
+            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Tax Breakdown</h3>
             <div class="space-y-2 text-sm">
               <div class="flex justify-between">
                 <span class="text-slate-600">Federal Tax</span>
@@ -394,7 +394,7 @@
 
           <!-- Bracket Breakdown (Federal + Provincial) -->
           <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-sm font-semibold text-slate-700 mb-3">Federal Tax Brackets</h3>
+            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Federal Tax Brackets</h3>
             <table class="w-full text-xs">
               <thead>
                 <tr class="border-b border-slate-200 text-slate-500">
@@ -448,23 +448,27 @@
           </div>
 
           <!-- Visual bar: tax vs take-home -->
-          <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-sm font-semibold text-slate-700 mb-2">Income Split</h3>
-            <div class="w-full h-8 rounded-full overflow-hidden flex">
+          <div class="bg-white rounded-xl p-4 border border-slate-100">
+            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Income Split</h3>
+            <div class="w-full h-6 rounded-lg overflow-hidden flex bg-slate-100">
               <div
-                class="bg-red-400 h-full transition-all duration-300"
-                style="width: {(result.averageRate * 100).toFixed(1)}%"
-                title="Tax: {formatPercent(result.averageRate)}"
-              ></div>
+                class="bg-gradient-to-r from-red-400 to-red-500 h-full transition-all duration-500 ease-out flex items-center justify-center"
+                style="width: {Math.max(result.averageRate * 100, 8).toFixed(1)}%"
+              >
+                {#if result.averageRate > 0.15}
+                  <span class="text-[10px] font-medium text-white/90 font-mono">{formatPercent(result.averageRate)}</span>
+                {/if}
+              </div>
               <div
-                class="bg-green-400 h-full transition-all duration-300"
+                class="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full transition-all duration-500 ease-out flex items-center justify-center"
                 style="width: {((1 - result.averageRate) * 100).toFixed(1)}%"
-                title="Take-home: {formatPercent(1 - result.averageRate)}"
-              ></div>
+              >
+                <span class="text-[10px] font-medium text-white/90 font-mono">{formatPercent(1 - result.averageRate)}</span>
+              </div>
             </div>
-            <div class="flex justify-between text-xs text-slate-500 mt-1">
-              <span>Tax: {formatPercent(result.averageRate)}</span>
-              <span>Take-home: {formatPercent(1 - result.averageRate)}</span>
+            <div class="flex justify-between text-xs text-slate-400 mt-2">
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-red-400"></span> Tax</span>
+              <span class="flex items-center gap-1.5">Take-home <span class="w-2 h-2 rounded-sm bg-emerald-400"></span></span>
             </div>
           </div>
 

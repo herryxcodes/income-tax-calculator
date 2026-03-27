@@ -7,21 +7,28 @@ import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.s
   title="Canadian Income Tax Calculator 2025 — Free & Private | CalcTax"
   description="Estimate your 2025 Canadian income tax in seconds. Federal + provincial tax, CPP, EI. Compare all 13 provinces. Free, no signup, 100% private."
 >
-  <div class="max-w-6xl mx-auto px-4 py-12">
-    <!-- Hero -->
-    <div class="mb-14">
-      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 animate-fade-up border border-teal-100" style="animation-delay: 0s">
-        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span>
-        2025 Tax Year
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
-        Canada Income Tax Calculator
-      </h1>
-      <p class="text-lg text-slate-500 max-w-xl leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
-        Estimate your federal and provincial income tax in seconds.
-        Compare all 13 provinces. 100% private — your data never leaves your browser.
-      </p>
+  <div class="relative">
+    <!-- Subtle gradient mesh background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl"></div>
+      <div class="absolute top-48 -left-24 w-72 h-72 bg-emerald-100/20 rounded-full blur-3xl"></div>
     </div>
+
+    <div class="relative max-w-6xl mx-auto px-4 py-16">
+      <!-- Hero -->
+      <div class="mb-14">
+        <div class="inline-flex items-center gap-2 bg-teal-50/80 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6 animate-fade-up border border-teal-200/50 backdrop-blur-sm" style="animation-delay: 0s">
+          <span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span>
+          2025 Tax Year — Updated for the new 14.5% rate
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-5 font-display tracking-tight animate-fade-up leading-[1.1]" style="animation-delay: 0.1s">
+          Canada Income Tax<br class="hidden md:block" /> Calculator
+        </h1>
+        <p class="text-lg text-slate-500 max-w-lg leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
+          Federal + provincial tax, CPP, EI — for all 13 provinces.
+          <span class="text-slate-400">Free. No signup. 100% private.</span>
+        </p>
+      </div>
 
     <!-- Calculator -->
     <IncomeTaxCalculator client:load />
@@ -103,6 +110,7 @@ import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.s
         our servers or any third party. We don't track your income or tax information.
       </p>
     </section>
+  </div>
   </div>
 
   <!-- JSON-LD Schema -->
