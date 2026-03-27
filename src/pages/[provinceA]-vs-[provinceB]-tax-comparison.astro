@@ -1,0 +1,285 @@
+---
+import Base from "../layouts/Base.astro";
+import { provinces } from "../data/tax-rates/2025/index";
+import { calculateTax, formatCurrency, formatPercent, type TaxInput } from "../lib/tax-engine";
+
+const comparisonPairs = [
+  ["ontario", "alberta"],
+  ["ontario", "bc"],
+  ["ontario", "quebec"],
+  ["alberta", "bc"],
+  ["alberta", "quebec"],
+  ["bc", "quebec"],
+  ["ontario", "manitoba"],
+  ["ontario", "saskatchewan"],
+  ["alberta", "saskatchewan"],
+  ["bc", "alberta"],
+  ["quebec", "bc"],
+  ["ontario", "nova-scotia"],
+  ["ontario", "new-brunswick"],
+  ["alberta", "ontario"],
+  ["quebec", "ontario"],
+];
+
+const salaryLevels = [50000, 75000, 100000, 150000, 200000];
+
+export function getStaticPaths() {
+  const comparisonPairs = [
+    ["ontario", "alberta"],
+    ["ontario", "bc"],
+    ["ontario", "quebec"],
+    ["alberta", "bc"],
+    ["alberta", "quebec"],
+    ["bc", "quebec"],
+    ["ontario", "manitoba"],
+    ["ontario", "saskatchewan"],
+    ["alberta", "saskatchewan"],
+    ["bc", "alberta"],
+    ["quebec", "bc"],
+    ["ontario", "nova-scotia"],
+    ["ontario", "new-brunswick"],
+    ["alberta", "ontario"],
+    ["quebec", "ontario"],
+  ];
+
+  return comparisonPairs.map(([a, b]) => {
+    const provA = provinces.find((p) => p.slug === a)!;
+    const provB = provinces.find((p) => p.slug === b)!;
+    return {
+      params: { provinceA: a, provinceB: b },
+      props: { provA, provB },
+    };
+  });
+}
+
+const { provA, provB } = Astro.props;
+
+function calcFor(salary: number, provinceSlug: string) {
+  const prov = provinces.find((p) => p.slug === provinceSlug)!;
+  const input: TaxInput = {
+    employmentIncome: salary,
+    selfEmploymentIncome: 0,
+    otherIncome: 0,
+    capitalGains: 0,
+    eligibleDividends: 0,
+    ineligibleDividends: 0,
+    rrspContribution: 0,
+    fhsaContribution: 0,
+    provinceSlug,
+  };
+  return calculateTax(input, prov);
+}
+
+const comparisons = salaryLevels.map((salary) => {
+  const resultA = calcFor(salary, provA.slug);
+  const resultB = calcFor(salary, provB.slug);
+  const diff = resultA.totalTax - resultB.totalTax;
+  return { salary, resultA, resultB, diff };
+});
+
+// Which province is cheaper at $75K?
+const at75K = comparisons.find((c) => c.salary === 75000) || comparisons[1];
+const cheaperProvince = at75K.diff > 0 ? provB : provA;
+const savingsAt75K = Math.abs(at75K.diff);
+
+const title = `${provA.name} vs ${provB.name} Income Tax Comparison 2025 | CalcTax`;
+const description = `Compare income tax between ${provA.name} and ${provB.name} for 2025. See the tax difference at $50K, $75K, $100K, $150K, and $200K salaries.`;
+---
+
+<Base title={title} description={description}>
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-400 mb-8">
+      <a href="/" class="hover:text-slate-600 transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-500">{provA.name} vs {provB.name}</span>
+    </nav>
+
+    <!-- Hero -->
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 border border-teal-100">
+        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full"></span>
+        2025 Tax Year
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight">
+        {provA.name} vs {provB.name} Tax Comparison
+      </h1>
+      <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+        At $75,000 income, <strong class="text-slate-700">{cheaperProvince.name}</strong> saves
+        you <strong class="text-slate-700">{formatCurrency(savingsAt75K)}</strong> per year in total tax
+        compared to {cheaperProvince.slug === provA.slug ? provB.name : provA.name}.
+      </p>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="bg-white border border-slate-200/70 rounded-2xl p-6 shadow-sm mb-8">
+      <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">Side-by-Side Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-slate-200">
+              <th class="text-left py-2.5 px-3 font-semibold text-slate-700">Salary</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">{provA.abbreviation} Tax</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">{provB.abbreviation} Tax</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Difference</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Lower Tax</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisons.map(({ salary, resultA, resultB, diff }) => (
+              <tr class="border-b border-slate-100 hover:bg-slate-50">
+                <td class="py-2.5 px-3 font-medium">${salary.toLocaleString("en-CA")}</td>
+                <td class="py-2.5 px-3 text-right font-mono">{formatCurrency(resultA.totalTax)}</td>
+                <td class="py-2.5 px-3 text-right font-mono">{formatCurrency(resultB.totalTax)}</td>
+                <td class={`py-2.5 px-3 text-right font-mono font-medium ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-500' : 'text-slate-400'}`}>
+                  {diff > 0 ? `${formatCurrency(diff)} less in ${provB.abbreviation}` : diff < 0 ? `${formatCurrency(Math.abs(diff))} less in ${provA.abbreviation}` : 'Equal'}
+                </td>
+                <td class="py-2.5 px-3 text-right font-medium text-teal-600">
+                  {diff > 0 ? provB.abbreviation : diff < 0 ? provA.abbreviation : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-400 mt-3">
+        Total tax includes federal income tax, provincial income tax, CPP/QPP, and EI. Employment income with no deductions.
+      </p>
+    </div>
+
+    <!-- Detailed Breakdown at $75K -->
+    <div class="bg-white border border-slate-200/70 rounded-2xl p-6 shadow-sm mb-8">
+      <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">Breakdown at $75,000</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-slate-200">
+              <th class="text-left py-2.5 px-3 font-semibold text-slate-700">Component</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">{provA.name}</th>
+              <th class="text-right py-2.5 px-3 font-semibold text-slate-700">{provB.name}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 px-3 text-slate-600">Federal Tax</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultA.federalTax)}</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultB.federalTax)}</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 px-3 text-slate-600">Provincial Tax</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultA.provincialTax)}</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultB.provincialTax)}</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 px-3 text-slate-600">{provA.slug === "quebec" || provB.slug === "quebec" ? "CPP/QPP" : "CPP"}</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultA.cppContributions + at75K.resultA.cpp2Contributions)}</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultB.cppContributions + at75K.resultB.cpp2Contributions)}</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 px-3 text-slate-600">EI</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultA.eiPremiums)}</td>
+              <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultB.eiPremiums)}</td>
+            </tr>
+            {(at75K.resultA.qpipPremiums > 0 || at75K.resultB.qpipPremiums > 0) && (
+              <tr class="border-b border-slate-100">
+                <td class="py-2 px-3 text-slate-600">QPIP</td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultA.qpipPremiums)}</td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(at75K.resultB.qpipPremiums)}</td>
+              </tr>
+            )}
+            <tr class="border-t-2 border-slate-200 font-semibold">
+              <td class="py-2.5 px-3">Total Tax</td>
+              <td class="py-2.5 px-3 text-right font-mono text-red-600">{formatCurrency(at75K.resultA.totalTax)}</td>
+              <td class="py-2.5 px-3 text-right font-mono text-red-600">{formatCurrency(at75K.resultB.totalTax)}</td>
+            </tr>
+            <tr class="font-semibold">
+              <td class="py-2.5 px-3">Take-Home Pay</td>
+              <td class="py-2.5 px-3 text-right font-mono text-green-600">{formatCurrency(at75K.resultA.afterTaxIncome)}</td>
+              <td class="py-2.5 px-3 text-right font-mono text-green-600">{formatCurrency(at75K.resultB.afterTaxIncome)}</td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 text-slate-600">Effective Rate</td>
+              <td class="py-2.5 px-3 text-right font-mono">{formatPercent(at75K.resultA.averageRate)}</td>
+              <td class="py-2.5 px-3 text-right font-mono">{formatPercent(at75K.resultB.averageRate)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Key Differences -->
+    <div class="prose mb-8">
+      <h2>Key Differences</h2>
+      <ul>
+        <li><strong>Basic personal amount:</strong> {provA.name} (${provA.basicPersonalAmount.toLocaleString("en-CA")}) vs {provB.name} (${provB.basicPersonalAmount.toLocaleString("en-CA")}). A higher amount means less provincial tax on low income.</li>
+        <li><strong>Provincial brackets:</strong> {provA.name} has {provA.brackets.length} brackets, {provB.name} has {provB.brackets.length}. More brackets generally means a more gradual tax increase.</li>
+        <li><strong>Top combined rate:</strong> {provA.name} ({((0.33 + provA.brackets[provA.brackets.length - 1].rate) * 100).toFixed(1)}%) vs {provB.name} ({((0.33 + provB.brackets[provB.brackets.length - 1].rate) * 100).toFixed(1)}%)</li>
+      </ul>
+      <p>
+        These numbers only reflect income tax differences. Other cost-of-living factors (housing, sales tax, services) also matter when comparing provinces.
+        Use the calculators below to run your own numbers.
+      </p>
+    </div>
+
+    <!-- Calculator CTAs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <a href={`/${provA.slug}-income-tax-calculator`} class="block bg-white border border-slate-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-md transition-all group">
+        <p class="text-sm font-semibold text-slate-900 group-hover:text-teal-600 transition">{provA.name} Calculator</p>
+        <p class="text-xs text-slate-500 mt-0.5">Customize with RRSP, capital gains, dividends</p>
+      </a>
+      <a href={`/${provB.slug}-income-tax-calculator`} class="block bg-white border border-slate-200 rounded-xl p-4 hover:border-teal-200 hover:shadow-md transition-all group">
+        <p class="text-sm font-semibold text-slate-900 group-hover:text-teal-600 transition">{provB.name} Calculator</p>
+        <p class="text-xs text-slate-500 mt-0.5">Customize with RRSP, capital gains, dividends</p>
+      </a>
+    </div>
+
+    <!-- Wealthsimple CTA -->
+    <a
+      href="https://sovrn.co/3pcm8xa"
+      target="_blank"
+      rel="noopener sponsored"
+      class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group mb-8"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your return?</p>
+          <p class="text-xs text-slate-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
+        </div>
+        <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Related -->
+    <div class="prose">
+      <h2>Related</h2>
+      <ul>
+        <li><a href="/income-tax-calculator">Compare All 13 Provinces</a> — side-by-side at any income level</li>
+        <li><a href="/blog/how-much-tax-on-salary-canada">How Much Tax on $50K–$200K?</a> — pre-calculated tables by salary</li>
+        <li><a href="/blog/2025-canadian-tax-brackets">2025 Tax Brackets</a> — federal and provincial rates explained</li>
+      </ul>
+    </div>
+
+    <p class="mt-8 text-xs text-slate-400 text-center">
+      Estimates for employment income with no deductions, based on 2025 CRA-published rates.
+      <a href="/disclaimer" class="underline hover:text-slate-500">Disclaimer</a>
+    </p>
+  </div>
+
+  <!-- FAQ Schema -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `Is ${provA.name} or ${provB.name} better for taxes?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `At $75,000 income, ${cheaperProvince.name} has lower total tax by approximately ${formatCurrency(savingsAt75K)} per year. The difference varies by income level — use the CalcTax comparison tool to check your specific salary.` }
+      },
+      {
+        "@type": "Question",
+        "name": `How much tax do I save moving from ${at75K.diff > 0 ? provA.name : provB.name} to ${cheaperProvince.name}?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `At $75,000 salary, you would save approximately ${formatCurrency(savingsAt75K)} per year in income tax by living in ${cheaperProvince.name} instead of ${at75K.diff > 0 ? provA.name : provB.name}. This includes federal tax, provincial tax, CPP, and EI.` }
+      }
+    ]
+  })}</script>`} />
+</Base>

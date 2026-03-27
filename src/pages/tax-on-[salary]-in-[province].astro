@@ -1,0 +1,325 @@
+---
+import Base from "../layouts/Base.astro";
+import { provinces } from "../data/tax-rates/2025/index";
+import { calculateTax, formatCurrency, formatPercent, type TaxInput } from "../lib/tax-engine";
+
+export function getStaticPaths() {
+  const salaryLevels = [
+    25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000,
+    70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000,
+    130000, 140000, 150000, 175000, 200000, 250000, 300000,
+  ];
+  const paths = [];
+  for (const province of provinces) {
+    for (const salary of salaryLevels) {
+      paths.push({
+        params: {
+          salary: salary.toLocaleString("en-CA").replace(/,/g, ""),
+          province: province.slug,
+        },
+        props: { province, salary },
+      });
+    }
+  }
+  return paths;
+}
+
+const { province, salary } = Astro.props;
+
+const salaryLevels = [
+  25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000,
+  70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000,
+  130000, 140000, 150000, 175000, 200000, 250000, 300000,
+];
+
+// Pre-calculate tax at build time
+const input: TaxInput = {
+  employmentIncome: salary,
+  selfEmploymentIncome: 0,
+  otherIncome: 0,
+  capitalGains: 0,
+  eligibleDividends: 0,
+  ineligibleDividends: 0,
+  rrspContribution: 0,
+  fhsaContribution: 0,
+  provinceSlug: province.slug,
+};
+
+const result = calculateTax(input, province);
+
+const salaryFormatted = salary.toLocaleString("en-CA");
+const monthlyTakeHome = result.afterTaxIncome / 12;
+
+// Calculate nearby salaries for comparison
+const nearbySalaries = salaryLevels
+  .filter((s) => s !== salary && Math.abs(s - salary) <= salary * 0.4)
+  .slice(0, 4);
+
+const nearbyResults = nearbySalaries.map((s) => {
+  const nearbyInput = { ...input, employmentIncome: s };
+  const r = calculateTax(nearbyInput, province);
+  return { salary: s, result: r };
+});
+
+// Compare with other provinces at the same salary
+const topProvinces = ["ontario", "alberta", "bc", "quebec"].filter(
+  (slug) => slug !== province.slug
+);
+const provinceComparisons = topProvinces.map((slug) => {
+  const prov = provinces.find((p) => p.slug === slug)!;
+  const compInput = { ...input, provinceSlug: slug };
+  const r = calculateTax(compInput, prov);
+  return { province: prov, result: r };
+}).slice(0, 3);
+
+const title = `Tax on $${salaryFormatted} in ${province.name} (2025) | CalcTax`;
+const description = `On $${salaryFormatted} salary in ${province.name}, you'll pay ${formatCurrency(result.totalTax)} in total tax and take home ${formatCurrency(result.afterTaxIncome)}. Effective rate: ${formatPercent(result.averageRate)}.`;
+---
+
+<Base title={title} description={description}>
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-400 mb-8">
+      <a href="/" class="hover:text-slate-600 transition-colors">Home</a>
+      <span class="mx-2">/</span>
+      <a href={`/${province.slug}-income-tax-calculator`} class="hover:text-slate-600 transition-colors">{province.name} Calculator</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-500">${salaryFormatted}</span>
+    </nav>
+
+    <!-- Hero -->
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 border border-teal-100">
+        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full"></span>
+        {province.abbreviation} — 2025 Tax Year
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight">
+        Tax on ${salaryFormatted} in {province.name}
+      </h1>
+      <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+        On a <strong class="text-slate-700">${salaryFormatted}</strong> salary in {province.name} for 2025,
+        you'll pay <strong class="text-slate-700">{formatCurrency(result.totalTax)}</strong> in total tax
+        and take home <strong class="text-slate-700">{formatCurrency(result.afterTaxIncome)}</strong>.
+      </p>
+    </div>
+
+    <!-- Main Results Card -->
+    <div class="bg-white border border-slate-200/70 rounded-2xl p-6 shadow-sm mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="text-center p-3">
+          <p class="text-xs text-slate-400 mb-1">Gross Income</p>
+          <p class="text-xl font-bold text-slate-900">${salaryFormatted}</p>
+        </div>
+        <div class="text-center p-3">
+          <p class="text-xs text-slate-400 mb-1">Total Tax</p>
+          <p class="text-xl font-bold text-red-600">{formatCurrency(result.totalTax)}</p>
+        </div>
+        <div class="text-center p-3">
+          <p class="text-xs text-slate-400 mb-1">Take-Home Pay</p>
+          <p class="text-xl font-bold text-green-600">{formatCurrency(result.afterTaxIncome)}</p>
+        </div>
+        <div class="text-center p-3">
+          <p class="text-xs text-slate-400 mb-1">Effective Rate</p>
+          <p class="text-xl font-bold text-slate-900">{formatPercent(result.averageRate)}</p>
+        </div>
+      </div>
+
+      <!-- Tax Breakdown -->
+      <div class="border-t border-slate-100 pt-4">
+        <h2 class="text-sm font-semibold text-slate-700 mb-3 font-display">Tax Breakdown</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-slate-600">Federal Tax</span>
+            <span class="font-medium font-mono">{formatCurrency(result.federalTax)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-600">{province.name} Provincial Tax</span>
+            <span class="font-medium font-mono">{formatCurrency(result.provincialTax)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-600">{province.slug === "quebec" ? "QPP" : "CPP"} Contributions</span>
+            <span class="font-medium font-mono">{formatCurrency(result.cppContributions + result.cpp2Contributions)}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-600">EI Premiums</span>
+            <span class="font-medium font-mono">{formatCurrency(result.eiPremiums)}</span>
+          </div>
+          {result.qpipPremiums > 0 && (
+            <div class="flex justify-between">
+              <span class="text-slate-600">QPIP Premiums</span>
+              <span class="font-medium font-mono">{formatCurrency(result.qpipPremiums)}</span>
+            </div>
+          )}
+          <div class="border-t border-slate-100 pt-2 flex justify-between font-semibold">
+            <span>Total Tax</span>
+            <span class="text-red-600 font-mono">{formatCurrency(result.totalTax)}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly -->
+      <div class="border-t border-slate-100 mt-4 pt-4">
+        <div class="flex justify-between text-sm">
+          <span class="text-slate-600">Monthly Take-Home</span>
+          <span class="font-bold text-green-600 font-mono">{formatCurrency(monthlyTakeHome)}</span>
+        </div>
+        <div class="flex justify-between text-sm mt-1">
+          <span class="text-slate-600">Marginal Tax Rate</span>
+          <span class="font-medium font-mono">{formatPercent(result.marginalRate)}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl p-5 border border-teal-100 mb-8">
+      <p class="text-sm text-slate-700 mb-3">
+        These numbers assume employment income with no deductions. Have RRSP contributions, self-employment income, or capital gains? Get a customized estimate.
+      </p>
+      <a
+        href={`/${province.slug}-income-tax-calculator`}
+        class="inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition"
+      >
+        Open {province.name} Calculator &rarr;
+      </a>
+    </div>
+
+    <!-- Nearby Salaries -->
+    {nearbyResults.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">Compare Other Salaries in {province.name}</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b-2 border-slate-200">
+                <th class="text-left py-2.5 px-3 font-semibold text-slate-700">Salary</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Total Tax</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Take-Home</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-slate-100 bg-teal-50 font-medium">
+                <td class="py-2 px-3">
+                  ${salaryFormatted}
+                  <span class="text-teal-600 text-xs ml-1">(this page)</span>
+                </td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(result.totalTax)}</td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(result.afterTaxIncome)}</td>
+                <td class="py-2 px-3 text-right font-mono">{formatPercent(result.averageRate)}</td>
+              </tr>
+              {nearbyResults.map(({ salary: s, result: r }) => (
+                <tr class="border-b border-slate-100 hover:bg-slate-50">
+                  <td class="py-2 px-3">
+                    <a href={`/tax-on-${s}-in-${province.slug}`} class="text-teal-600 hover:text-teal-800 transition-colors">
+                      ${s.toLocaleString("en-CA")}
+                    </a>
+                  </td>
+                  <td class="py-2 px-3 text-right font-mono">{formatCurrency(r.totalTax)}</td>
+                  <td class="py-2 px-3 text-right font-mono">{formatCurrency(r.afterTaxIncome)}</td>
+                  <td class="py-2 px-3 text-right font-mono">{formatPercent(r.averageRate)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+
+    <!-- Province Comparison -->
+    {provinceComparisons.length > 0 && (
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">${salaryFormatted} in Other Provinces</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b-2 border-slate-200">
+                <th class="text-left py-2.5 px-3 font-semibold text-slate-700">Province</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Total Tax</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">Take-Home</th>
+                <th class="text-right py-2.5 px-3 font-semibold text-slate-700">vs {province.abbreviation}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-slate-100 bg-teal-50 font-medium">
+                <td class="py-2 px-3">{province.name} <span class="text-teal-600 text-xs ml-1">(this page)</span></td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(result.totalTax)}</td>
+                <td class="py-2 px-3 text-right font-mono">{formatCurrency(result.afterTaxIncome)}</td>
+                <td class="py-2 px-3 text-right font-mono text-slate-400">—</td>
+              </tr>
+              {provinceComparisons.map(({ province: p, result: r }) => {
+                const diff = r.totalTax - result.totalTax;
+                return (
+                  <tr class="border-b border-slate-100 hover:bg-slate-50">
+                    <td class="py-2 px-3">
+                      <a href={`/tax-on-${salary}-in-${p.slug}`} class="text-teal-600 hover:text-teal-800 transition-colors">
+                        {p.name}
+                      </a>
+                    </td>
+                    <td class="py-2 px-3 text-right font-mono">{formatCurrency(r.totalTax)}</td>
+                    <td class="py-2 px-3 text-right font-mono">{formatCurrency(r.afterTaxIncome)}</td>
+                    <td class={`py-2 px-3 text-right font-mono ${diff > 0 ? 'text-red-500' : diff < 0 ? 'text-green-600' : 'text-slate-400'}`}>
+                      {diff > 0 ? '+' : ''}{formatCurrency(diff)}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">
+          <a href="/income-tax-calculator" class="underline hover:text-slate-500">Compare all 13 provinces</a> at any income level.
+        </p>
+      </div>
+    )}
+
+    <!-- Wealthsimple CTA -->
+    <a
+      href="https://sovrn.co/3pcm8xa"
+      target="_blank"
+      rel="noopener sponsored"
+      class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group mb-8"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your {province.name} return?</p>
+          <p class="text-xs text-slate-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
+        </div>
+        <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Related Links -->
+    <div class="prose">
+      <h2>Related</h2>
+      <ul>
+        <li><a href={`/${province.slug}-income-tax-calculator`}>{province.name} Income Tax Calculator</a> — customize with RRSP, capital gains, dividends</li>
+        <li><a href="/blog/how-much-tax-on-salary-canada">How Much Tax on $50K–$200K in Canada?</a> — pre-calculated tables for 10 salary levels</li>
+        <li><a href="/blog/2025-canadian-tax-brackets">2025 Canadian Tax Brackets</a> — federal and provincial rates explained</li>
+      </ul>
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="mt-8 text-xs text-slate-400 text-center">
+      These estimates are for employment income with no deductions, based on 2025 CRA-published tax rates.
+      Your actual tax may differ. <a href="/disclaimer" class="underline hover:text-slate-500">Disclaimer</a>
+    </p>
+  </div>
+
+  <!-- FAQ Schema -->
+  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `How much tax do I pay on $${salaryFormatted} in ${province.name}?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `On a $${salaryFormatted} salary in ${province.name} for 2025, you would pay approximately ${formatCurrency(result.totalTax)} in total tax (federal, provincial, CPP, EI), leaving you with ${formatCurrency(result.afterTaxIncome)} in after-tax income. Your effective tax rate would be ${formatPercent(result.averageRate)}.` }
+      },
+      {
+        "@type": "Question",
+        "name": `What is the take-home pay on $${salaryFormatted} in ${province.name}?`,
+        "acceptedAnswer": { "@type": "Answer", "text": `On a $${salaryFormatted} salary in ${province.name}, your estimated take-home pay for 2025 is ${formatCurrency(result.afterTaxIncome)} per year, or approximately ${formatCurrency(monthlyTakeHome)} per month.` }
+      }
+    ]
+  })}</script>`} />
+</Base>

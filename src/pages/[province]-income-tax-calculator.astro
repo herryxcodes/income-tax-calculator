@@ -153,6 +153,24 @@ const bracketRows = province.brackets.map((b, i) => {
         <li><a href="/blog/how-much-tax-on-salary-canada">How Much Tax on $50K–$200K?</a> — pre-calculated breakdowns by salary and province</li>
       </ul>
     </section>
+
+    <!-- Wealthsimple CTA -->
+    <div class="max-w-3xl mx-auto mt-10">
+      <a
+        href="https://sovrn.co/3pcm8xa"
+        target="_blank"
+        rel="noopener sponsored"
+        class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your {province.name} return?</p>
+            <p class="text-xs text-slate-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
+          </div>
+          <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
+        </div>
+      </a>
+    </div>
   </div>
 
   <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({

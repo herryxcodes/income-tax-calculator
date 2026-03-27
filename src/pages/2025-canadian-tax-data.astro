@@ -1,0 +1,165 @@
+---
+import Base from "../layouts/Base.astro";
+import { federal, provinces, cpp, qpp, ei, eiQuebec, qpip } from "../data/tax-rates/2025/index";
+---
+
+<Base
+  title="2025 Canadian Tax Data: Every Rate, Bracket, and Threshold | CalcTax"
+  description="Complete reference of 2025 Canadian tax rates. Federal brackets, all 13 provincial brackets, CPP/QPP rates, EI premiums, RRSP/TFSA/FHSA limits, and key thresholds."
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-10">
+      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 border border-teal-100">
+        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full"></span>
+        2025 Tax Year Reference
+      </div>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight">
+        2025 Canadian Tax Data
+      </h1>
+      <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+        Every tax rate, bracket, and threshold for the 2025 Canadian tax year in one place.
+        Sourced from CRA and provincial finance departments.
+      </p>
+    </div>
+
+    <div class="prose max-w-none">
+      <!-- Table of Contents -->
+      <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 mb-10 not-prose">
+        <h2 class="text-sm font-semibold text-slate-700 mb-3">Contents</h2>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-sm">
+          <li><a href="#federal-brackets" class="text-teal-600 hover:text-teal-800">Federal Tax Brackets</a></li>
+          <li><a href="#provincial-brackets" class="text-teal-600 hover:text-teal-800">Provincial Tax Brackets (All 13)</a></li>
+          <li><a href="#cpp-qpp" class="text-teal-600 hover:text-teal-800">CPP/QPP Contributions</a></li>
+          <li><a href="#ei-qpip" class="text-teal-600 hover:text-teal-800">EI & QPIP Premiums</a></li>
+          <li><a href="#registered-accounts" class="text-teal-600 hover:text-teal-800">RRSP, TFSA, FHSA Limits</a></li>
+          <li><a href="#key-thresholds" class="text-teal-600 hover:text-teal-800">Key Thresholds & Dates</a></li>
+        </ul>
+      </div>
+
+      <!-- Federal Tax Brackets -->
+      <h2 id="federal-brackets">Federal Tax Brackets 2025</h2>
+      <p>The lowest bracket uses a blended rate of 14.5% for 2025 (15% first half, 14% second half via Bill C-4, effective July 1, 2025).</p>
+      <table>
+        <thead>
+          <tr><th>Taxable Income</th><th>Rate</th></tr>
+        </thead>
+        <tbody>
+          {federal.brackets.map((b) => (
+            <tr>
+              <td>{b.max === Infinity ? `Over $${b.min.toLocaleString("en-CA")}` : `$${b.min.toLocaleString("en-CA")} – $${b.max.toLocaleString("en-CA")}`}</td>
+              <td>{(b.rate * 100).toFixed(1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p><strong>Federal basic personal amount:</strong> ${federal.basicPersonalAmount.toLocaleString("en-CA")}</p>
+
+      <!-- Provincial Tax Brackets -->
+      <h2 id="provincial-brackets">Provincial Tax Brackets 2025</h2>
+      {provinces.map((prov) => (
+        <div>
+          <h3>{prov.name} ({prov.abbreviation})</h3>
+          <p>Basic personal amount: <strong>${prov.basicPersonalAmount.toLocaleString("en-CA")}</strong></p>
+          <table>
+            <thead>
+              <tr><th>Taxable Income</th><th>Rate</th></tr>
+            </thead>
+            <tbody>
+              {prov.brackets.map((b) => (
+                <tr>
+                  <td>{b.max === Infinity ? `Over $${b.min.toLocaleString("en-CA")}` : `$${b.min.toLocaleString("en-CA")} – $${b.max.toLocaleString("en-CA")}`}</td>
+                  <td>{(b.rate * 100).toFixed(2)}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {prov.surtax && (
+            <p><em>Ontario applies a surtax on provincial tax above certain thresholds, effectively increasing rates at higher incomes.</em></p>
+          )}
+          <p><a href={`/${prov.slug}-income-tax-calculator`}>Use the {prov.name} calculator →</a></p>
+        </div>
+      ))}
+
+      <!-- CPP/QPP -->
+      <h2 id="cpp-qpp">CPP / QPP Contributions 2025</h2>
+      <table>
+        <thead>
+          <tr><th>Detail</th><th>CPP</th><th>QPP (Quebec)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Max pensionable earnings</td><td>${cpp.maxPensionableEarnings.toLocaleString("en-CA")}</td><td>${qpp.maxPensionableEarnings.toLocaleString("en-CA")}</td></tr>
+          <tr><td>Basic exemption</td><td>${cpp.basicExemption.toLocaleString("en-CA")}</td><td>${qpp.basicExemption.toLocaleString("en-CA")}</td></tr>
+          <tr><td>Employee rate</td><td>{(cpp.employeeRate * 100).toFixed(2)}%</td><td>{(qpp.employeeRate * 100).toFixed(2)}%</td></tr>
+          <tr><td>Self-employed rate</td><td>{(cpp.selfEmployedRate * 100).toFixed(2)}%</td><td>{(qpp.selfEmployedRate * 100).toFixed(2)}%</td></tr>
+          <tr><td>CPP2 max earnings</td><td>${cpp.cpp2MaxEarnings.toLocaleString("en-CA")}</td><td>${qpp.cpp2MaxEarnings.toLocaleString("en-CA")}</td></tr>
+          <tr><td>CPP2 employee rate</td><td>{(cpp.cpp2EmployeeRate * 100).toFixed(2)}%</td><td>{(qpp.cpp2EmployeeRate * 100).toFixed(2)}%</td></tr>
+        </tbody>
+      </table>
+
+      <!-- EI & QPIP -->
+      <h2 id="ei-qpip">EI & QPIP Premiums 2025</h2>
+      <table>
+        <thead>
+          <tr><th>Detail</th><th>Outside Quebec</th><th>Quebec</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EI max insurable earnings</td><td>${ei.maxInsurableEarnings.toLocaleString("en-CA")}</td><td>${eiQuebec.maxInsurableEarnings.toLocaleString("en-CA")}</td></tr>
+          <tr><td>EI employee rate</td><td>{(ei.employeeRate * 100).toFixed(2)}%</td><td>{(eiQuebec.employeeRate * 100).toFixed(2)}%</td></tr>
+          <tr><td>QPIP employee rate</td><td>N/A</td><td>{(qpip.employeeRate * 100).toFixed(3)}%</td></tr>
+          <tr><td>QPIP max insurable earnings</td><td>N/A</td><td>${qpip.maxInsurableEarnings.toLocaleString("en-CA")}</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Registered Accounts -->
+      <h2 id="registered-accounts">Registered Account Limits 2025</h2>
+      <table>
+        <thead>
+          <tr><th>Account</th><th>2025 Limit</th><th>Key Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>RRSP</strong></td><td>$32,490 or 18% of earned income</td><td>Deadline for 2025: March 3, 2026. Unused room carries forward.</td></tr>
+          <tr><td><strong>TFSA</strong></td><td>$7,000 annual</td><td>Cumulative since 2009: $102,000. Withdrawals re-add room Jan 1.</td></tr>
+          <tr><td><strong>FHSA</strong></td><td>$8,000/year ($40,000 lifetime)</td><td>First-time home buyers. Deductible + tax-free withdrawal.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <a href="/rrsp-calculator">Calculate your RRSP tax savings →</a>
+      </p>
+
+      <!-- Key Thresholds -->
+      <h2 id="key-thresholds">Key Thresholds & Dates</h2>
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Amount / Date</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Filing deadline (general)</td><td>April 30, 2026</td></tr>
+          <tr><td>Filing deadline (self-employed)</td><td>June 15, 2026</td></tr>
+          <tr><td>RRSP contribution deadline</td><td>March 3, 2026</td></tr>
+          <tr><td>Capital gains inclusion rate</td><td>50%</td></tr>
+          <tr><td>GST/HST registration threshold</td><td>$30,000 in 4 consecutive quarters</td></tr>
+          <tr><td>Home Buyers' Plan (HBP) limit</td><td>$60,000</td></tr>
+          <tr><td>Lifetime Capital Gains Exemption (QSBC shares)</td><td>$1,250,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-10 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-xl p-5 border border-teal-100">
+      <p class="text-sm text-slate-700 mb-3">
+        See how these rates apply to your specific income and province.
+      </p>
+      <a
+        href="/income-tax-calculator"
+        class="inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition"
+      >
+        Open Tax Calculator &rarr;
+      </a>
+    </div>
+
+    <p class="mt-8 text-xs text-slate-400 text-center">
+      Data sourced from CRA and provincial finance departments. Last verified March 2026.
+      <a href="/disclaimer" class="underline hover:text-slate-500">Disclaimer</a>
+    </p>
+  </div>
+</Base>
