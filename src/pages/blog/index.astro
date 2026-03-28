@@ -36,18 +36,18 @@ const tagColors: Record<string, string> = {
       </p>
     </div>
 
-    <div class="space-y-6">
+    <div class="space-y-5">
       {publishedPosts.map((post) => (
-        <article class="border-b border-slate-100 pb-6 group">
-          <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[post.data.tagColor] || tagColors.gray}`}>
+        <article class="border-b border-slate-100 pb-5 group">
+          <span class={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tagColors[post.data.tagColor] || tagColors.gray}`}>
             {post.data.tag}
           </span>
-          <h2 class="text-lg font-semibold text-slate-900 mt-2.5">
+          <h2 class="text-lg font-semibold text-slate-900 mt-1.5">
             <a href={`/blog/${post.id}`} class="group-hover:text-teal-600 transition-colors">
               {post.data.title}
             </a>
           </h2>
-          <p class="text-sm text-slate-500 mt-1.5 leading-relaxed">
+          <p class="text-sm text-slate-500 mt-1 leading-relaxed">
             {post.data.description}
           </p>
         </article>
