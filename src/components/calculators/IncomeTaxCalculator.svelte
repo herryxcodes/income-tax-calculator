@@ -344,6 +344,13 @@
               <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">After-Tax Income</p>
               <p class="text-2xl font-bold text-emerald-600 font-mono tracking-tight">{formatCurrency(result.afterTaxIncome)}</p>
             </div>
+            {#if result.taxableIncome !== result.totalIncome}
+              <div class="bg-white rounded-xl p-4 border border-slate-100">
+                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Taxable Income</p>
+                <p class="text-xl font-bold text-slate-900 font-mono">{formatCurrency(result.taxableIncome)}</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">After RRSP/FHSA deductions</p>
+              </div>
+            {/if}
             <div class="bg-white rounded-xl p-4 border border-slate-100">
               <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Effective Rate</p>
               <p class="text-xl font-bold text-slate-900 font-mono">{formatPercent(result.averageRate)}</p>
@@ -358,6 +365,20 @@
           <div class="bg-white rounded-xl p-4 shadow-sm">
             <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Tax Breakdown</h3>
             <div class="space-y-2 text-sm">
+              {#if result.taxableIncome !== result.totalIncome}
+                <div class="flex justify-between text-slate-500 text-xs pb-1 mb-1 border-b border-dashed border-slate-200">
+                  <span>Total Income</span>
+                  <span>{formatCurrency(result.totalIncome)}</span>
+                </div>
+                <div class="flex justify-between text-green-700 text-xs pb-1 mb-1 border-b border-dashed border-slate-200">
+                  <span>RRSP/FHSA Deductions</span>
+                  <span>-{formatCurrency(result.totalIncome - result.taxableIncome)}</span>
+                </div>
+                <div class="flex justify-between text-slate-700 text-xs pb-2 mb-1 border-b border-slate-200 font-medium">
+                  <span>Taxable Income</span>
+                  <span>{formatCurrency(result.taxableIncome)}</span>
+                </div>
+              {/if}
               <div class="flex justify-between">
                 <span class="text-slate-600">Federal Tax</span>
                 <span class="font-medium">{formatCurrency(result.federalTax)}</span>
