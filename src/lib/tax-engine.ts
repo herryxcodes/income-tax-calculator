@@ -94,19 +94,25 @@ function calculateProgressiveTax(
 // ─── CPP Calculation ────────────────────────────────────────────────
 
 function calculateCPP(
-  pensionableEarnings: number,
-  selfEmployed: boolean,
+  employmentIncome: number,
+  selfEmploymentIncome: number,
   isQuebec: boolean
 ): { cpp1: number; cpp2: number } {
   const plan = isQuebec ? qpp : cpp;
+  const totalPensionable = employmentIncome + selfEmploymentIncome;
 
-  // CPP1
-  const cpp1Earnings = Math.min(pensionableEarnings, plan.maxPensionableEarnings) - plan.basicExemption;
-  const cpp1 = Math.max(0, cpp1Earnings) * (selfEmployed ? plan.selfEmployedRate : plan.employeeRate);
+  // CPP1: pensionable earnings from basic exemption to YMPE
+  // Employment income uses employee rate; self-employment uses self-employed rate (both halves)
+  const totalCpp1Base = Math.max(0, Math.min(totalPensionable, plan.maxPensionableEarnings) - plan.basicExemption);
+  const empCpp1Base = Math.max(0, Math.min(employmentIncome, plan.maxPensionableEarnings) - plan.basicExemption);
+  const seCpp1Base = totalCpp1Base - empCpp1Base;
+  const cpp1 = empCpp1Base * plan.employeeRate + seCpp1Base * plan.selfEmployedRate;
 
-  // CPP2 (second ceiling, no basic exemption)
-  const cpp2Earnings = Math.min(pensionableEarnings, plan.cpp2MaxEarnings) - plan.maxPensionableEarnings;
-  const cpp2 = Math.max(0, cpp2Earnings) * (selfEmployed ? plan.cpp2SelfEmployedRate : plan.cpp2EmployeeRate);
+  // CPP2: earnings between YMPE and YAMPE (no basic exemption)
+  const totalCpp2Base = Math.max(0, Math.min(totalPensionable, plan.cpp2MaxEarnings) - plan.maxPensionableEarnings);
+  const empCpp2Base = Math.max(0, Math.min(employmentIncome, plan.cpp2MaxEarnings) - plan.maxPensionableEarnings);
+  const seCpp2Base = totalCpp2Base - empCpp2Base;
+  const cpp2 = empCpp2Base * plan.cpp2EmployeeRate + seCpp2Base * plan.cpp2SelfEmployedRate;
 
   return { cpp1, cpp2 };
 }
@@ -121,9 +127,12 @@ function calculateEI(insurableEarnings: number, isQuebec: boolean): number {
 
 // ─── QPIP Calculation (Quebec only) ─────────────────────────────────
 
-function calculateQPIP(insurableEarnings: number, selfEmployed: boolean): number {
-  const earnings = Math.min(insurableEarnings, qpip.maxInsurableEarnings);
-  return earnings * (selfEmployed ? qpip.selfEmployedRate : qpip.employeeRate);
+function calculateQPIP(employmentIncome: number, selfEmploymentIncome: number): number {
+  const totalInsurable = employmentIncome + selfEmploymentIncome;
+  const totalEarnings = Math.min(totalInsurable, qpip.maxInsurableEarnings);
+  const empEarnings = Math.min(employmentIncome, qpip.maxInsurableEarnings);
+  const seEarnings = totalEarnings - empEarnings;
+  return empEarnings * qpip.employeeRate + seEarnings * qpip.selfEmployedRate;
 }
 
 // ─── Dividend gross-up and tax credits ──────────────────────────────
@@ -192,7 +201,6 @@ function getEffectiveMarginalRate(
 
 export function calculateTax(input: TaxInput, province: ProvinceTaxData): TaxResult {
   const isQuebec = province.slug === "quebec";
-  const hasSelfEmployment = input.selfEmploymentIncome > 0;
 
   // Step 1: Calculate total income
   const dividendGrossUp = grossUpDividends(input.eligibleDividends, input.ineligibleDividends);
@@ -230,10 +238,7 @@ export function calculateTax(input: TaxInput, province: ProvinceTaxData): TaxRes
   const provincialBasicCredit = province.basicPersonalAmount * province.brackets[0].rate;
   let provincialTax = Math.max(0, provincialResult.total - provincialBasicCredit);
 
-  // Provincial surtax (Ontario, PEI)
-  provincialTax += calculateOntarioSurtax(provincialTax, province.surtax);
-
-  // Provincial dividend tax credit
+  // Provincial dividend tax credit (applied before surtax per ON428)
   const provDivRates = provincialDividendCreditRates[province.slug];
   let provDivCredit = 0;
   if (provDivRates) {
@@ -243,21 +248,23 @@ export function calculateTax(input: TaxInput, province: ProvinceTaxData): TaxRes
   }
   provincialTax = Math.max(0, provincialTax - provDivCredit);
 
+  // Provincial surtax (Ontario, PEI) — on basic tax after all credits
+  provincialTax += calculateOntarioSurtax(provincialTax, province.surtax);
+
   // Step 5: CPP/QPP contributions
-  const pensionableEarnings = input.employmentIncome + input.selfEmploymentIncome;
-  const { cpp1, cpp2 } = calculateCPP(pensionableEarnings, hasSelfEmployment, isQuebec);
+  const { cpp1, cpp2 } = calculateCPP(input.employmentIncome, input.selfEmploymentIncome, isQuebec);
 
   // Step 6: EI premiums (on employment income only; self-employed EI is optional)
   const eiPremiums = calculateEI(input.employmentIncome, isQuebec);
 
   // Step 7: QPIP (Quebec only)
   const qpipPremiums = isQuebec
-    ? calculateQPIP(input.employmentIncome + input.selfEmploymentIncome, hasSelfEmployment)
+    ? calculateQPIP(input.employmentIncome, input.selfEmploymentIncome)
     : 0;
 
   // Step 8: Total
   const totalTax = federalTax + provincialTax + cpp1 + cpp2 + eiPremiums + qpipPremiums;
-  const afterTaxIncome = totalIncome - totalTax;
+  const afterTaxIncome = totalIncome - totalTax - totalDeductions;
   const averageRate = totalIncome > 0 ? totalTax / totalIncome : 0;
 
   // Marginal rate (combined federal + provincial on next dollar of employment income)
