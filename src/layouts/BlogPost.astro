@@ -1,5 +1,6 @@
 ---
 import Base from "./Base.astro";
+import FilingCTA from "../components/ui/FilingCTA.svelte";
 
 interface Props {
   title: string;
@@ -11,133 +12,86 @@ interface Props {
   calculatorLink: string;
 }
 
-const { title, description, publishDate, updatedDate, tag, tagColor, calculatorLink } = Astro.props;
-
-const tagColors: Record<string, string> = {
-  red: "bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/60",
-  green: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200/60",
-  orange: "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200/60",
-  blue: "bg-teal-50 text-teal-700 ring-1 ring-inset ring-teal-200/60",
-  gray: "bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-200/60",
-};
+const { title, description, publishDate, updatedDate, tag, calculatorLink } = Astro.props;
 
 const calculatorNames: Record<string, string> = {
-  "/income-tax-calculator": "Income Tax Calculator",
-  "/rrsp-calculator": "RRSP Calculator",
-  "/self-employed-tax-calculator": "Self-Employed Tax Calculator",
+  "/income-tax-calculator": "income tax calculator",
+  "/rrsp-calculator": "RRSP calculator",
+  "/self-employed-tax-calculator": "self-employed calculator",
 };
 
-const formattedDate = publishDate.toLocaleDateString("en-CA", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
-const formattedUpdate = updatedDate?.toLocaleDateString("en-CA", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-
+const fmt = (d: Date) => d.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 const siteUrl = "https://calctax.ca";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 ---
 
 <Base title={`${title} | CalcTax`} description={description}>
-  <article class="max-w-3xl mx-auto px-4 py-16">
-    <!-- Breadcrumb -->
-    <nav class="text-sm text-slate-400 mb-8 animate-fade-up" style="animation-delay: 0s">
-      <a href="/" class="hover:text-slate-600 transition-colors">Home</a>
-      <span class="mx-2">/</span>
-      <a href="/blog" class="hover:text-slate-600 transition-colors">Blog</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-500">{title}</span>
+  <article class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <nav aria-label="Breadcrumb" class="mb-4 text-sm text-ink-3">
+      <ol class="flex flex-wrap items-center gap-x-2">
+        <li><a href="/" class="hover:text-brand">Home</a></li>
+        <li class="flex items-center gap-2"><span aria-hidden="true">/</span><a href="/blog" class="hover:text-brand">Guides</a></li>
+      </ol>
     </nav>
 
-    <!-- Header -->
-    <header class="mb-10">
-      <span class={`text-xs font-medium px-2.5 py-1 rounded-full ${tagColors[tagColor] || tagColors.gray} animate-fade-up`} style="animation-delay: 0.05s">
-        {tag}
-      </span>
-      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mt-4 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
-        {title}
-      </h1>
-      <div class="flex items-center gap-3 text-sm text-slate-400 animate-fade-up" style="animation-delay: 0.15s">
-        <time datetime={publishDate.toISOString()}>{formattedDate}</time>
-        {formattedUpdate && (
-          <span>· Updated {formattedUpdate}</span>
+    <header class="max-w-3xl">
+      <p class="text-sm font-bold text-ink-2">{tag}</p>
+      <h1 class="mt-2 text-[1.9rem] sm:text-[2.5rem] leading-[1.12] font-extrabold tracking-tight text-ink">{title}</h1>
+      <p class="mt-4 text-lg text-ink-2">{description}</p>
+      <p class="mt-4 text-sm text-ink-3">
+        Published <time datetime={publishDate.toISOString()}>{fmt(publishDate)}</time>{updatedDate && (
+          <>, updated <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></>
         )}
-      </div>
+      </p>
     </header>
 
-    <!-- Article content -->
-    <div class="prose animate-fade-up" style="animation-delay: 0.2s">
-      <slot />
-    </div>
+    <div class="mt-10 grid gap-12 lg:grid-cols-[minmax(0,68ch)_1fr]">
+      <div class="prose">
+        <slot />
+      </div>
 
-    <!-- Calculator CTA -->
-    <div class="mt-12 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-6 border border-teal-100 animate-fade-up" style="animation-delay: 0.25s">
-      <h3 class="text-lg font-semibold text-slate-900 font-display mb-2">
-        See your exact numbers
-      </h3>
-      <p class="text-sm text-slate-600 mb-4">
-        Use our free calculator to estimate your 2025 tax based on your specific income, province, and deductions.
-      </p>
-      <a
-        href={calculatorLink}
-        class="inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition"
-      >
-        Open {calculatorNames[calculatorLink] || "Calculator"} &rarr;
-      </a>
-    </div>
-
-    <!-- Wealthsimple CTA -->
-    <div class="mt-6">
-      <a
-        href="https://www.wealthsimple.com/invite/P9UCSW"
-        target="_blank"
-        rel="noopener sponsored"
-        class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
-      >
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your 2025 return?</p>
-            <p class="text-xs text-slate-500 mt-0.5">File your taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
+      <aside class="space-y-5 lg:pt-1">
+        <div class="lg:sticky lg:top-24 space-y-5">
+          <div class="sheet p-5">
+            <p class="font-bold text-ink">Run your own numbers</p>
+            <p class="text-ink-2 text-[0.95rem] mt-1">Every line of your federal and provincial tax, in your browser.</p>
+            <a href={calculatorLink} class="btn btn-primary mt-4">Open the {calculatorNames[calculatorLink] ?? "calculator"}</a>
           </div>
-          <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
+          <FilingCTA />
         </div>
-      </a>
+      </aside>
     </div>
 
-    <!-- Disclaimer -->
-    <p class="mt-8 text-xs text-slate-400 text-center">
-      This article is for informational purposes only and does not constitute tax advice.
-      Calculations based on 2025 CRA-published rates.
-      <a href="/disclaimer" class="underline hover:text-slate-500">Disclaimer</a>
+    <p class="mt-12 max-w-3xl text-sm text-ink-3">
+      This article is general information, not tax advice. Figures can change when governments update rates.
+      <a href="/disclaimer" class="underline">Read the disclaimer</a>.
     </p>
   </article>
 
-  <!-- Article JSON-LD -->
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": title,
-    "description": description,
-    "datePublished": publishDate.toISOString(),
-    "dateModified": (updatedDate || publishDate).toISOString(),
-    "author": { "@type": "Organization", "name": "CalcTax", "url": siteUrl },
-    "publisher": { "@type": "Organization", "name": "CalcTax", "url": siteUrl },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl }
-  })}</script>`} />
-
-  <!-- BreadcrumbList JSON-LD -->
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": siteUrl },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": siteUrl + "/blog" },
-      { "@type": "ListItem", "position": 3, "name": title, "item": canonicalUrl }
-    ]
-  })}</script>`} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description,
+      datePublished: publishDate.toISOString(),
+      dateModified: (updatedDate || publishDate).toISOString(),
+      author: { "@type": "Organization", name: "CalcTax", url: siteUrl },
+      publisher: { "@type": "Organization", name: "CalcTax", url: siteUrl },
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    })}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: "Guides", item: siteUrl + "/blog" },
+        { "@type": "ListItem", position: 3, name: title, item: canonicalUrl },
+      ],
+    })}
+  />
 </Base>

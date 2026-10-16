@@ -2,13 +2,14 @@
 title: "TFSA Contribution Room 2025: Limits, Cumulative Total, and Rules"
 description: "The 2025 TFSA annual limit is $7,000. Cumulative room since 2009 is $102,000. How withdrawals re-add room, over-contribution penalties, and how to check your space."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Savings Accounts"
 tagColor: "green"
 calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-The 2025 TFSA annual contribution limit is **$7,000**, unchanged from 2024. If you've been a Canadian resident aged 18 or older every year since the TFSA launched in 2009, your lifetime cumulative room is now **$102,000**. That's a lot of tax-free investing space, and most Canadians aren't using nearly enough of it.
+The 2025 TFSA annual contribution limit is **$7,000**, unchanged from 2024. If you've been a Canadian resident aged 18 or older every year since the TFSA launched in 2009, your lifetime cumulative room for 2025 is **$102,000**. (The 2026 limit is also $7,000, bringing cumulative room to $109,000.) That's a lot of tax-free investing space, and most Canadians aren't using nearly enough of it.
 
 ## 2025 TFSA Limit and Cumulative Room
 
@@ -59,7 +60,7 @@ CRA charges a penalty of **1% per month** on the highest excess amount in your T
 
 Log into **CRA My Account** and look under the "RRSP and TFSA" section. Your current TFSA room will be listed there. One caveat: CRA's numbers can lag by a few months, especially early in the year before your financial institution has reported your transactions. If something looks off, double-check against your own records of contributions and withdrawals.
 
-You can also find your TFSA room on your Notice of Assessment after CRA processes your annual tax return.
+Your Notice of Assessment doesn't show TFSA room, but you can also get it through CRA's automated line at 1-800-959-8281.
 
 **[See how TFSA savings affect your overall tax picture →](/income-tax-calculator)**
 

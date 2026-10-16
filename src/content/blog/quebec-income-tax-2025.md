@@ -2,6 +2,7 @@
 title: "Quebec Income Tax 2025: Two Tax Returns, QPP, and the Federal Abatement"
 description: "Why Quebec residents file two returns, how the 16.5% federal abatement works, QPP vs CPP, QPIP premiums, and what it all means for your take-home pay."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Quebec"
 tagColor: "blue"
 calculatorLink: "/quebec-income-tax-calculator"
@@ -36,12 +37,12 @@ Quebec's 2025 provincial tax brackets:
 
 | Taxable Income | Quebec Rate |
 |---|---|
-| Up to $51,780 | 14% |
-| $51,780 to $103,545 | 19% |
-| $103,545 to $126,000 | 24% |
-| Over $126,000 | 25.75% |
+| Up to $53,255 | 14% |
+| $53,255 to $106,495 | 19% |
+| $106,495 to $129,590 | 24% |
+| Over $129,590 | 25.75% |
 
-The starting rate of 14% is notably higher than Alberta's 10% or BC's 5.06%. And the top provincial rate of 25.75% kicks in at just $126,000 -- a much lower threshold than most provinces. For comparison, Alberta's top rate of 15% does not apply until income exceeds $355,845.
+The starting rate of 14% is notably higher than Alberta's 8% or BC's 5.06%. And the top provincial rate of 25.75% kicks in at just $129,590 -- a much lower threshold than most provinces. For comparison, Alberta's top rate of 15% does not apply until income exceeds $362,961.
 
 Quebec's basic personal amount is **$18,571** for 2025. That is higher than the federal BPA of $16,129, but well below Alberta's $22,323.
 
@@ -53,11 +54,13 @@ For 2025:
 - **QPP employee rate:** 6.40% on pensionable earnings between $3,500 and $71,300
 - **CPP employee rate (rest of Canada):** 5.95% on the same range
 
-That is a 0.45 percentage point difference. On maximum pensionable earnings, a Quebec employee pays roughly $320 more per year toward their pension than someone in Ontario or BC.
+That is a 0.45 percentage point difference. On maximum pensionable earnings, a Quebec employee pays about $305 more per year toward their pension than someone in Ontario or BC.
 
 Self-employed Quebecers pay both halves: **12.80%** total, compared to 11.9% for self-employed workers in other provinces.
 
 The enhanced QPP2 also applies on earnings between $71,300 and $81,200, similar to CPP2 in the rest of Canada.
+
+For 2026, Quebec cut the QPP base rate, so the employee rate fell to 6.30% (12.60% for the self-employed).
 
 **[See your QPP contributions broken down -->](/quebec-income-tax-calculator)**
 
@@ -71,18 +74,18 @@ For 2025:
 - **QPIP self-employed rate:** approximately 0.878%
 
 And for EI:
-- **Quebec EI employee rate:** 1.32%
+- **Quebec EI employee rate:** 1.31%
 - **Rest of Canada EI rate:** 1.64%
 
 The lower EI rate partly offsets the QPIP premium, but not entirely. Quebec workers pay a bit more in total payroll deductions when you add QPP plus QPIP plus reduced EI versus CPP plus full EI in other provinces. The trade-off is that QPIP generally offers more generous parental benefits than the federal EI program, including paternity-specific leave that did not exist federally until recently.
 
 ## How Quebec Compares on Total Tax
 
-At a salary of $75,000 with no deductions beyond the basics:
+At a salary of $75,000 with no deductions, our calculator gives these 2025 income tax totals (federal plus provincial, before payroll deductions):
 
-- **Quebec:** ~$17,800 total income tax
-- **Ontario:** ~$16,200
-- **Alberta:** ~$15,100
+- **Quebec:** $15,660 total income tax
+- **Ontario:** $13,069
+- **Alberta:** $12,645
 
 Quebec is the highest of the three, even after the 16.5% federal abatement. Add in the higher QPP and QPIP payroll deductions, and the gap in take-home pay widens further.
 
@@ -96,7 +99,7 @@ Quebec does offer several provincial credits and programs that reduce the net bu
 
 - **Work premium** -- A refundable credit designed to encourage people to enter or stay in the workforce. It supplements employment income for low-income workers.
 
-- **Subsidized childcare** -- While not a tax credit, Quebec's $8.85/day (approximately) daycare program can save families thousands of dollars annually compared to market-rate childcare in other provinces. This is a real financial offset that does not appear on your tax return but absolutely affects your household budget.
+- **Subsidized childcare** -- While not a tax credit, Quebec's $9.35/day (in 2025) daycare program can save families thousands of dollars annually compared to market-rate childcare in other provinces. This is a real financial offset that does not appear on your tax return but absolutely affects your household budget.
 
 - **Quebec prescription drug insurance** -- Quebec requires all residents to have prescription drug coverage, either through an employer plan or the public plan (RAMQ). The public plan premium is income-tested and charged on your tax return, but it provides coverage that residents of other provinces may need to purchase privately.
 

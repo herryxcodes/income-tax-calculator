@@ -1,56 +1,54 @@
 ---
 import Base from "../../layouts/Base.astro";
+import PageIntro from "../../components/PageIntro.astro";
 import { getCollection } from "astro:content";
+import { getTaxYear, DEFAULT_TAX_YEAR } from "../../lib/tax-engine";
 
-// Get published blog posts from content collection
-const publishedPosts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => (b.data.updatedDate ?? b.data.publishDate).valueOf() - (a.data.updatedDate ?? a.data.publishDate).valueOf()
+);
 
-const tagColors: Record<string, string> = {
-  red: "bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200/60",
-  green: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200/60",
-  orange: "bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200/60",
-  blue: "bg-teal-50 text-teal-700 ring-1 ring-inset ring-teal-200/60",
-  gray: "bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-200/60",
-};
+// Group by tag so related guides sit together.
+const groups = new Map<string, typeof posts>();
+for (const post of posts) {
+  const list = groups.get(post.data.tag) ?? [];
+  list.push(post);
+  groups.set(post.data.tag, list);
+}
+
+const data = getTaxYear(DEFAULT_TAX_YEAR);
+const longDate = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" });
 ---
 
 <Base
-  title="Canadian Tax Guides 2025 — Filing Tips, Calculators & More | CalcTax"
-  description="Practical tax guides for the 2025 tax year. Tax brackets, RRSP strategies, self-employment, gig worker rules, and province-specific guides."
+  title="Canadian Tax Guides — Brackets, RRSP, Self-Employment and More | CalcTax"
+  description="Plain-language guides to Canadian income tax: brackets, RRSP, TFSA and FHSA, self-employment, capital gains, deadlines and province-by-province rules."
 >
-  <div class="max-w-3xl mx-auto px-4 py-16">
-    <div class="mb-10">
-      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up">Canadian Tax Guides</h1>
-      <p class="text-lg text-slate-500 leading-relaxed animate-fade-up" style="animation-delay: 0.1s">
-        Practical tax guides for Canadians filing their 2025 return. Plain language, no jargon, with calculators to see your exact numbers.
-      </p>
-    </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro title="Tax guides" lede="Plain-language explanations, each paired with a calculator so you can see your own numbers." />
 
-    <!-- Filing season banner -->
-    <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-10 animate-fade-up" style="animation-delay: 0.15s">
-      <p class="text-sm text-rose-800">
-        <strong>Tax season is open.</strong> The deadline to file your 2025 return is
-        <strong>April 30, 2026</strong> (self-employed: June 15, 2026).
-        <a href="/income-tax-calculator" class="underline font-semibold hover:text-rose-900">Estimate your tax now</a>
-      </p>
-    </div>
+    <p class="mt-6 max-w-2xl border-l-4 border-l-provincial pl-4 text-ink">
+      Returns for {DEFAULT_TAX_YEAR} are due {longDate(data.dates.filingDeadline)}
+      ({longDate(data.dates.selfEmployedDeadline)} if you're self-employed).
+      <a href="/income-tax-calculator" class="text-brand underline">Estimate your {DEFAULT_TAX_YEAR} tax</a>.
+    </p>
 
-    <div class="space-y-5">
-      {publishedPosts.map((post) => (
-        <article class="border-b border-slate-100 pb-5 group">
-          <span class={`text-xs font-medium px-2.5 py-0.5 rounded-full ${tagColors[post.data.tagColor] || tagColors.gray}`}>
-            {post.data.tag}
-          </span>
-          <h2 class="text-lg font-semibold text-slate-900 mt-1.5">
-            <a href={`/blog/${post.id}`} class="group-hover:text-teal-600 transition-colors">
-              {post.data.title}
-            </a>
-          </h2>
-          <p class="text-sm text-slate-500 mt-1 leading-relaxed">
-            {post.data.description}
-          </p>
-        </article>
+    <div class="mt-12 space-y-14">
+      {[...groups].map(([tag, list]) => (
+        <section aria-labelledby={`tag-${tag}`}>
+          <h2 id={`tag-${tag}`} class="font-extrabold text-xl text-ink border-b-2 border-ink pb-2">{tag}</h2>
+          <ul class="mt-2 grid gap-x-10 md:grid-cols-2">
+            {list.map((post) => (
+              <li class="border-b border-rule-soft">
+                <a href={`/blog/${post.id}`} class="block py-4 group no-underline">
+                  <span class="block font-bold text-ink group-hover:text-brand text-[1.05rem] leading-snug">{post.data.title}</span>
+                  <span class="block text-ink-2 text-[0.95rem] mt-1 leading-snug">{post.data.description}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
     </div>
   </div>

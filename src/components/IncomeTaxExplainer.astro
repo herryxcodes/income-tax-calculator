@@ -1,0 +1,108 @@
+---
+// Explainer and FAQ shown under the income tax calculator. Every figure is
+// computed from the same engine and data as the calculator, so the copy can't
+// drift out of date.
+import BracketTable from "./BracketTable.astro";
+import {
+  calculateAllProvinces,
+  calculateTax,
+  emptyInput,
+  formatCurrency,
+  formatPercent,
+  formatRate,
+  getTaxYear,
+  DEFAULT_TAX_YEAR,
+} from "../lib/tax-engine";
+
+interface Props {
+  year?: number;
+}
+const { year = DEFAULT_TAX_YEAR } = Astro.props;
+const data = getTaxYear(year);
+const fed = data.federal;
+const money = (n: number) => `$${n.toLocaleString("en-CA")}`;
+
+const example = calculateTax({ ...emptyInput("ontario", year), employmentIncome: 75000 });
+const ranked = calculateAllProvinces({ ...emptyInput("ontario", year), employmentIncome: 75000 }).sort(
+  (a, b) => b.afterTaxIncome - a.afterTaxIncome
+);
+const best = ranked[0];
+const worst = ranked[ranked.length - 1];
+
+const faqs = [
+  {
+    q: `How much tax do I pay on $75,000 in Canada?`,
+    a: `On $75,000 of employment income in Ontario in ${year}, you pay about ${formatCurrency(example.federalTax)} in federal tax, ${formatCurrency(example.provincialTax)} in Ontario tax (including the Ontario Health Premium) and ${formatCurrency(example.contributions.total)} in CPP and EI. That's ${formatCurrency(example.totalTax)} in total, leaving ${formatCurrency(example.afterTaxIncome)} of take-home pay, an average rate of ${formatPercent(example.averageRate, 1)}.`,
+  },
+  {
+    q: `Which province has the lowest income tax?`,
+    a: `It depends on your income. At a $75,000 salary in ${year}, take-home pay is highest in ${best.province.name} (${formatCurrency(best.afterTaxIncome)}) and lowest in ${worst.province.name} (${formatCurrency(worst.afterTaxIncome)}), a gap of ${formatCurrency(best.afterTaxIncome - worst.afterTaxIncome)}. Use "Compare all provinces" in the calculator to rank them at your own income.`,
+  },
+  {
+    q: `What's the difference between my average and marginal tax rate?`,
+    a: `Your average rate is all the tax and contributions you pay divided by your income. Your marginal rate is the tax on your next dollar of income, which is what a raise, a bonus or an RRSP deduction is taxed or saved at. Because brackets only apply to the income inside them, moving into a higher bracket never lowers your take-home pay.`,
+  },
+  {
+    q: `Is my information sent anywhere?`,
+    a: `No. The calculator runs in your browser. Nothing you type is sent to our server or anyone else.`,
+  },
+];
+---
+
+<section class="prose">
+  <h2>How Canadian income tax is calculated</h2>
+  <p>
+    You pay two income taxes: federal tax and tax to your province or territory. Both are progressive, so each
+    rate only applies to the slice of income inside its bracket. Before tax is calculated, deductions such as RRSP
+    and FHSA contributions and the enhanced part of your CPP contributions come off your income. After it's
+    calculated, non-refundable credits are subtracted, starting with the basic personal amount, the Canada
+    employment amount and credits for your CPP and EI contributions.
+  </p>
+  <p>
+    On top of income tax, employees pay CPP (QPP in Quebec) and EI premiums through payroll. This calculator
+    includes all of these, along with Ontario's surtax and health premium, Quebec's federal abatement, and the
+    low-income tax reductions several provinces offer.
+  </p>
+
+  <h2>{year} federal tax brackets</h2>
+  {data.status === "projected" && <p><strong>Projected:</strong> {data.statusNote}</p>}
+  <BracketTable brackets={fed.brackets} rateHeading="Federal rate" />
+  <p>
+    {year === 2025
+      ? "The lowest rate is 14.5% for 2025 because it fell from 15% to 14% on July 1, 2025. From 2026 it's 14% for the whole year."
+      : `The lowest rate is ${formatRate(fed.brackets[0].rate)}.`}
+    The federal basic personal amount is <strong>{money(fed.bpa.max)}</strong>, reduced gradually to {money(fed.bpa.min)}
+    once net income passes {money(fed.bpa.phaseOutStart)}. Credits are worth {formatRate(fed.creditRate)} of the amount claimed.
+    For provincial brackets, see the <a href={`/${year}-canadian-tax-data`}>{year} tax data reference</a> or your
+    province's calculator.
+  </p>
+
+  <h2>Frequently asked questions</h2>
+  {faqs.map((f) => (
+    <>
+      <h3>{f.q}</h3>
+      <p>{f.a}</p>
+    </>
+  ))}
+
+  <h2>Guides</h2>
+  <ul>
+    <li><a href="/blog/how-much-tax-on-salary-canada">How much tax on $50,000 to $200,000</a></li>
+    <li><a href="/blog/marginal-vs-effective-tax-rate">Marginal vs effective tax rate</a></li>
+    <li><a href="/blog/rrsp-vs-tfsa-vs-fhsa">RRSP vs TFSA vs FHSA</a></li>
+    <li><a href="/blog/self-employed-tax-guide-canada-2025">Self-employed tax guide</a></li>
+  </ul>
+</section>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  })}
+/>

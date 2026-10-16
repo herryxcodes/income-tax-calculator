@@ -1,14 +1,15 @@
 ---
 title: "Where's My Tax Refund? CRA Processing Times for 2026"
-description: "How long CRA takes to process your 2025 return and issue your refund. Online filing: ~2 weeks. Paper: ~8 weeks. How to check your refund status."
+description: "How long CRA takes to process your 2025 return and issue your refund. Online filing: ~2 weeks. Paper: ~8 to 12 weeks. How to check your refund status."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "CRA"
 tagColor: "red"
 calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-If you filed online, expect your refund in about two weeks. If you mailed a paper return, you're looking at eight weeks. That's the short answer.
+If you filed online, expect your refund in about two weeks. If you mailed a paper return, you're looking at eight to twelve weeks. That's the short answer.
 
 Now let's talk about what can speed things up, what can slow things down, and how to actually check where your money is.
 
@@ -17,9 +18,9 @@ Now let's talk about what can speed things up, what can slow things down, and ho
 The Canada Revenue Agency gives two standard timelines for 2025 tax returns:
 
 - **NETFILE (online):** 2 weeks from the date CRA receives your return
-- **Paper filing:** 8 weeks from the date CRA receives your return
+- **Paper filing:** 8 weeks from the date CRA receives your return (some CRA pages now say up to 12 weeks)
 
-These are typical processing times, not guarantees. Most online filers see their refund hit their bank account within 8 to 14 business days. Paper filers should count eight weeks from the date they dropped the envelope in the mail, not from when they finished filling it out.
+These are typical processing times, not guarantees. If you filed online and use direct deposit, CRA says your refund can arrive in as little as eight business days after your return is processed. Paper filers should count from the date CRA receives the envelope, not from when they finished filling it out.
 
 Want to know roughly what your refund will be before it arrives? **[Run your numbers through our income tax calculator](/income-tax-calculator)** to get an estimate.
 
@@ -29,7 +30,7 @@ Three ways to do it:
 
 1. **CRA My Account** -- Log in at canada.ca and look for "Refund status" on the overview page. It'll show whether your return has been received, is being processed, or has been assessed.
 2. **MyCRA mobile app** -- Same information, just on your phone. Download it from the App Store or Google Play.
-3. **Automated phone line** -- Call 1-800-959-1956 and use the automated system. You'll need your SIN and the exact amount from line 15000 of your return.
+3. **Automated phone line** -- Call 1-800-959-8281 and choose the automated refund option. Have your SIN and your return handy.
 
 CRA updates these tools once your return has been assessed. If you just filed yesterday, give it a few days before checking.
 
@@ -37,7 +38,7 @@ CRA updates these tools once your return has been assessed. If you just filed ye
 
 If you're still getting refund cheques in the mail, you're adding days to your wait. Direct deposit puts the money straight into your bank account the moment CRA releases it.
 
-Set it up in CRA My Account under "Direct deposit." You can also do it through your bank. It takes about five business days to activate, so do it now if you haven't already.
+Set it up in CRA My Account under "Direct deposit." You can also do it through your bank. Set it up before you file if you haven't already.
 
 ## Why Your Refund Might Be Delayed
 
@@ -59,7 +60,7 @@ No refund is coming if your assessment shows a balance owing. Your payment is du
 
 Can't pay the full amount? File your return anyway. The late-filing penalty (5% of what you owe plus 1% per month, up to 12 months) is separate from any interest charges. Filing on time eliminates the penalty even if you can't pay right away.
 
-CRA offers payment arrangements for people who can't pay in full. Call 1-800-959-8281 to set one up. They'll work out a schedule based on what you can afford.
+CRA offers payment arrangements for people who can't pay in full. Call 1-888-863-8657 to set one up. They'll work out a schedule based on what you can afford.
 
 If you're self-employed and aren't sure what you'll owe, use our **[self-employed tax calculator](/self-employed-tax-calculator)** to get a ballpark before filing.
 
@@ -81,7 +82,7 @@ If CRA changes anything on your return later -- say, after a review -- you'll ge
 
 ## File Early, Get Paid Early
 
-The filing deadline is **April 30, 2026**, but nothing stops you from filing today. CRA started accepting 2025 returns in mid-February, and the earlier you file, the sooner your refund arrives.
+The filing deadline is **April 30, 2026**, but nothing stops you from filing today. CRA started accepting 2025 returns online on February 23, 2026, and the earlier you file, the sooner your refund arrives.
 
 Not sure what your refund will look like? **[Use our income tax calculator](/income-tax-calculator)** to estimate your refund in about 30 seconds.
 

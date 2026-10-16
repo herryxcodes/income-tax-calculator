@@ -2,6 +2,7 @@
 title: "Do I Need to File Taxes in Canada? (Yes, Even If You Owe Nothing)"
 description: "Filing unlocks GST/HST credit, Canada Child Benefit, and provincial benefits. Here's who must file, who should file, and why skipping it costs you money."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Tax Basics"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
@@ -32,13 +33,13 @@ This is the bigger group, and it includes a lot of people who don't realize what
 
 ### GST/HST Credit
 
-The GST/HST credit is a quarterly payment for low- and modest-income Canadians. For the 2025 tax year, a single person can receive up to **$519 per year**. Couples can receive more, and it increases with children.
+The GST/HST credit is a quarterly payment for low- and modest-income Canadians. (From July 2026 it is called the Canada Groceries and Essentials Benefit.) Based on your 2025 tax return, a single person can receive up to **$679 per year** from July 2026 to June 2027. Couples can receive more, and it increases with children.
 
 You get it automatically -- but only if you file a return. No return, no payments. CRA uses your reported income to calculate eligibility. If you don't file, they assume you don't exist.
 
 ### Canada Child Benefit (CCB)
 
-If you have kids under 18, the CCB can pay up to **$7,786 per child under 6** and **$6,570 per child aged 6-17** annually for the 2025 benefit year. The amount phases out at higher incomes, but even middle-income families receive something.
+If you have kids under 18, the CCB can pay up to **$8,157 per child under 6** and **$6,883 per child aged 6-17** annually for the July 2026 to June 2027 payment period, which is based on your 2025 return. The amount phases out at higher incomes, but even middle-income families receive something.
 
 Both parents (or the primary caregiver and their spouse) must file returns for the payments to continue. If either person skips filing, CCB payments stop.
 
@@ -47,15 +48,15 @@ Both parents (or the primary caregiver and their spouse) must file returns for t
 Every province has its own credits tied to your tax return:
 
 - **Ontario:** Trillium Benefit (combines energy credit, property tax credit, and sales tax credit)
-- **BC:** Climate Action Tax Credit
-- **Alberta:** Child and Family Benefit, Climate Leadership Adjustment
+- **BC:** BC Family Benefit (the Climate Action Tax Credit ended with its final payment in April 2025)
+- **Alberta:** Alberta Child and Family Benefit
 - **Quebec:** Solidarity Tax Credit
 
-These are real dollars -- often $300-$800 a year depending on your province and situation. But they all require a filed return.
+These are real dollars, and the amounts depend on your province and situation. But they all require a filed return.
 
 ### Canada Workers Benefit (CWB)
 
-If you earned working income between roughly $3,000 and $35,000, the CWB can put up to $1,518 back in your pocket (for single individuals; more for families). It's specifically designed for low-income workers.
+If you earned more than $3,000 of working income and your adjusted net income was under $37,742, the CWB can put up to $1,633 back in your pocket for 2025 (for single individuals; more for families). It's specifically designed for low-income workers.
 
 You claim it on your return. If you don't file, you don't get it.
 
@@ -75,7 +76,7 @@ Even if you worked part-time and earned under the basic personal amount ($16,129
 
 **Tuition tax credits.** If you can't use your tuition credits this year (because you don't owe enough tax), they carry forward to future years when you do. But you have to file to put them on the books.
 
-**Benefit payments.** If you're 19 or older, you qualify for the GST/HST credit. That's up to $519 a year just for filing a return that takes 15 minutes.
+**Benefit payments.** If you're 19 or older, you can qualify for the GST/HST credit. That's up to $679 a year just for filing a return that takes 15 minutes.
 
 ## Zero Income? File Anyway
 

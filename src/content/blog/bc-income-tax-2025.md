@@ -1,32 +1,33 @@
 ---
 title: "BC Income Tax 2025: Brackets, Credits, and How It Compares"
-description: "British Columbia's 7 tax brackets (5.06% to 20.5%), basic personal amount, BC Climate Action Tax Credit, and how BC compares to Alberta and Ontario."
+description: "British Columbia's 7 tax brackets (5.06% to 20.5%), basic personal amount, the end of the BC Climate Action Tax Credit, and how BC compares to Alberta and Ontario."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "British Columbia"
 tagColor: "blue"
 calculatorLink: "/bc-income-tax-calculator"
 draft: false
 ---
 
-British Columbia sits in the middle of the pack for income tax in Canada. Lower than Ontario and Quebec at most income levels, but higher than Alberta. What makes BC unusual is the number of brackets -- seven provincial brackets create a very gradual tax progression that keeps rates relatively low until you hit six figures.
+British Columbia has some of the lowest income tax in Canada for 2025. It's lower than Ontario and Quebec at most income levels, and at most incomes from about $24,000 to $149,000 it's even a little lower than Alberta. What makes BC unusual is the number of brackets -- seven provincial brackets create a very gradual tax progression that keeps rates relatively low until you hit six figures.
 
 Here is how BC income tax works for the 2025 tax year and where you actually land compared to other provinces.
 
 ## BC's 7 Provincial Tax Brackets
 
-BC has more tax brackets than any other province. The graduated structure means your rate increases slowly as your income rises, which benefits middle-income earners more than a system with fewer, wider brackets.
+Only Newfoundland and Labrador has more tax brackets than BC. The graduated structure means your rate increases slowly as your income rises, which benefits middle-income earners more than a system with fewer, wider brackets.
 
 | Taxable Income | BC Rate |
 |---|---|
-| Up to ~$47,937 | 5.06% |
-| $47,937 to ~$95,875 | 7.70% |
-| $95,875 to ~$110,076 | 10.50% |
-| $110,076 to ~$133,664 | 12.29% |
-| $133,664 to ~$181,232 | 14.70% |
-| $181,232 to ~$252,752 | 16.80% |
-| Over ~$252,752 | 20.50% |
+| Up to $49,279 | 5.06% |
+| $49,279 to $98,560 | 7.70% |
+| $98,560 to $113,158 | 10.50% |
+| $113,158 to $137,407 | 12.29% |
+| $137,407 to $186,306 | 14.70% |
+| $186,306 to $259,829 | 16.80% |
+| Over $259,829 | 20.50% |
 
-That starting rate of 5.06% is one of the lowest in Canada. Only Saskatchewan (at 10.5% with a much higher threshold) and Alberta (at 10% with a much higher threshold) structure their first brackets differently enough to compare. The point is that on income under $48,000, BC takes just over five cents on every dollar. Ontario's first bracket rate is 5.05% -- nearly identical -- but Ontario layers on the health premium and surtax at higher levels that BC does not.
+That starting rate of 5.06% is one of the lowest in Canada. (For 2026, BC raised its lowest rate to 5.60%.) Only Saskatchewan (at 10.5% with a much higher threshold) and Alberta (at 8% with a much higher threshold) structure their first brackets differently enough to compare. The point is that on income under about $49,000, BC takes just over five cents on every dollar. Ontario's first bracket rate is 5.05% -- nearly identical -- but Ontario layers on the health premium and surtax at higher levels that BC does not.
 
 **[Calculate your BC tax -->](/bc-income-tax-calculator)**
 
@@ -41,43 +42,44 @@ For context:
 - **Ontario BPA:** $12,747
 - **BC BPA:** $12,932
 
-BC and Ontario are nearly identical here, and both are well below Alberta and the federal amount. If you earn $15,000 in BC, you are paying provincial tax on about $2,068 of that. In Alberta, you would owe nothing provincially on that same income.
+BC and Ontario are nearly identical here, and both are well below Alberta and the federal amount. If you earn $15,000 in BC, about $2,068 of that is above the basic personal amount, although the BC tax reduction (up to $562 for 2025) cancels the provincial tax at that income. In Alberta, you would owe nothing provincially on that same income because of the much larger basic personal amount.
 
 ## No Health Premium
 
-Unlike Ontario, BC does not charge a separate health premium on your tax return. Ontario's health premium adds $300 to $900 to your annual tax bill on incomes above $20,000. BC eliminated its Medical Services Plan (MSP) premiums entirely in 2020, so there is no equivalent charge. Health care is funded through general tax revenue.
+Unlike Ontario, BC does not charge a separate health premium on your tax return. Ontario's health premium adds up to $900 to your annual tax bill on taxable incomes above $20,000. BC eliminated its Medical Services Plan (MSP) premiums entirely in 2020, so there is no equivalent charge. Health care is funded through general tax revenue.
 
 This is a genuine advantage over Ontario, especially in the $50,000 to $100,000 income range where the Ontario Health Premium adds a few hundred dollars on top of the already-comparable income tax rates.
 
 ## BC Climate Action Tax Credit
 
-BC offers a refundable Climate Action Tax Credit paid quarterly to low and moderate-income residents. It is designed to offset the carbon tax on fuel and heating costs.
+BC used to pay a refundable Climate Action Tax Credit quarterly to low and moderate-income residents. It was designed to offset the carbon tax on fuel and heating costs, and it ended when BC eliminated its consumer carbon tax: the April 2025 payment was the final one.
 
-For 2025, the approximate amounts are:
-- **Adults:** up to ~$504 per year
-- **Children:** up to ~$126 per year per child
+For its last benefit year (July 2024 to June 2025), the maximum amounts were:
+- **Adults:** $504 per year
+- **Spouse or common-law partner (or the first child in a single-parent family):** $252 per year
+- **Other children:** $126 per year per child
 
-A family of four with two children could receive roughly $1,260 per year. The credit phases out as family net income increases, disappearing entirely at higher income levels. You do not need to apply separately -- it is calculated from your tax return and paid automatically through the CRA along with the federal GST/HST credit.
+A family of four with two children could receive up to $1,008 for that year. The credit phased out as family net income increased, and it was calculated from your tax return and paid automatically through the CRA along with the federal GST/HST credit.
 
 **[See your BC after-tax income -->](/bc-income-tax-calculator)**
 
 ## How BC Compares to Alberta and Ontario
 
-Here is the approximate total income tax (federal plus provincial) at common salary levels for 2025, assuming employment income with only basic personal amount credits:
+Here is the total income tax (federal plus provincial, including Ontario's health premium) at common salary levels for 2025, for a single employee with no deductions, as our calculator computes it:
 
 **At $75,000:**
-- BC: ~$15,600
-- Alberta: ~$15,100
-- Ontario: ~$16,200
+- BC: $12,100
+- Alberta: $12,645
+- Ontario: $13,069
 
 **At $100,000:**
-- BC: ~$23,500
-- Alberta: ~$22,800
-- Ontario: ~$24,400
+- BC: $19,090
+- Alberta: $20,195
+- Ontario: $20,469
 
-At $75,000, BC is about $500 more than Alberta and $600 less than Ontario. At $100,000, the pattern holds -- BC stays in the middle, roughly $700 more than Alberta and $900 less than Ontario. The difference between BC and Alberta is noticeable but not dramatic at these income levels. The difference between BC and Ontario is more significant, largely because of Ontario's health premium and surtax structure.
+At $75,000, BC is $545 less than Alberta and $969 less than Ontario. At $100,000, the pattern holds -- BC comes out lowest, $1,105 less than Alberta and $1,379 less than Ontario. The difference between BC and Alberta is noticeable but not dramatic at these income levels. The difference between BC and Ontario is more significant, largely because of Ontario's health premium and surtax structure.
 
-At very high incomes, the picture shifts. BC's top combined marginal rate (federal 33% plus BC 20.5%) reaches approximately 53.5% on income over $252,752. That is essentially the same as Ontario's top combined rate of about 53.53%. So at the top end, BC and Ontario converge, and both are well above Alberta's top combined rate of roughly 48%.
+At very high incomes, the picture shifts. BC's top combined marginal rate (federal 33% plus BC 20.5%) reaches approximately 53.5% on income over $259,829. That is essentially the same as Ontario's top combined rate of about 53.53%. So at the top end, BC and Ontario converge, and both are well above Alberta's top combined rate of roughly 48%.
 
 ## PST Is Separate from Income Tax
 

@@ -2,21 +2,22 @@
 title: "Gig Worker Taxes 2025: Uber, DoorDash, Etsy, and Airbnb"
 description: "Digital platforms now report your income directly to CRA. What this means for Uber drivers, DoorDash couriers, Etsy sellers, and Airbnb hosts filing their 2025 taxes."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Gig Workers"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
 draft: false
 ---
 
-CRA already knows what you earned. Starting in 2024, digital platforms like Uber, DoorDash, Lyft, Etsy, and Airbnb began reporting seller and driver income directly to the Canada Revenue Agency under new OECD-aligned reporting rules. If you earned money through any of these platforms in 2025, that information has been shared with CRA before you even start your tax return.
+CRA already knows what you earned. Starting with the 2024 calendar year, digital platforms like Uber, DoorDash, Lyft, Etsy, and Airbnb must report seller and driver income directly to the Canada Revenue Agency under new OECD-aligned reporting rules (the first reports were due January 31, 2025). If you earned money through any of these platforms in 2025, that information has been shared with CRA before you even start your tax return.
 
 The days of quietly underreporting gig income are over. Here's exactly how your taxes work as a gig worker in Canada and what you can deduct to reduce the bill.
 
 ## You're Self-Employed, Not an Employee
 
-Every gig worker -- whether you drive for Uber, deliver for DoorDash, sell on Etsy, or rent on Airbnb -- is classified as **self-employed** for tax purposes. You're running a sole proprietorship, even if it doesn't feel like it.
+Every gig worker -- whether you drive for Uber, deliver for DoorDash, or sell on Etsy -- is classified as **self-employed** for tax purposes. You're running a sole proprietorship, even if it doesn't feel like it.
 
-That means you report your income and expenses on **form T2125** (Statement of Business or Professional Activities), which gets filed as part of your personal tax return.
+That means you report your income and expenses on **form T2125** (Statement of Business or Professional Activities), which gets filed as part of your personal tax return. (Airbnb hosts who provide only the accommodation usually earn rental income instead, which goes on Form T776, Statement of Real Estate Rentals. Hosts who add services such as meals or cleaning during the stay may be running a business.)
 
 **[Estimate your self-employment tax bill →](/self-employed-tax-calculator)**
 
@@ -93,13 +94,13 @@ Regardless of platform, these expenses typically apply:
 - Accounting and tax preparation software
 - Bank fees on a business account
 
-Keep every receipt. CRA can audit your returns going back **six years**, and they'll want documentation for any expense you've claimed.
+Keep every receipt. CRA generally requires you to keep your records for **six years** from the end of the tax year they relate to, and they'll want documentation for any expense you've claimed.
 
 ## GST/HST: When You Need to Register
 
 If your gross gig revenue exceeds **$30,000 in any four consecutive calendar quarters**, you must register for a GST/HST account and start charging and remitting tax.
 
-There's an exception for ride-sharing. **Uber and Lyft drivers** should register for GST/HST **regardless of how much they earn**. CRA considers ride-sharing a "taxable supply," so you need a GST/HST number from your first ride. The good news is that Uber and Lyft handle the collection and remittance on your behalf, but you still need to be registered, and you can claim input tax credits on your business expenses.
+There's an exception for ride-sharing. **Uber and Lyft drivers** should register for GST/HST **regardless of how much they earn**. CRA considers ride-sharing a "taxable supply," so you need a GST/HST number from your first ride. A ride-sharing company you authorize may take care of some of these obligations for you (registering, collecting, and remitting), so check what your platform does. Either way, you can claim input tax credits on your business expenses.
 
 **Food delivery** through DoorDash, SkipTheDishes, and similar platforms is treated differently. You generally don't need to collect GST/HST on delivery fees unless your total revenue crosses the $30,000 threshold.
 
@@ -112,7 +113,7 @@ Under the new reporting rules, platforms send CRA details about each seller or s
 - Your name and address
 - Your tax identification number (SIN or business number)
 - Total gross revenue paid to you during the year
-- Number of transactions
+- Any fees or commissions the platform withheld
 
 This information gets matched against your tax return. If the income you report is significantly lower than what the platform reported, expect a letter from CRA -- or an adjustment to your return.
 

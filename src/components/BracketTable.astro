@@ -1,0 +1,25 @@
+---
+import type { TaxBracket } from "../data/tax-rates/types";
+import { formatRate } from "../lib/tax-engine";
+
+interface Props {
+  brackets: TaxBracket[];
+  rateHeading?: string;
+}
+const { brackets, rateHeading = "Rate" } = Astro.props;
+const money = (n: number) => `$${n.toLocaleString("en-CA")}`;
+---
+
+<table>
+  <thead>
+    <tr><th>Taxable income</th><th>{rateHeading}</th></tr>
+  </thead>
+  <tbody>
+    {brackets.map((b) => (
+      <tr>
+        <td>{b.max === Infinity ? `Over ${money(b.min)}` : b.min === 0 ? `Up to ${money(b.max)}` : `${money(b.min)} to ${money(b.max)}`}</td>
+        <td>{formatRate(b.rate)}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

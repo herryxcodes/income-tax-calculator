@@ -1,0 +1,156 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import BracketTable from "../components/BracketTable.astro";
+import { TAX_YEARS, formatPercent, formatRate, topMarginalRate, type TaxYearData } from "../lib/tax-engine";
+
+export function getStaticPaths() {
+  return TAX_YEARS.map((data) => ({ params: { year: String(data.year) }, props: { data } }));
+}
+
+const { data } = Astro.props as { data: TaxYearData };
+const { year, federal, cpp, qpp, ei, eiQuebec, qpip, limits, dates } = data;
+const money = (n: number) => `$${n.toLocaleString("en-CA", { maximumFractionDigits: 2 })}`;
+const longDate = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" });
+const employeeMax = (p: typeof cpp) => (p.ympe - p.basicExemption) * (p.baseRate + p.firstAdditionalRate);
+const cpp2Max = (p: typeof cpp) => (p.yampe - p.ympe) * p.secondAdditionalRate;
+const projected = data.status === "projected";
+
+const title = `${year} Canadian Tax Brackets and Rates: Federal, All Provinces, CPP and EI | CalcTax`;
+const description = `Every ${year} Canadian tax number in one place: federal and provincial brackets, basic personal amounts, top marginal rates, CPP/QPP, EI, QPIP, RRSP, TFSA and FHSA limits, and deadlines.${projected ? " Includes projected figures." : ""}`;
+const otherYears = TAX_YEARS.filter((y) => y.year !== year);
+---
+
+<Base title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro
+      title={`${year} Canadian tax rates and brackets`}
+      lede={`Federal and provincial brackets, credits, payroll contributions and limits for the ${year} tax year. These are the numbers the calculators use.`}
+      crumbs={[{ label: `${year} tax data` }]}
+    >
+      <p class="mt-4 text-[0.95rem] text-ink-2">
+        Other years:{" "}
+        {otherYears.map((y, i) => (
+          <>{i > 0 && ", "}<a class="text-brand underline" href={`/${y.year}-canadian-tax-data`}>{y.year}{y.status === "projected" ? " (projected)" : ""}</a></>
+        ))}
+      </p>
+    </PageIntro>
+
+    {projected && (
+      <p class="mt-6 max-w-3xl border-l-4 border-l-provincial pl-4 text-ink">
+        <strong>Some {year} figures are projections.</strong> {data.statusNote}
+      </p>
+    )}
+
+    <div class="mt-12 grid gap-12 lg:grid-cols-[14rem_1fr]">
+      <nav aria-label="On this page" class="hidden lg:block">
+        <ul class="sticky top-24 space-y-2 text-[0.95rem] text-ink-2">
+          <li><a class="hover:text-brand" href="#federal">Federal</a></li>
+          <li><a class="hover:text-brand" href="#provinces">Provinces and territories</a></li>
+          <li><a class="hover:text-brand" href="#cpp">CPP and QPP</a></li>
+          <li><a class="hover:text-brand" href="#ei">EI and QPIP</a></li>
+          <li><a class="hover:text-brand" href="#limits">RRSP, TFSA and FHSA</a></li>
+          <li><a class="hover:text-brand" href="#dates">Deadlines</a></li>
+        </ul>
+      </nav>
+
+      <div class="prose max-w-[72ch]">
+        <h2 id="federal" class="!mt-0">Federal</h2>
+        <BracketTable brackets={federal.brackets} rateHeading="Federal rate" />
+        <table>
+          <tbody>
+            <tr><td>Basic personal amount</td><td>{money(federal.bpa.max)}, reduced to {money(federal.bpa.min)} between net income of {money(federal.bpa.phaseOutStart)} and {money(federal.bpa.phaseOutEnd)}</td></tr>
+            <tr><td>Credit rate</td><td>{formatRate(federal.creditRate)}</td></tr>
+            <tr><td>Canada employment amount</td><td>{money(federal.canadaEmploymentAmount)}</td></tr>
+            <tr><td>Dividend tax credit</td><td>{formatRate(federal.dividendCredit.eligible)} of grossed-up eligible dividends, {formatRate(federal.dividendCredit.nonEligible)} of grossed-up other dividends</td></tr>
+            <tr><td>Dividend gross-up</td><td>{formatRate(data.dividendGrossUp.eligible)} eligible, {formatRate(data.dividendGrossUp.nonEligible)} other</td></tr>
+            <tr><td>Capital gains inclusion rate</td><td>{formatRate(data.capitalGainsInclusionRate)}</td></tr>
+            <tr><td>Quebec abatement</td><td>{formatRate(federal.quebecAbatement)} of basic federal tax</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="provinces">Provinces and territories</h2>
+        <p>
+          Each province's non-refundable credits are worth its credit rate times the amount claimed. Top combined rates
+          include federal tax, surtaxes and the Quebec abatement.
+        </p>
+        {data.provinces.map((p) => (
+          <section>
+            <h3 id={p.slug}>{p.name}</h3>
+            <BracketTable brackets={p.brackets} rateHeading={`${p.abbreviation} rate`} />
+            <table>
+              <tbody>
+                <tr><td>Basic personal amount</td><td>{money(p.basicPersonalAmount)}{p.bpaPhaseOut ? `, reduced to ${money(p.bpaPhaseOut.reducedAmount)} between ${money(p.bpaPhaseOut.start)} and ${money(p.bpaPhaseOut.end)} of net income` : ""}</td></tr>
+                <tr><td>Credit rate</td><td>{formatRate(p.creditRate)}</td></tr>
+                {p.surtax && <tr><td>Surtax</td><td>{p.surtax.map((s) => `${formatRate(s.rate)} of provincial tax over ${money(s.threshold)}`).join("; ")}</td></tr>}
+                {p.lowIncomeReduction && <tr><td>Low-income reduction</td><td>Up to {money(p.lowIncomeReduction.base)}, reduced by {formatRate(p.lowIncomeReduction.phaseOutRate)} of net income over {money(p.lowIncomeReduction.threshold)}</td></tr>}
+                {p.ontario && <tr><td>Ontario tax reduction</td><td>Basic amount {money(p.ontario.taxReductionBasic)}</td></tr>}
+                {p.ontario && <tr><td>Ontario Health Premium</td><td>$0 to $900, on taxable income over $20,000</td></tr>}
+                {p.quebec && <tr><td>Deduction for workers</td><td>{formatRate(p.quebec.workerDeduction.rate)} of work income, up to {money(p.quebec.workerDeduction.max)}</td></tr>}
+                <tr><td>Dividend tax credit</td><td>{formatRate(p.dividendCredit.eligible)} eligible, {formatRate(p.dividendCredit.nonEligible)} other</td></tr>
+                <tr><td>Top combined rate</td><td>{formatPercent(topMarginalRate(p.slug, year))}</td></tr>
+              </tbody>
+            </table>
+            {p.notes?.map((n) => <p>{n}</p>)}
+            <p><a href={`/${p.slug}-income-tax-calculator`}>{p.name} income tax calculator</a></p>
+          </section>
+        ))}
+
+        <h2 id="cpp">CPP and QPP</h2>
+        <table>
+          <thead><tr><th></th><th>CPP</th><th>QPP (Quebec)</th></tr></thead>
+          <tbody>
+            <tr><td>Maximum pensionable earnings</td><td>{money(cpp.ympe)}</td><td>{money(qpp.ympe)}</td></tr>
+            <tr><td>Basic exemption</td><td>{money(cpp.basicExemption)}</td><td>{money(qpp.basicExemption)}</td></tr>
+            <tr><td>Employee rate</td><td>{formatRate(cpp.baseRate + cpp.firstAdditionalRate)}</td><td>{formatRate(qpp.baseRate + qpp.firstAdditionalRate)}</td></tr>
+            <tr><td>Self-employed rate</td><td>{formatRate(2 * (cpp.baseRate + cpp.firstAdditionalRate))}</td><td>{formatRate(2 * (qpp.baseRate + qpp.firstAdditionalRate))}</td></tr>
+            <tr><td>Maximum employee contribution</td><td>{money(employeeMax(cpp))}</td><td>{money(employeeMax(qpp))}</td></tr>
+            <tr><td>Second ceiling (CPP2/QPP2)</td><td>{money(cpp.yampe)}</td><td>{money(qpp.yampe)}</td></tr>
+            <tr><td>CPP2/QPP2 employee rate</td><td>{formatRate(cpp.secondAdditionalRate)}</td><td>{formatRate(qpp.secondAdditionalRate)}</td></tr>
+            <tr><td>Maximum CPP2/QPP2 employee contribution</td><td>{money(cpp2Max(cpp))}</td><td>{money(cpp2Max(qpp))}</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="ei">EI and QPIP</h2>
+        <table>
+          <thead><tr><th></th><th>Outside Quebec</th><th>Quebec</th></tr></thead>
+          <tbody>
+            <tr><td>EI maximum insurable earnings</td><td>{money(ei.maxInsurableEarnings)}</td><td>{money(eiQuebec.maxInsurableEarnings)}</td></tr>
+            <tr><td>EI employee rate</td><td>{formatRate(ei.employeeRate)}</td><td>{formatRate(eiQuebec.employeeRate)}</td></tr>
+            <tr><td>EI maximum premium</td><td>{money(Math.round(ei.maxInsurableEarnings * ei.employeeRate * 100) / 100)}</td><td>{money(Math.round(eiQuebec.maxInsurableEarnings * eiQuebec.employeeRate * 100) / 100)}</td></tr>
+            <tr><td>QPIP maximum insurable earnings</td><td>Not applicable</td><td>{money(qpip.maxInsurableEarnings)}</td></tr>
+            <tr><td>QPIP employee / self-employed rate</td><td>Not applicable</td><td>{formatRate(qpip.employeeRate)} / {formatRate(qpip.selfEmployedRate)}</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="limits">RRSP, TFSA and FHSA</h2>
+        <table>
+          <tbody>
+            <tr><td>RRSP dollar limit</td><td>{money(limits.rrsp)} (or 18% of last year's earned income, if less), deadline {longDate(dates.rrspDeadline)}</td></tr>
+            <tr><td>TFSA annual limit</td><td>{money(limits.tfsa)}</td></tr>
+            <tr><td>FHSA</td><td>{money(limits.fhsaAnnual)} a year, up to {money(limits.fhsaCarryForwardMax)} carried forward, {money(limits.fhsaLifetime)} lifetime</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="dates">Deadlines for the {year} tax year</h2>
+        <table>
+          <tbody>
+            <tr><td>RRSP contributions deductible for {year}</td><td>{longDate(dates.rrspDeadline)}</td></tr>
+            <tr><td>File your return and pay any balance</td><td>{longDate(dates.filingDeadline)}</td></tr>
+            <tr><td>Self-employed filing deadline</td><td>{longDate(dates.selfEmployedDeadline)} (balance still due {longDate(dates.balanceDue)})</td></tr>
+          </tbody>
+        </table>
+
+        {data.sources.length > 0 && (
+          <>
+            <h2>Sources</h2>
+            <ul>
+              {data.sources.map((s) => <li><a href={s} rel="noopener">{s.replace(/^https?:\/\//, "")}</a></li>)}
+            </ul>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+</Base>

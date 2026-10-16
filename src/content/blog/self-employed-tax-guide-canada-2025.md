@@ -2,6 +2,7 @@
 title: "Self-Employed Tax Guide Canada 2025: CPP, Deductions, and Deadlines"
 description: "Everything self-employed Canadians need to know about taxes in 2025. Both halves of CPP (11.9%), deductible expenses, GST/HST registration, and filing deadlines."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Self-Employed"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
@@ -20,7 +21,7 @@ That means your total CPP contribution rate is **11.9%** on net self-employment 
 
 On top of that, the enhanced CPP2 applies at a combined rate of **8%** on earnings between $71,300 and $81,200. If your net self-employment income hits $81,200 or above, you are paying the maximum CPP and CPP2 contributions.
 
-The one piece of good news: the employer half of your CPP contribution (5.95%) is deductible against your income. It reduces your taxable income, which lowers the overall hit. The employee half is claimed as a non-refundable tax credit.
+The one piece of good news: the employer half of your CPP and CPP2 contributions is deductible against your income, and so is the enhanced part of your own half (the 1% first additional contribution and your half of CPP2). That reduces your taxable income, which lowers the overall hit. The rest of your own half -- the 4.95% base portion -- is claimed as a non-refundable tax credit.
 
 **[See your CPP breakdown -->](/self-employed-tax-calculator)**
 
@@ -44,7 +45,7 @@ Here are the most common deductions for self-employed Canadians:
 
 - **Advertising and marketing** -- Website hosting, domain registration, online ads, business cards, and promotional materials.
 
-- **Office supplies and equipment** -- Supplies can be expensed directly. For equipment under $500, you can generally expense it in full. Items over $500 typically need to be capitalized and depreciated over multiple years using CCA (Capital Cost Allowance) classes.
+- **Office supplies and equipment** -- Supplies can be expensed directly. Tools, kitchen utensils, and medical or dental instruments that cost less than $500 can be written off in full (CCA Class 12). Most other equipment, and tools costing $500 or more, needs to be capitalized and depreciated over multiple years using CCA (Capital Cost Allowance) classes.
 
 - **Business insurance** -- Liability insurance, errors and omissions coverage, and other policies related to your work.
 
@@ -76,7 +77,7 @@ Use our [self-employed tax calculator](/self-employed-tax-calculator) to estimat
 
 ## Quarterly Tax Installments
 
-If you owe more than **$3,000 in net tax** for the current year (or either of the two preceding years), the CRA expects you to make quarterly instalment payments. The due dates are:
+If your net tax owing is more than **$3,000** ($1,800 in Quebec) for the current year **and** for either of the two preceding years, the CRA expects you to make quarterly instalment payments. The due dates are:
 
 - **March 15**
 - **June 15**
@@ -89,7 +90,7 @@ First-year self-employed individuals typically do not need to worry about instal
 
 ## Gig Worker Reporting: CRA Already Knows
 
-Starting with the 2025 tax year, digital platforms including Uber, DoorDash, Etsy, Airbnb, and similar services are required to report your earnings directly to the CRA.
+Since the 2024 calendar year, digital platforms including Uber, DoorDash, Etsy, Airbnb, and similar services have been required to report your earnings directly to the CRA (reports on 2025 income were due January 31, 2026).
 
 This does not change your tax obligations -- gig income has always been taxable. But it does mean the CRA now has an independent record of what you earned. If there is a discrepancy between what the platform reports and what you file, expect to hear from them.
 
@@ -105,7 +106,7 @@ You can also compare your total tax burden as a self-employed individual against
 
 ### Do I need to incorporate?
 
-Not necessarily. Many self-employed Canadians operate as sole proprietors for years without incorporating. Incorporation makes sense when your business income consistently exceeds what you need for personal spending -- roughly when you are earning over $150,000 to $200,000 and can leave a significant portion inside the corporation to benefit from the small business tax rate (currently 12.2% combined federal-provincial on the first $500,000 of active business income in most provinces). It also provides liability protection. But incorporation adds accounting complexity and cost. For most freelancers and gig workers earning under six figures, a sole proprietorship is simpler and equally tax-efficient.
+Not necessarily. Many self-employed Canadians operate as sole proprietors for years without incorporating. Incorporation makes sense when your business income consistently exceeds what you need for personal spending -- roughly when you are earning over $150,000 to $200,000 and can leave a significant portion inside the corporation to benefit from the small business tax rate (the federal rate is 9% on the first $500,000 of active business income, plus a lower provincial rate that varies by province -- for example, 12.2% combined in Ontario for 2025, and 11.2% after Ontario cut its rate to 2.2% on July 1, 2026). It also provides liability protection. But incorporation adds accounting complexity and cost. For most freelancers and gig workers earning under six figures, a sole proprietorship is simpler and equally tax-efficient.
 
 ### How much should I set aside for taxes?
 

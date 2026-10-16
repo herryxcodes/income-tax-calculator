@@ -2,6 +2,7 @@
 title: "RRSP vs TFSA vs FHSA: Which Account Should You Prioritize in 2025?"
 description: "Decision framework based on your income, tax rate, and goals. FHSA wins for first-time home buyers. RRSP wins at high income. TFSA wins for flexibility."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Savings Accounts"
 tagColor: "green"
 calculatorLink: "/rrsp-calculator"
@@ -37,11 +38,11 @@ If you don't end up buying a home, you can transfer the FHSA balance to your RRS
 
 The RRSP's value is directly tied to the gap between your current tax rate and your expected tax rate in retirement. The wider that gap, the more you benefit.
 
-At $100,000 of income in Ontario, your marginal rate is about 43.41%. A $10,000 [RRSP contribution](/rrsp-calculator) saves you $4,341 in tax right now. If you withdraw that $10,000 in retirement when your income is $45,000 (marginal rate around 29.65%), you'll pay roughly $2,965 in tax. Net benefit: about $1,376 in permanent tax savings, plus decades of tax-deferred growth.
+At a $100,000 salary in Ontario, your marginal rate is 31.48%. A $10,000 [RRSP contribution](/rrsp-calculator) saves you $3,026 in tax right now. If you withdraw that $10,000 in retirement when your other income is $45,000 (marginal rate 19.55% at 2025 rates), you'll pay about $2,192 in tax on it. Net benefit: about $834 in permanent tax savings, plus decades of tax-deferred growth.
 
-At $150,000, the math gets even better. Your marginal rate is around 46.41%, so $10,000 into the RRSP saves you $4,641 upfront.
+At $150,000, the math gets even better. Your marginal rate is 43.41%, so $10,000 into the RRSP saves you $4,341 upfront.
 
-The RRSP also reduces your net income, which can affect income-tested benefits and tax credits. This matters if you're near thresholds for things like the Canada Child Benefit or the OAS clawback (which starts at $90,997 in net income for 2025).
+The RRSP also reduces your net income, which can affect income-tested benefits and tax credits. This matters if you're near thresholds for things like the Canada Child Benefit or the OAS clawback (which starts at $93,454 in net income for 2025).
 
 The 2025 RRSP dollar limit is [$32,490](/rrsp-calculator). Your actual room might be higher or lower depending on carry-forward amounts and pension adjustments.
 
@@ -55,7 +56,7 @@ For 2025, the annual limit is $7,000. If you've been eligible since the TFSA lau
 
 The TFSA shines in a few specific situations:
 
-**Lower income years.** If you're earning $50,000 in Ontario, your marginal rate is about 29.65%. The RRSP deduction saves you less per dollar at this rate. Meanwhile, TFSA growth and withdrawals are completely free of tax forever, regardless of what your future income looks like.
+**Lower income years.** If you're earning $50,000 in Ontario, your marginal rate is about 24.55%. The RRSP deduction saves you less per dollar at this rate. Meanwhile, TFSA growth and withdrawals are completely free of tax forever, regardless of what your future income looks like.
 
 **Retirement income planning.** TFSA withdrawals don't count as income for purposes of OAS, GIS, or the age credit. If you're worried about clawbacks, the TFSA is your best friend.
 
@@ -74,7 +75,7 @@ The TFSA shines in a few specific situations:
 3. RRSP with whatever's left
 
 **You're not buying a home and earn over $100,000:**
-1. RRSP first (43%+ marginal rate makes the deduction very valuable)
+1. RRSP first (a marginal rate above 31% makes the deduction very valuable)
 2. TFSA second
 3. If both are maxed, look into non-registered investing
 
@@ -88,7 +89,7 @@ Always, always take the match first. An employer match is a 100% guaranteed retu
 
 ## The Crossover Point
 
-At roughly $50,000 of employment income in Ontario, the marginal tax rate sits around 29.65%. This is where the RRSP and TFSA are roughly equal in long-term value, assuming your retirement withdrawal rate is similar. Below this income, the TFSA generally wins. Above it, the RRSP pulls ahead.
+At roughly $50,000 of employment income in Ontario, the marginal tax rate sits around 24.55%. This is where the RRSP and TFSA are roughly equal in long-term value, assuming your retirement withdrawal rate is similar. Below this income, the TFSA generally wins. Above it, the RRSP pulls ahead.
 
 But this is a rule of thumb, not a law. Your personal situation — expected retirement income, province of residence, eligibility for benefits — can shift the math. Run the numbers through an [income tax calculator](/income-tax-calculator) with different scenarios before committing to a strategy.
 

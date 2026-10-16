@@ -2,6 +2,7 @@
 title: "9 Tax Changes for 2025 That Affect Your Return"
 description: "Federal rate cut to 14.5%, capital gains increase cancelled, CPP2 second ceiling, new gig worker reporting rules, and more changes for the 2025 Canadian tax year."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Tax Season 2025"
 tagColor: "red"
 calculatorLink: "/income-tax-calculator"
@@ -14,7 +15,7 @@ The 2025 tax year brings a mix of welcome relief and new obligations for Canadia
 
 The biggest headline of the year: the lowest federal income tax bracket dropped from 15% to 14% under Bill C-4, effective July 1, 2025. Because the change took effect mid-year, the blended rate for the 2025 tax year works out to 14.5%.
 
-Every Canadian with taxable income benefits. For most filers, the savings land in the range of several hundred dollars. Higher earners benefit too, since the reduced rate applies to the first bracket of everyone's income.
+Every Canadian with taxable income benefits. For 2025 the savings are modest: because the cut covers only the first $57,375 of income and non-refundable credits are now also calculated at 14.5%, the federal saving tops out at about $185 (an employee earning $50,000 saves about $144). Higher earners benefit too, since the reduced rate applies to the first bracket of everyone's income.
 
 Want to see the impact on your specific situation? Run the numbers with our [income tax calculator](/income-tax-calculator).
 
@@ -38,7 +39,7 @@ This means the first ceiling for standard CPP contributions is higher, and both 
 
 ## 5. EI Maximum Insurable Earnings
 
-Employment Insurance maximum insurable earnings rose to $65,700, up from $63,200 in 2024. The employee premium rate is 1.64%, or 1.32% for workers in Quebec who also contribute to the QPIP.
+Employment Insurance maximum insurable earnings rose to $65,700, up from $63,200 in 2024. The employee premium rate is 1.64%, or 1.31% for workers in Quebec who also contribute to the QPIP.
 
 The increase is modest, but it does mean slightly higher EI premiums for those earning above the previous threshold. Employers pay 1.4 times the employee rate.
 
@@ -56,7 +57,7 @@ A key feature many overlook is the carry-forward provision. If you opened an acc
 
 ## 8. New Gig Worker Reporting Rules
 
-Starting with the 2025 tax year, digital platforms such as Uber, DoorDash, Etsy, and Airbnb are required to report seller and driver income directly to the CRA. Previously, this income was entirely self-reported.
+Digital platforms such as Uber, DoorDash, Etsy, and Airbnb are now required to report seller and driver income directly to the CRA. The rules took effect for the 2024 calendar year, with the first reports due January 31, 2025; reports on 2025 income were due January 31, 2026. Previously, this income was entirely self-reported.
 
 The change does not create a new tax obligation -- gig income has always been taxable. But the CRA now has a clear data trail, which means unreported income is far more likely to trigger a reassessment. If you earn through any platform, keep thorough records of both income and deductible expenses. Our [self-employed tax calculator](/self-employed-tax-calculator) can help you estimate what you owe.
 
@@ -64,7 +65,7 @@ The change does not create a new tax obligation -- gig income has always been ta
 
 The basic personal amount -- the amount of income every Canadian can earn before owing federal tax -- increased to $16,129 for 2025, up from $15,705 in 2024.
 
-The $424 increase translates to roughly $60 in additional tax savings at the new 14% bottom rate. It is a small amount on its own, but combined with the rate cut in item one, lower-income Canadians see a meaningful reduction in their federal tax bill.
+The $424 increase is worth about $61 at the 2025 credit rate of 14.5%. Because the credit rate itself fell from 15% to 14.5%, the credit is worth about the same as in 2024 ($2,339 versus $2,356), but combined with the rate cut in item one, lower-income Canadians still see a reduction in their federal tax bill.
 
 ## What This Means for Your 2025 Return
 

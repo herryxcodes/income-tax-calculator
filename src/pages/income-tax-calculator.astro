@@ -1,100 +1,39 @@
 ---
 import Base from "../layouts/Base.astro";
 import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.svelte";
+import IncomeTaxExplainer from "../components/IncomeTaxExplainer.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { DEFAULT_TAX_YEAR } from "../lib/tax-engine";
+
+const title = `Income Tax Calculator Canada ${DEFAULT_TAX_YEAR} — Federal + Provincial | CalcTax`;
+const description = `Free ${DEFAULT_TAX_YEAR} Canadian income tax calculator. Federal and provincial tax, CPP, EI, RRSP and FHSA deductions, investment income, and a comparison of all 13 provinces. No signup.`;
 ---
 
-<Base
-  title="Free Income Tax Calculator Canada 2025 — Federal + Provincial | CalcTax"
-  description="Free 2025 Canadian income tax calculator. See your federal and provincial tax, CPP, EI, RRSP savings, and compare all 13 provinces. No signup required."
->
-  <div class="max-w-6xl mx-auto px-4 py-12">
-    <div class="mb-14">
-      <div class="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 animate-fade-up border border-teal-100" style="animation-delay: 0s">
-        <span class="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></span>
-        2025 Tax Year
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
-        Canada Income Tax Calculator
-      </h1>
-      <p class="text-lg text-slate-500 max-w-xl leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
-        Estimate your federal and provincial income tax in seconds.
-        Compare all 13 provinces. 100% private — your data never leaves your browser.
-      </p>
+<Base title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro
+      title="Income tax calculator"
+      lede="Add RRSP and FHSA deductions, side income, capital gains and dividends, then compare every province."
+    />
+    <div class="mt-8">
+      <IncomeTaxCalculator client:load />
     </div>
-
-    <IncomeTaxCalculator client:load />
-
-    <section class="mt-16 max-w-3xl mx-auto prose">
-      <h2>How Canadian Income Tax Works</h2>
-      <p>
-        Canada uses a <strong>progressive tax system</strong> where your income is taxed at
-        increasingly higher rates as it increases. You pay both federal tax and provincial/territorial
-        tax, each with their own set of brackets and rates.
-      </p>
-
-      <h2>2025 Federal Tax Brackets</h2>
-      <table>
-        <thead>
-          <tr><th>Taxable Income</th><th>Rate</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>$0 – $57,375</td><td>14.5%</td></tr>
-          <tr><td>$57,375 – $114,750</td><td>20.5%</td></tr>
-          <tr><td>$114,750 – $177,882</td><td>26%</td></tr>
-          <tr><td>$177,882 – $253,414</td><td>29%</td></tr>
-          <tr><td>Over $253,414</td><td>33%</td></tr>
-        </tbody>
-      </table>
-      <p class="text-sm">
-        The lowest bracket rate is a blended 14.5% for 2025 — the rate was 15% for
-        the first half of the year and 14% for the second half (reduced by Bill C-4,
-        effective July 1, 2025).
-      </p>
-      <p>The federal basic personal amount for 2025 is <strong>$16,129</strong> — you pay no federal tax on the first $16,129 of income.</p>
-
-      <h2>What This Calculator Includes</h2>
-      <ul>
-        <li><strong>Federal income tax</strong> — all 5 brackets for 2025</li>
-        <li><strong>Provincial income tax</strong> — all 13 provinces and territories</li>
-        <li><strong>CPP/QPP contributions</strong> — including enhanced contributions on higher earnings</li>
-        <li><strong>EI premiums</strong> — reduced rate for Quebec</li>
-        <li><strong>RRSP deductions</strong> — see your tax savings from RRSP contributions</li>
-        <li><strong>FHSA deductions</strong> — First Home Savings Account ($8,000/year)</li>
-        <li><strong>Capital gains</strong> — 50% inclusion rate applied automatically</li>
-        <li><strong>Dividend income</strong> — eligible and ineligible with gross-up and tax credits</li>
-      </ul>
-
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>How much tax do I pay on $75,000 in Canada?</h3>
-      <p>
-        On $75,000 of employment income in Ontario for 2025, you would pay approximately
-        $12,700 in combined federal and provincial income tax, plus about $4,100 in CPP and
-        EI contributions, for a total tax of roughly $16,800 and an effective rate of about 22.4%.
-        Use the calculator above to see your exact number based on your province.
-      </p>
-
-      <h3>Which province has the lowest income tax?</h3>
-      <p>
-        Nunavut generally has the lowest provincial income tax rates, followed by Alberta
-        (which has the highest basic personal amount at $22,323). Use the "Compare All Provinces"
-        feature above to see the exact difference for your income level.
-      </p>
-
-      <h3>Is my data safe?</h3>
-      <p>
-        Yes. All calculations happen in your browser using JavaScript. No data is ever sent to
-        our servers or any third party.
-      </p>
-
-      <h2>Tax Guides</h2>
-      <ul>
-        <li><a href="/blog/2025-canadian-tax-brackets">2025 Canadian Tax Brackets</a> — complete federal and provincial rate tables</li>
-        <li><a href="/blog/how-much-tax-on-salary-canada">How Much Tax on $50K–$200K?</a> — pre-calculated breakdowns by salary</li>
-        <li><a href="/blog/9-tax-changes-2025">9 Tax Changes for 2025</a> — rate cuts, CPP2, and what's new</li>
-        <li><a href="/blog/2025-tax-deadline-canada">2025 Tax Deadline Canada</a> — key dates and late filing penalties</li>
-        <li><a href="/blog/self-employed-tax-guide-canada-2025">Self-Employed Tax Guide</a> — both halves of CPP, deductions, and deadlines</li>
-      </ul>
-    </section>
+    <div class="mt-24">
+      <IncomeTaxExplainer />
+    </div>
   </div>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: `Income Tax Calculator Canada ${DEFAULT_TAX_YEAR}`,
+      url: "https://calctax.ca/income-tax-calculator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
+      description,
+    })}
+  />
 </Base>

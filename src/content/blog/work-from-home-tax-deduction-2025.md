@@ -2,6 +2,7 @@
 title: "Work From Home Tax Deduction 2025: The Flat-Rate Method Is Gone"
 description: "The $2/day flat-rate method ended after 2022. For 2025, you must use the detailed method with a T2200 from your employer. Here's how it works."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Tax Basics"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
@@ -37,7 +38,7 @@ Here's what the CRA allows under the detailed method, all proportional to your w
 - **Office supplies** -- items consumed during the year (pens, paper, printer ink)
 - **Phone** -- the employment-use portion of your phone bill
 
-And here's what you **cannot** deduct:
+And here's what you **cannot** deduct as a salaried employee (commission employees can also claim a share of property taxes and home insurance):
 
 - Mortgage interest or principal payments
 - Property taxes
@@ -65,7 +66,7 @@ A dedicated room with a door that you use exclusively for work gives you the cle
 
 ## How to File the Claim
 
-You report your work-from-home expenses on Form T777 (Statement of Employment Expenses) or T777S. Attach the details to your return, and keep your T2200 on file -- you don't submit it with your return, but the CRA can ask for it at any time.
+You report your work-from-home expenses on Form T777 (Statement of Employment Expenses). The simplified Form T777S was only for 2020, 2021, and 2022. Attach the details to your return, and keep your T2200 on file -- you don't submit it with your return, but the CRA can ask for it at any time.
 
 Keep all receipts. Utility bills, rent receipts, internet invoices, office supply purchases. If you're audited, the CRA will want to see everything. Digital copies are fine. Just make sure they're organized and accessible.
 
@@ -79,7 +80,7 @@ Keep all receipts. Utility bills, rent receipts, internet invoices, office suppl
 
 **Forgetting to prorate shared spaces.** If your workspace doubles as a dining room, you need to account for that.
 
-**Not claiming at all.** Many employees who work from home two or three days a week don't realize they qualify. If you hit the 50%-for-four-weeks threshold, it's worth doing the calculation. Even a $1,000 deduction saves you $300 to $500 in tax depending on your marginal rate.
+**Not claiming at all.** Many employees who work from home two or three days a week don't realize they qualify. If you hit the 50%-for-four-weeks threshold, it's worth doing the calculation. Even a $1,000 deduction saves you roughly $185 to $550 in tax depending on your marginal rate (2025 combined federal and provincial rates run from 18.5% to 54.8%).
 
 **[See your marginal tax rate -->](/income-tax-calculator)**
 

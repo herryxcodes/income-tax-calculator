@@ -2,6 +2,7 @@
 title: "GST/HST Registration in Canada: When You Must Register and How"
 description: "You must register for GST/HST when your business revenue exceeds $30,000 in four consecutive quarters. How to register, what to charge, and input tax credits."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Self-Employed"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
@@ -14,7 +15,7 @@ Here's how the system works for the 2025 tax year.
 
 ## The $30,000 Threshold
 
-If your total revenue from taxable supplies exceeds **$30,000 in any four consecutive calendar quarters** -- or in a single calendar quarter -- you're required to register for a GST/HST account. You have 29 days from the date you exceed the threshold to get registered.
+If your total revenue from taxable supplies exceeds **$30,000 in any four consecutive calendar quarters** -- or in a single calendar quarter -- you're required to register for a GST/HST account. Once you're no longer a small supplier, you have 29 days to get registered.
 
 This applies to freelancers, sole proprietors, partnerships, and corporations alike. The CRA doesn't care about your business structure. Revenue is revenue.
 
@@ -30,7 +31,8 @@ The rate depends on your province and the type of tax:
 
 - **Alberta, British Columbia, Saskatchewan, Manitoba, and the territories:** 5% GST
 - **Ontario:** 13% HST
-- **Nova Scotia, New Brunswick, Newfoundland and Labrador, PEI:** 15% HST
+- **New Brunswick, Newfoundland and Labrador, PEI:** 15% HST
+- **Nova Scotia:** 14% HST (down from 15% on April 1, 2025)
 - **Quebec:** 5% GST plus 9.975% QST -- but QST is handled separately through Revenu Quebec, which means a separate registration process
 
 If you're in Quebec, you're effectively dealing with two tax agencies. You register for GST with the CRA and for QST with Revenu Quebec. It's more paperwork, but the mechanics are similar.
@@ -57,7 +59,7 @@ Tracking every ITC on every receipt isn't for everyone. The **Quick Method** let
 
 Instead of calculating GST/HST collected minus ITCs, you remit a reduced percentage of your revenue (including the tax collected) and keep the difference. The exact rate depends on your province and whether you sell goods or services. For most service-based businesses in Ontario, the remittance rate is around 8.8% of revenue including HST.
 
-The Quick Method is available if your annual revenue (including GST/HST) is under $400,000. It works best for businesses with relatively low expenses, since you're giving up the ability to claim ITCs on most purchases (you can still claim ITCs on capital equipment purchases over $30,000).
+The Quick Method is available if your annual revenue (including GST/HST) is under $400,000. It works best for businesses with relatively low expenses, since you're giving up the ability to claim ITCs on most purchases (you can still claim ITCs on capital property, such as computers and vehicles, and on real property).
 
 You need to elect into the Quick Method -- it's not automatic. File Form GST74 with the CRA.
 
@@ -79,7 +81,7 @@ How often you file depends on your annual revenue:
 - **$1.5 million to $6 million:** quarterly filing required
 - **Over $6 million:** monthly filing required
 
-Most freelancers and small businesses file annually. The return is due three months after your fiscal year-end. If your fiscal year-end is December 31, your GST/HST return is due March 31.
+Most freelancers and small businesses file annually. The return is generally due three months after your fiscal year-end. If you're a sole proprietor with business income and a December 31 fiscal year-end, your annual GST/HST return is due June 15, but any amount owing must be paid by April 30.
 
 Annual filing is simpler, but it also means writing one large cheque instead of spreading payments across the year. Some business owners prefer quarterly filing just for cash-flow purposes.
 
@@ -93,7 +95,7 @@ Annual filing is simpler, but it also means writing one large cheque instead of 
 
 **Mixing personal and business purchases for ITCs.** That new laptop you claim ITCs on needs to actually be used for business. If it's 50% personal use, you can only claim 50% of the GST/HST paid.
 
-**Forgetting to file.** Even if you owe nothing -- say, your ITCs equal what you collected -- you still need to file the return. Late-filing penalties apply even on nil returns.
+**Forgetting to file.** Even if you owe nothing -- say, your ITCs equal what you collected -- you still need to file the return. CRA doesn't charge its late-filing penalty when you owe nothing, but the obligation to file doesn't go away.
 
 If you're self-employed and not sure where you stand with your overall tax obligations, run your numbers through our [income tax calculator](/income-tax-calculator) alongside your GST/HST planning. Knowing your income tax and CPP burden together with your GST/HST obligations gives you the full picture of what the government expects.
 

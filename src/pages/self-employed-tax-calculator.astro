@@ -1,149 +1,108 @@
 ---
 import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
 import SelfEmployedCalculator from "../components/calculators/SelfEmployedCalculator.svelte";
+import { calculateTax, emptyInput, formatCurrency, formatRate, getTaxYear, DEFAULT_TAX_YEAR } from "../lib/tax-engine";
+
+const year = DEFAULT_TAX_YEAR;
+const data = getTaxYear(year);
+const { cpp } = data;
+const money = (n: number) => `$${n.toLocaleString("en-CA")}`;
+const longDate = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" });
+const seRate = formatRate(2 * (cpp.baseRate + cpp.firstAdditionalRate));
+const se2Rate = formatRate(2 * cpp.secondAdditionalRate);
+const seMax = 2 * ((cpp.ympe - cpp.basicExemption) * (cpp.baseRate + cpp.firstAdditionalRate) + (cpp.yampe - cpp.ympe) * cpp.secondAdditionalRate);
+const example = calculateTax({ ...emptyInput("ontario", year), selfEmploymentIncome: 60000 });
+const exampleShare = example.totalTax / 60000;
+
+const title = `Self-Employed Tax Calculator Canada ${year} — CPP, Instalments, GST/HST | CalcTax`;
+const description = `Estimate ${year} tax for freelancers and sole proprietors in Canada: both halves of CPP, federal and provincial tax, how much to set aside, quarterly instalments and GST/HST registration.`;
+
+const faqs = [
+  {
+    q: `How much CPP do self-employed people pay in ${year}?`,
+    a: `You pay both the employee and employer share: ${seRate} of net self-employment earnings between ${money(cpp.basicExemption)} and ${money(cpp.ympe)}, plus ${se2Rate} on earnings from ${money(cpp.ympe)} to ${money(cpp.yampe)}. The most you can pay is ${formatCurrency(seMax)}. Half is deductible, and part of the other half earns a tax credit.`,
+  },
+  {
+    q: `How much should I set aside for taxes?`,
+    a: `It depends on your profit and province. In Ontario, ${formatCurrency(60000)} of profit in ${year} costs about ${formatCurrency(example.totalTax)} in income tax and CPP, or ${Math.round(exampleShare * 100)}% of profit. The calculator gives you a percentage of revenue to set aside from every invoice.`,
+  },
+  {
+    q: `When do self-employed people have to file?`,
+    a: `For the ${year} tax year you have until ${longDate(data.dates.selfEmployedDeadline)} to file, but any balance owing is due ${longDate(data.dates.balanceDue)}. Interest starts after that date.`,
+  },
+  {
+    q: `Do I need to pay EI as a self-employed person?`,
+    a: `No. EI is optional for self-employed people. You can opt in to EI special benefits (maternity, parental, sickness and caregiving), but not regular benefits. The calculator assumes you haven't opted in.`,
+  },
+];
 ---
 
-<Base
-  title="Self-Employed Tax Calculator Canada 2025 — CPP, EI & More | CalcTax"
-  description="Estimate your 2025 self-employment tax in Canada. See both halves of CPP, federal + provincial tax, and your total tax burden. Free and private."
->
-  <div class="max-w-6xl mx-auto px-4 py-12">
-    <div class="mb-14">
-      <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 animate-fade-up border border-amber-100" style="animation-delay: 0s">
-        <span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span>
-        Self-Employed 2025
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
-        Self-Employed Tax Calculator
-      </h1>
-      <p class="text-lg text-slate-500 max-w-xl leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
-        Enter your revenue and expenses to see your total tax including
-        <strong class="text-slate-700">both halves of CPP</strong> (11.9%), quarterly installments, and GST/HST obligation.
-      </p>
+<Base title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro
+      title="Self-employed tax calculator"
+      lede="For freelancers, contractors and sole proprietors: what you owe, what to set aside and when to pay."
+    />
+    <div class="mt-8">
+      <SelfEmployedCalculator client:load />
     </div>
 
-    <SelfEmployedCalculator client:load />
-
-    <section class="mt-16 max-w-3xl mx-auto prose">
-      <h2>How Self-Employment Tax Works in Canada</h2>
+    <section class="mt-24 prose">
+      <h2>How self-employment is taxed</h2>
       <p>
-        Self-employed Canadians pay the same income tax rates as employees, but there are
-        key differences in how CPP and EI are handled:
+        Business profit is taxed at the same federal and provincial rates as a salary. The differences are CPP, which
+        you pay both halves of, EI, which is optional, and timing: nobody withholds tax from your invoices, so you pay
+        it when you file or in quarterly instalments.
+      </p>
+      <p>
+        You report revenue and expenses on form T2125. Common deductible expenses include the business part of your
+        home, vehicle and phone, software and subscriptions, professional fees, advertising, insurance, and 50% of
+        business meals.
       </p>
 
-      <h3>CPP: You Pay Both Halves</h3>
+      <h2>GST/HST registration</h2>
       <p>
-        Employees pay 5.95% CPP and their employer matches it. As a self-employed person,
-        you pay <strong>both halves — 11.9% total</strong> on pensionable earnings between
-        $3,500 and $71,300. Plus enhanced contributions (8%) on earnings between $71,300 and $81,200.
+        Once your taxable revenue passes $30,000 in any four consecutive calendar quarters, you must register for and
+        charge GST/HST (and QST in Quebec). Below that you're a small supplier and registering is optional.
       </p>
 
-      <h3>EI: Optional for Self-Employed</h3>
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (
+        <>
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </>
+      ))}
+      <h3>Should I incorporate?</h3>
       <p>
-        Self-employed individuals are <strong>not required</strong> to pay EI premiums.
-        You can opt in to receive EI special benefits (maternity, parental, sickness, compassionate care)
-        but not regular employment benefits. This calculator shows EI only on employment income.
-      </p>
-
-      <h3>Filing Deadline: June 15</h3>
-      <p>
-        Self-employed Canadians have until <strong>June 15</strong> to file their tax return
-        (vs April 30 for employees). However, any balance owing is still due by
-        <strong>April 30</strong> — the extended deadline is only for filing, not payment.
-      </p>
-
-      <h2>Self-Employment Deductions</h2>
-      <p>
-        Enter your total business expenses in the calculator above — it will
-        subtract them from your gross revenue automatically. Common deductible expenses include:
-      </p>
-      <ul>
-        <li>Home office expenses (prorated by square footage)</li>
-        <li>Vehicle expenses (business use portion)</li>
-        <li>Professional fees and subscriptions</li>
-        <li>Advertising and marketing</li>
-        <li>Office supplies and equipment</li>
-        <li>Business insurance</li>
-        <li>50% of meals and entertainment</li>
-      </ul>
-
-      <h2>GST/HST Registration</h2>
-      <p>
-        If your business revenue exceeds <strong>$30,000</strong> in any four consecutive
-        calendar quarters, you must register for and collect GST/HST. Below that threshold,
-        registration is optional.
-      </p>
-
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>How much CPP do self-employed people pay in 2025?</h3>
-      <p>
-        Self-employed Canadians pay both the employee and employer portions of CPP —
-        a total of <strong>11.9%</strong> on pensionable earnings between $3,500 and $71,300.
-        Plus enhanced CPP2 contributions of 8% on earnings between $71,300 and $81,200.
-        <a href="/self-employed-tax-calculator">Use our calculator</a> to see your exact CPP amount.
-      </p>
-
-      <h3>Do I need to incorporate my business?</h3>
-      <p>
-        Most freelancers and small businesses don't need to incorporate right away.
-        As a sole proprietor, you report business income on your personal tax return (T2125).
-        Incorporation may save tax when your business earns more than you need to live on
-        (typically $150K+), but adds accounting complexity and cost.
-      </p>
-
-      <h3>How much should I set aside for taxes?</h3>
-      <p>
-        A common rule of thumb is <strong>25-30% of gross revenue</strong>. Use the
-        <a href="/self-employed-tax-calculator">self-employed calculator</a> above to see
-        your exact rate — it depends on your province, expenses, and total income.
-      </p>
-
-      <h3>What is the self-employed filing deadline?</h3>
-      <p>
-        Self-employed Canadians have until <strong>June 15, 2026</strong> to file their
-        2025 tax return. However, any balance owing is still due <strong>April 30, 2026</strong>.
-        The extended deadline is only for filing, not payment.
+        Most freelancers start as sole proprietors. Incorporating can lower tax when the business earns more than you
+        need to live on, because profit left in the corporation is taxed at the small business rate. It also adds
+        accounting costs, so get advice from an accountant first.
       </p>
     </section>
   </div>
 
-  <!-- WebApplication + FAQ Schema -->
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Self-Employed Tax Calculator Canada 2025",
-    "url": "https://calctax.ca/self-employed-tax-calculator",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
-    "description": "Free self-employed tax calculator for Canada 2025. See both halves of CPP, quarterly installments, and total tax burden."
-  })}</script>`} />
-
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How much CPP do self-employed people pay in 2025?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Self-employed Canadians pay both halves of CPP — 11.9% total on pensionable earnings between $3,500 and $71,300, plus enhanced CPP2 of 8% on earnings between $71,300 and $81,200." }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need to incorporate my business?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Most freelancers don't need to incorporate right away. As a sole proprietor, you report business income on your personal return (T2125). Incorporation may save tax when business earns more than $150K+." }
-      },
-      {
-        "@type": "Question",
-        "name": "How much should I set aside for taxes as self-employed?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A common rule of thumb is 25-30% of gross revenue. The exact rate depends on your province, expenses, and total income." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the self-employed filing deadline?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Self-employed Canadians have until June 15, 2026 to file their 2025 tax return. However, any balance owing is still due April 30, 2026." }
-      }
-    ]
-  })}</script>`} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: `Self-Employed Tax Calculator Canada ${year}`,
+      url: "https://calctax.ca/self-employed-tax-calculator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
+      description,
+    })}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    })}
+  />
 </Base>

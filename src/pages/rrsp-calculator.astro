@@ -1,145 +1,97 @@
 ---
 import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
 import RRSPCalculator from "../components/calculators/RRSPCalculator.svelte";
+import { calculateTax, emptyInput, formatCurrency, getTaxYear, DEFAULT_TAX_YEAR } from "../lib/tax-engine";
+
+const year = DEFAULT_TAX_YEAR;
+const data = getTaxYear(year);
+const money = (n: number) => `$${n.toLocaleString("en-CA")}`;
+const longDate = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", { month: "long", day: "numeric", year: "numeric" });
+
+const savingsAt = (salary: number) => {
+  const base = { ...emptyInput("ontario", year), employmentIncome: salary };
+  return calculateTax(base).totalTax - calculateTax({ ...base, rrspContribution: 5000 }).totalTax;
+};
+const examples = [50000, 100000, 200000].map((s) => ({ salary: s, savings: savingsAt(s) }));
+
+const title = `RRSP Tax Savings Calculator ${year} — See Your Refund by Province | CalcTax`;
+const description = `How much tax does an RRSP contribution save? See your ${year} tax savings and real after-tax cost in every province. The ${year} RRSP limit is ${money(data.limits.rrsp)}.`;
+
+const faqs = [
+  {
+    q: `What is the RRSP contribution limit for ${year}?`,
+    a: `18% of your ${year - 1} earned income, up to ${money(data.limits.rrsp)}, plus any unused room from earlier years. Your exact room is on your latest notice of assessment and in CRA My Account. Contributions made by ${longDate(data.dates.rrspDeadline)} can be deducted on your ${year} return.`,
+  },
+  {
+    q: `How much tax will my RRSP contribution save?`,
+    a: `Roughly your marginal tax rate times the contribution. In Ontario in ${year}, a $5,000 contribution saves about ${examples.map((e) => `${formatCurrency(e.savings)} at ${money(e.salary)}`).join(", ")}.`,
+  },
+  {
+    q: `Should I contribute to an RRSP or a TFSA?`,
+    a: `If you expect a lower tax rate when you withdraw in retirement than you have today, an RRSP usually comes out ahead. If you expect the same or a higher rate, a TFSA usually does, because its withdrawals are never taxed. Saving for a first home? The FHSA gives you both a deduction and tax-free withdrawals.`,
+  },
+  {
+    q: `How do I check my RRSP room?`,
+    a: `Log in to CRA My Account or check your most recent notice of assessment. Both show your deduction limit including unused room carried forward.`,
+  },
+];
 ---
 
-<Base
-  title="RRSP Tax Savings Calculator 2025 — See Your Refund | CalcTax"
-  description="Calculate how much tax you'll save with RRSP contributions in 2025. See your refund by province. $32,490 max contribution limit."
->
-  <div class="max-w-6xl mx-auto px-4 py-12">
-    <div class="mb-14">
-      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5 animate-fade-up border border-emerald-100" style="animation-delay: 0s">
-        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-        RRSP 2025
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4 font-display tracking-tight animate-fade-up" style="animation-delay: 0.1s">
-        RRSP Tax Savings Calculator
-      </h1>
-      <p class="text-lg text-slate-500 max-w-xl leading-relaxed animate-fade-up" style="animation-delay: 0.2s">
-        See exactly how much tax you'll save with an RRSP contribution.
-        The 2025 limit is <strong class="text-slate-700">$32,490</strong> or 18% of earned income.
-      </p>
+<Base title={title} description={description}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro
+      title="RRSP tax savings calculator"
+      lede="See how much tax a contribution saves you, and what it really costs once the refund comes back."
+    />
+    <div class="mt-8">
+      <RRSPCalculator client:load />
     </div>
 
-    <RRSPCalculator client:load />
-
-    <section class="mt-16 max-w-3xl mx-auto prose">
-      <h2>How RRSP Contributions Reduce Your Tax</h2>
+    <section class="mt-24 prose">
+      <h2>How an RRSP lowers your tax</h2>
       <p>
-        RRSP (Registered Retirement Savings Plan) contributions are <strong>tax-deductible</strong>.
-        When you contribute to your RRSP, the amount is subtracted from your taxable income,
-        reducing the tax you owe. The higher your marginal tax rate, the more you save.
+        RRSP contributions are deducted from your income before tax is calculated, so each dollar you contribute saves
+        tax at your marginal rate. The money grows tax-free inside the plan and is taxed when you withdraw it, ideally
+        in retirement when your rate is lower.
       </p>
-
-      <h2>2025 RRSP Contribution Limits</h2>
       <table>
-        <thead>
-          <tr><th>Detail</th><th>2025 Limit</th></tr>
-        </thead>
+        <thead><tr><th>Salary (Ontario, {year})</th><th>Tax saved on a $5,000 contribution</th></tr></thead>
         <tbody>
-          <tr><td>Maximum contribution</td><td><strong>$32,490</strong></td></tr>
-          <tr><td>Percentage of earned income</td><td>18%</td></tr>
-          <tr><td>RRSP contribution deadline</td><td>March 3, 2026 (for 2025 tax year)</td></tr>
+          {examples.map((e) => <tr><td>{money(e.salary)}</td><td>{formatCurrency(e.savings)}</td></tr>)}
         </tbody>
       </table>
-      <p>
-        Your actual contribution room may be higher if you have unused room carried forward
-        from previous years. Check your CRA My Account or your Notice of Assessment.
-      </p>
 
-      <h2>RRSP Tax Savings by Income Level</h2>
-      <p>
-        Your tax savings from an RRSP contribution depend on your marginal tax rate. At higher
-        incomes, each dollar contributed saves more in taxes:
-      </p>
-      <ul>
-        <li>At <strong>$50,000</strong> income (Ontario): ~$1,500 saved on a $5,000 RRSP contribution</li>
-        <li>At <strong>$100,000</strong> income (Ontario): ~$2,150 saved on a $5,000 RRSP contribution</li>
-        <li>At <strong>$200,000</strong> income (Ontario): ~$2,650 saved on a $5,000 RRSP contribution</li>
-      </ul>
-      <p>
-        Enter your income and RRSP contribution in the calculator above to see your exact savings.
-      </p>
-
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>Should I contribute to RRSP or TFSA?</h3>
-      <p>
-        Generally, if you expect your tax rate in retirement to be <strong>lower</strong> than
-        your current rate, RRSP is better. If you expect it to be the same or higher, TFSA
-        may be better. RRSP gives you a tax deduction now but you pay tax on withdrawals.
-        TFSA gives no deduction but withdrawals are tax-free.
-      </p>
-
-      <h3>What was the RRSP deadline for 2025?</h3>
-      <p>
-        The deadline to contribute to your RRSP for the 2025 tax year was
-        <strong>March 3, 2026</strong> (60 days after the end of the tax year).
-        This deadline has passed. Any contributions made after this date will
-        count toward the 2026 tax year instead.
-      </p>
-
-      <h3>How do I check my RRSP contribution room?</h3>
-      <p>
-        Log in to <strong>CRA My Account</strong> online, or check your most recent
-        Notice of Assessment — your available RRSP room is listed there. It includes
-        any unused room carried forward from previous years.
-      </p>
-
-      <h3>What is the FHSA and how does it compare?</h3>
-      <p>
-        The First Home Savings Account (FHSA) lets first-time home buyers contribute
-        up to <strong>$8,000/year</strong> (lifetime max $40,000) with the same tax
-        deduction as an RRSP, but withdrawals for a home purchase are tax-free like a TFSA.
-        If you're saving for your first home, FHSA is typically the best choice.
-      </p>
-
-      <h3>Is RRSP or TFSA better at my income?</h3>
-      <p>
-        At marginal rates above 30%, RRSP is usually better (bigger upfront deduction).
-        Below 30%, TFSA may be better since you won't benefit as much from the deduction.
-        Use the <a href="/rrsp-calculator">calculator above</a> to see your exact savings.
-      </p>
+      <h2>Frequently asked questions</h2>
+      {faqs.map((f) => (
+        <>
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </>
+      ))}
     </section>
   </div>
 
-  <!-- WebApplication + FAQ Schema -->
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "RRSP Tax Savings Calculator 2025",
-    "url": "https://calctax.ca/rrsp-calculator",
-    "applicationCategory": "FinanceApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
-    "description": "Free RRSP tax savings calculator for 2025. See how much tax you'll save with RRSP contributions by province."
-  })}</script>`} />
-
-  <Fragment set:html={`<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Should I contribute to RRSP or TFSA?",
-        "acceptedAnswer": { "@type": "Answer", "text": "If you expect your tax rate in retirement to be lower than your current rate, RRSP is better. If same or higher, TFSA may be better. RRSP gives a tax deduction now but withdrawals are taxed. TFSA gives no deduction but withdrawals are tax-free." }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the RRSP contribution limit for 2025?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The 2025 RRSP contribution limit is $32,490 or 18% of your previous year's earned income, whichever is less. The contribution deadline for the 2025 tax year was March 3, 2026." }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I check my RRSP contribution room?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Log in to CRA My Account online, or check your most recent Notice of Assessment. Your available RRSP room is listed there, including any unused room carried forward from previous years." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is RRSP or TFSA better at my income?",
-        "acceptedAnswer": { "@type": "Answer", "text": "At marginal rates above 30%, RRSP is usually better due to the larger upfront deduction. Below 30%, TFSA may be better since you won't benefit as much from the deduction." }
-      }
-    ]
-  })}</script>`} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: `RRSP Tax Savings Calculator ${year}`,
+      url: "https://calctax.ca/rrsp-calculator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
+      description,
+    })}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    })}
+  />
 </Base>

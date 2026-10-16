@@ -1,90 +1,72 @@
 ---
 import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+
+const code = `<iframe
+  src="https://calctax.ca/widget"
+  title="Canadian income tax calculator by CalcTax"
+  width="100%"
+  height="560"
+  loading="lazy"
+  style="border: 1px solid #cdd3ea; border-radius: 8px;"
+></iframe>
+<p style="font-size: 13px; margin-top: 6px;">
+  Income tax calculator by <a href="https://calctax.ca">CalcTax.ca</a>
+</p>`;
 ---
 
 <Base
-  title="Embed CalcTax Calculator on Your Website — Free Widget | CalcTax"
-  description="Add a free Canadian income tax calculator to your website. Simple embed code, no signup required. Links back to CalcTax for full functionality."
+  title="Embed a Free Canadian Tax Calculator on Your Website | CalcTax"
+  description="Add a free Canadian take-home pay calculator to your website or blog. One iframe, no signup, no API key, always updated for the current tax year."
 >
-  <div class="max-w-3xl mx-auto px-4 py-16">
-    <div class="mb-10">
-      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 font-display tracking-tight">
-        Embed the CalcTax Calculator
-      </h1>
-      <p class="text-lg text-slate-500 leading-relaxed">
-        Add a free Canadian income tax calculator to your website or blog.
-        Copy the embed code below — no signup, no API key, no cost.
-      </p>
-    </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14">
+    <PageIntro
+      title="Embed the calculator on your site"
+      lede="Give your readers a take-home pay calculator for every province. Paste one snippet; we keep the rates up to date."
+    />
 
-    <div class="prose mb-10">
-      <h2>How It Works</h2>
-      <p>
-        The embed displays a simple tax lookup widget on your site. Visitors enter their
-        salary and province, see an instant estimate, and can click through to CalcTax
-        for the full calculator with RRSP, capital gains, and dividends.
-      </p>
-
-      <h2>Embed Code</h2>
-      <p>Copy and paste this into your HTML:</p>
-    </div>
-
-    <div class="bg-slate-900 rounded-xl p-5 mb-6 overflow-x-auto">
-      <pre class="text-sm text-emerald-400 font-mono whitespace-pre-wrap"><code>&lt;iframe
-  src="https://calctax.ca/income-tax-calculator"
-  width="100%"
-  height="700"
-  frameborder="0"
-  style="border: 1px solid #e2e8f0; border-radius: 12px;"
-  title="Canadian Income Tax Calculator 2025 — CalcTax"
-&gt;&lt;/iframe&gt;
-&lt;p style="font-size: 12px; color: #94a3b8; margin-top: 8px;"&gt;
-  Powered by &lt;a href="https://calctax.ca" style="color: #0d9488;"&gt;CalcTax.ca&lt;/a&gt;
-  — Free Canadian Tax Calculator
-&lt;/p&gt;</code></pre>
-    </div>
-
-    <button
-      type="button"
-      id="copy-embed"
-      class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-semibold hover:bg-teal-700 transition mb-10"
-    >
-      Copy Embed Code
-    </button>
-
-    <div class="prose">
-      <h2>Embed Options</h2>
-      <p>You can link directly to a specific province calculator:</p>
-      <ul>
-        <li><code>calctax.ca/ontario-income-tax-calculator</code> — Ontario</li>
-        <li><code>calctax.ca/alberta-income-tax-calculator</code> — Alberta</li>
-        <li><code>calctax.ca/bc-income-tax-calculator</code> — BC</li>
-        <li><code>calctax.ca/quebec-income-tax-calculator</code> — Quebec</li>
-      </ul>
-      <p>Or use a specific calculator type:</p>
-      <ul>
-        <li><code>calctax.ca/rrsp-calculator</code> — RRSP Savings</li>
-        <li><code>calctax.ca/self-employed-tax-calculator</code> — Self-Employed</li>
-      </ul>
-
-      <h2>Guidelines</h2>
-      <ul>
-        <li>The embed is free for any website — personal blogs, business sites, news outlets</li>
-        <li>Please keep the "Powered by CalcTax.ca" attribution visible</li>
-        <li>The calculator stays up to date automatically — we update rates each tax year</li>
-        <li>Questions? Contact us at <a href="/contact">hello@calctax.ca</a></li>
-      </ul>
+    <div class="mt-10 grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-5 space-y-6">
+        <div class="prose">
+          <h2 class="!mt-0">Embed code</h2>
+          <p>Paste this into any page that accepts HTML. Please keep the credit line under the frame.</p>
+        </div>
+        <pre class="sheet p-4 overflow-x-auto text-sm figure text-ink whitespace-pre"><code id="embed-code">{code}</code></pre>
+        <button type="button" id="copy-embed" class="btn btn-primary">Copy embed code</button>
+        <div class="prose">
+          <h2>Good to know</h2>
+          <ul>
+            <li>Free for blogs, newsletters, employers, accountants and news sites.</li>
+            <li>Calculations run in your visitor's browser. Nothing they type is sent to us or to you.</li>
+            <li>Rates are updated every tax year without you changing anything.</li>
+            <li>Want a version in your brand colours or with your own call to action? <a href="/contact">Get in touch</a>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <p class="text-sm font-bold text-ink-2 mb-2">Preview</p>
+        <iframe
+          src="/widget"
+          title="Preview of the embedded calculator"
+          width="100%"
+          height="560"
+          loading="lazy"
+          class="border border-rule rounded-lg bg-sheet"
+        ></iframe>
+      </div>
     </div>
   </div>
 
   <script>
-    document.getElementById('copy-embed')?.addEventListener('click', () => {
-      const code = `<iframe\n  src="https://calctax.ca/income-tax-calculator"\n  width="100%"\n  height="700"\n  frameborder="0"\n  style="border: 1px solid #e2e8f0; border-radius: 12px;"\n  title="Canadian Income Tax Calculator 2025 — CalcTax"\n></iframe>\n<p style="font-size: 12px; color: #94a3b8; margin-top: 8px;">\n  Powered by <a href="https://calctax.ca" style="color: #0d9488;">CalcTax.ca</a>\n  — Free Canadian Tax Calculator\n</p>`;
-      navigator.clipboard.writeText(code);
-      const btn = document.getElementById('copy-embed');
-      if (btn) {
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = 'Copy Embed Code'; }, 2000);
+    const btn = document.getElementById("copy-embed");
+    btn?.addEventListener("click", async () => {
+      const text = document.getElementById("embed-code")?.textContent ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = "Copied";
+        setTimeout(() => (btn.textContent = "Copy embed code"), 2000);
+      } catch {
+        window.prompt("Copy this code", text);
       }
     });
   </script>

@@ -1,204 +1,377 @@
 @import "tailwindcss";
 
+/*
+  CalcTax visual system — "two-ink print".
+  Ultramarine marks what you keep and what you can act on.
+  Marigold marks money leaving: tints separate federal, provincial and payroll.
+  Ink is a deep blue, not a stand-in black. Fields carry a pale form tint.
+*/
+
 @theme {
-  --font-display: "Fraunces", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
+
+  --color-ink: #151a3d;
+  --color-ink-2: #444b70;
+  --color-ink-3: #6b7194;
+  --color-paper: #f3f5fb;
+  --color-sheet: #ffffff;
+  --color-field: #e8ecfa;
+  --color-field-strong: #d9dff5;
+  --color-rule: #cdd3ea;
+  --color-rule-soft: #e3e7f4;
+
+  --color-brand: #2b3bb8;
+  --color-brand-deep: #1f2b8a;
+  --color-brand-soft: #dfe3fb;
+
+  /* Where each dollar goes */
+  --color-kept: #2b3bb8;
+  --color-federal: #a86d00;
+  --color-provincial: #e9a100;
+  --color-pension: #f3c55a;
+  --color-insurance: #f9e2a4;
+
+  --color-alert: #a3241b;
+  --color-alert-soft: #fbe9e7;
+  --color-ok: #1d6b45;
 }
 
-body {
-  font-family: "Outfit", system-ui, -apple-system, sans-serif;
-}
-
-/* ─── Top accent gradient ─────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #0d9488 0%, #2dd4bf 30%, #14b8a6 60%, #0f766e 100%);
-  z-index: 100;
-}
-
-/* ─── Subtle grain texture ────────────────────────── */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 99;
-  opacity: 0.012;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
-}
-
-/* ─── Animations ──────────────────────────────────── */
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.4s ease-out;
-}
-
-.animate-fade-up {
-  animation: fade-up 0.5s ease-out both;
-}
-
-/* ─── Nav link hover underline ────────────────────── */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: linear-gradient(90deg, #2dd4bf, #14b8a6);
-  transition: width 0.25s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* ─── Form field refinements ──────────────────────── */
-input[type="text"]:focus,
-select:focus {
-  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-input[type="text"],
-select {
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
-}
-
-/* ─── Number typography ───────────────────────────── */
-.num {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-feature-settings: "tnum" 1;
-  letter-spacing: -0.02em;
-}
-
-/* ─── Prose styles ────────────────────────────────── */
-.prose h1 {
-  font-family: "Fraunces", serif;
-  font-optical-sizing: auto;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #0f172a;
-}
-
-.prose h2 {
-  font-family: "Fraunces", serif;
-  font-optical-sizing: auto;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
-  color: #0f172a;
-}
-
-.prose h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-top: 1.75rem;
-  margin-bottom: 0.5rem;
-  color: #1e293b;
-}
-
-.prose p {
-  margin-bottom: 1rem;
-  line-height: 1.8;
-  color: #475569;
-}
-
-.prose ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.prose li {
-  margin-bottom: 0.5rem;
-  line-height: 1.8;
-  color: #475569;
-}
-
-.prose table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-bottom: 1.5rem;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
-}
-
-.prose th,
-.prose td {
-  padding: 0.625rem 1rem;
-  text-align: left;
-}
-
-.prose th {
-  background-color: #f1f5f9;
-  font-weight: 600;
-  color: #0f172a;
-  font-size: 0.875rem;
-}
-
-.prose td {
-  border-top: 1px solid #e2e8f0;
-}
-
-.prose a {
-  color: #0d9488;
-  text-decoration: underline;
-  text-decoration-color: #0d948850;
-  text-underline-offset: 2px;
-  transition: text-decoration-color 0.2s ease;
-}
-
-.prose a:hover {
-  text-decoration-color: #0d9488;
-}
-
-/* ─── Selection ───────────────────────────────────── */
-::selection {
-  background: #ccfbf1;
-  color: #0f172a;
-}
-
-/* ─── Scrollbar ───────────────────────────────────── */
-@media (pointer: fine) {
-  ::-webkit-scrollbar {
-    width: 6px;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
   }
-  ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+
+  ::selection {
+    background: var(--color-brand-soft);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-brand);
+    outline-offset: 2px;
     border-radius: 3px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+}
+
+/* ─── Figures ─────────────────────────────────────────────────────── */
+
+.figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Form fields: tinted box with a fill-in rule underneath ─────── */
+
+.field {
+  display: flex;
+  align-items: center;
+  background: var(--color-field);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 2px solid var(--color-ink);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.field:focus-within {
+  background: var(--color-field-strong);
+  border-bottom-color: var(--color-brand);
+}
+.field input,
+.field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  padding: 0.6rem 0.75rem;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.0625rem;
+}
+.field select {
+  font-family: var(--font-sans);
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23151a3d' stroke-width='1.8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+.field .affix {
+  padding-left: 0.75rem;
+  color: var(--color-ink-3);
+  font-family: var(--font-mono);
+}
+.field .affix + input {
+  padding-left: 0.25rem;
+}
+
+/* ─── Line-number tag: the box a return line or T4 box lives in ──── */
+
+.line-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+  background: var(--color-sheet);
+}
+
+/* ─── Sheets: the paper the return is printed on ─────────────────── */
+
+.sheet {
+  background: var(--color-sheet);
+  border: 1px solid var(--color-rule-soft);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 var(--color-rule-soft);
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--color-brand);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--color-brand-deep);
+}
+.btn-quiet {
+  background: transparent;
+  color: var(--color-brand);
+  border: 1.5px solid currentColor;
+}
+.btn-quiet:hover {
+  background: var(--color-brand-soft);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ─── Segmented control (tax year) ────────────────────────────────── */
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 999px;
+  background: var(--color-field);
+}
+.segmented button {
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+.segmented button[aria-pressed="true"] {
+  background: var(--color-sheet);
+  color: var(--color-ink);
+  box-shadow: 0 0 0 1px var(--color-rule);
+}
+
+/* ─── Fill-in-the-blank sentence (calculator hero) ────────────────── */
+
+.blank-sentence {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+}
+.blank {
+  display: inline-flex;
+  align-items: baseline;
+  border-bottom: 3px solid var(--color-brand);
+  background: var(--color-field);
+  border-radius: 6px 6px 0 0;
+  padding: 0 0.15em;
+  transition: background-color 120ms ease;
+}
+.blank:focus-within {
+  background: var(--color-field-strong);
+}
+/* Same look for a blank whose text may wrap onto two lines (long province names). */
+.blank-wrap {
+  display: inline;
+  border-bottom: 3px solid var(--color-brand);
+  background: var(--color-field);
+  border-radius: 6px 6px 0 0;
+  padding: 0 0.15em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.blank-wrap:focus-within {
+  background: var(--color-field-strong);
+}
+.blank input,
+.blank select {
+  background: transparent;
+  border: 0;
+  outline: none;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--color-brand);
+  padding: 0;
+}
+.blank select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 0.15em;
+}
+.blank .currency {
+  color: var(--color-brand);
+  opacity: 0.7;
+}
+
+/* ─── Long-form content ───────────────────────────────────────────── */
+
+.prose {
+  max-width: 68ch;
+  color: var(--color-ink-2);
+}
+.prose h1 {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-bottom: 1.25rem;
+}
+.prose h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin-top: 2.75rem;
+  margin-bottom: 0.75rem;
+}
+.prose h3 {
+  font-size: 1.15rem;
+  line-height: 1.35;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+  margin-bottom: 1.1rem;
+}
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li {
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+.prose li::marker {
+  color: var(--color-ink-3);
+}
+.prose strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.prose a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-brand) 40%, transparent);
+}
+.prose a:hover {
+  text-decoration-color: var(--color-brand);
+}
+.prose blockquote {
+  border-left: 3px solid var(--color-provincial);
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 1.5rem 0;
+  color: var(--color-ink);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-field);
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+  margin: 2.5rem 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0 1.75rem;
+  font-size: 0.95rem;
+  display: block;
+  overflow-x: auto;
+}
+.prose thead th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  white-space: nowrap;
+}
+.prose td {
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  border-bottom: 1px solid var(--color-rule-soft);
+  font-variant-numeric: tabular-nums;
+  vertical-align: top;
+}
+.prose tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

@@ -2,6 +2,7 @@
 title: "FHSA Guide 2025: First Home Savings Account Rules and Tax Benefits"
 description: "$8,000/year, $40,000 lifetime. Tax-deductible contributions with tax-free withdrawals for your first home. The best registered account for first-time buyers."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "FHSA"
 tagColor: "green"
 calculatorLink: "/income-tax-calculator"
@@ -104,7 +105,7 @@ That said, there's no reason to choose one over the other. Use both. Max your FH
 
 Even if you can only contribute a small amount right now, open the account. Your carry-forward room only starts accumulating once the account exists. If you wait until 2027 to open an FHSA, you lose the carry-forward room from 2025 and 2026 permanently.
 
-Contributing even $1 in your first year activates the clock. The sooner you open it, the more room you'll have available down the road.
+Opening the account is what starts the clock -- you don't need to contribute in the first year. The sooner you open it, the more room you'll have available down the road.
 
 ## Related Guides
 

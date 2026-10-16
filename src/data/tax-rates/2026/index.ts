@@ -1,267 +1,297 @@
-// 2026 Canadian Tax Rates — Federal + All 13 Provinces/Territories
-// Sources: CRA, provincial finance departments
-// Last updated: March 2026
+// 2026 Canadian tax data — federal + all 13 provinces/territories.
+// The 2026 T1 forms aren't out until January 2027, so values come from the CRA
+// payroll formulas (T4127, 122nd and 123rd editions), which use the same annual
+// thresholds and credit amounts, plus provincial finance publications.
 
-export interface TaxBracket {
-  min: number;
-  max: number; // Use Infinity for the last bracket
-  rate: number; // Decimal (0.15 = 15%)
-}
+import type { TaxYearData } from "../types";
 
-export interface ProvinceTaxData {
-  name: string;
-  slug: string;
-  abbreviation: string;
-  brackets: TaxBracket[];
-  basicPersonalAmount: number;
-  surtax?: { threshold: number; rate: number }[];
-  healthPremium?: { min: number; max: number; rate: number; base: number }[];
-}
-
-export interface CPPData {
-  maxPensionableEarnings: number;
-  basicExemption: number;
-  employeeRate: number;
-  selfEmployedRate: number;
-  cpp2MaxEarnings: number;
-  cpp2EmployeeRate: number;
-  cpp2SelfEmployedRate: number;
-}
-
-export interface EIData {
-  maxInsurableEarnings: number;
-  employeeRate: number;
-  employerMultiplier: number;
-}
-
-// ─── Federal ────────────────────────────────────────────────────────
-export const federal = {
+const data: TaxYearData = {
   year: 2026,
-  brackets: [
-    { min: 0, max: 57375, rate: 0.15 },
-    { min: 57375, max: 114750, rate: 0.205 },
-    { min: 114750, max: 158468, rate: 0.26 },
-    { min: 158468, max: 221708, rate: 0.29 },
-    { min: 221708, max: Infinity, rate: 0.33 },
-  ] as TaxBracket[],
-  basicPersonalAmount: 16129,
-  basicPersonalAmountClawbackStart: 173205,
-  basicPersonalAmountReduced: 14156,
+  status: "final",
+  federal: {
+    brackets: [
+      { min: 0, max: 58523, rate: 0.14 },
+      { min: 58523, max: 117045, rate: 0.205 },
+      { min: 117045, max: 181440, rate: 0.26 },
+      { min: 181440, max: 258482, rate: 0.29 },
+      { min: 258482, max: Infinity, rate: 0.33 },
+    ],
+    creditRate: 0.14,
+    bpa: { max: 16452, min: 14829, phaseOutStart: 181440, phaseOutEnd: 258482 },
+    canadaEmploymentAmount: 1501,
+    dividendCredit: { eligible: 0.150198, nonEligible: 0.090301 },
+    quebecAbatement: 0.165,
+  },
+  dividendGrossUp: { eligible: 0.38, nonEligible: 0.15 },
+  capitalGainsInclusionRate: 0.5,
+  cpp: { ympe: 74600, yampe: 85000, basicExemption: 3500, baseRate: 0.0495, firstAdditionalRate: 0.01, secondAdditionalRate: 0.04 },
+  // Quebec cut the QPP base rate from 5.4% to 5.3% for 2026 (Fall 2025 Update).
+  qpp: { ympe: 74600, yampe: 85000, basicExemption: 3500, baseRate: 0.053, firstAdditionalRate: 0.01, secondAdditionalRate: 0.04 },
+  ei: { maxInsurableEarnings: 68900, employeeRate: 0.0163 },
+  eiQuebec: { maxInsurableEarnings: 68900, employeeRate: 0.013 },
+  qpip: { maxInsurableEarnings: 103000, employeeRate: 0.0043, employerRate: 0.00602, selfEmployedRate: 0.00764 },
+  limits: { rrsp: 33810, tfsa: 7000, fhsaAnnual: 8000, fhsaCarryForwardMax: 8000, fhsaLifetime: 40000 },
+  dates: {
+    rrspDeadline: "2027-03-01",
+    filingDeadline: "2027-04-30",
+    selfEmployedDeadline: "2027-06-15",
+    balanceDue: "2027-04-30",
+  },
+  provinces: [
+    {
+      name: "Alberta",
+      slug: "alberta",
+      abbreviation: "AB",
+      brackets: [
+        { min: 0, max: 61200, rate: 0.08 },
+        { min: 61200, max: 154259, rate: 0.1 },
+        { min: 154259, max: 185111, rate: 0.12 },
+        { min: 185111, max: 246813, rate: 0.13 },
+        { min: 246813, max: 370220, rate: 0.14 },
+        { min: 370220, max: Infinity, rate: 0.15 },
+      ],
+      creditRate: 0.08,
+      basicPersonalAmount: 22769,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.0812, nonEligible: 0.0218 },
+    },
+    {
+      name: "British Columbia",
+      slug: "bc",
+      abbreviation: "BC",
+      // BC Budget 2026 raised the lowest rate from 5.06% to 5.60%.
+      brackets: [
+        { min: 0, max: 50363, rate: 0.056 },
+        { min: 50363, max: 100728, rate: 0.077 },
+        { min: 100728, max: 115648, rate: 0.105 },
+        { min: 115648, max: 140430, rate: 0.1229 },
+        { min: 140430, max: 190405, rate: 0.147 },
+        { min: 190405, max: 265545, rate: 0.168 },
+        { min: 265545, max: Infinity, rate: 0.205 },
+      ],
+      creditRate: 0.056,
+      basicPersonalAmount: 13216,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.12, nonEligible: 0.0196 },
+      lowIncomeReduction: { base: 690, threshold: 25570, phaseOutRate: 0.0356 },
+      notes: ["BC's lowest rate rose from 5.06% to 5.60% in 2026, and the BC tax reduction rose to $690."],
+    },
+    {
+      name: "Manitoba",
+      slug: "manitoba",
+      abbreviation: "MB",
+      brackets: [
+        { min: 0, max: 47000, rate: 0.108 },
+        { min: 47000, max: 100000, rate: 0.1275 },
+        { min: 100000, max: Infinity, rate: 0.174 },
+      ],
+      creditRate: 0.108,
+      basicPersonalAmount: 15780,
+      bpaPhaseOut: { start: 200000, end: 400000, reducedAmount: 0 },
+      incomeTestedCreditAmount: { label: "Family Tax Benefit", base: 2065, threshold: 0, phaseOutRate: 0.09 },
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.08, nonEligible: 0.007835 },
+      notes: ["Manitoba has frozen its brackets and basic personal amount since 2025, and phases the basic personal amount out between $200,000 and $400,000 of net income."],
+    },
+    {
+      name: "New Brunswick",
+      slug: "new-brunswick",
+      abbreviation: "NB",
+      brackets: [
+        { min: 0, max: 52333, rate: 0.094 },
+        { min: 52333, max: 104666, rate: 0.14 },
+        { min: 104666, max: 193861, rate: 0.16 },
+        { min: 193861, max: Infinity, rate: 0.195 },
+      ],
+      creditRate: 0.094,
+      basicPersonalAmount: 13664,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.14, nonEligible: 0.0275 },
+      // Derived from NB Income Tax Act s.49.1 with the 2026 indexation factor.
+      lowIncomeReduction: { base: 818, threshold: 22358, phaseOutRate: 0.03 },
+    },
+    {
+      name: "Newfoundland and Labrador",
+      slug: "newfoundland",
+      abbreviation: "NL",
+      brackets: [
+        { min: 0, max: 44678, rate: 0.087 },
+        { min: 44678, max: 89354, rate: 0.145 },
+        { min: 89354, max: 159528, rate: 0.158 },
+        { min: 159528, max: 223340, rate: 0.178 },
+        { min: 223340, max: 285319, rate: 0.198 },
+        { min: 285319, max: 570638, rate: 0.208 },
+        { min: 570638, max: 1141275, rate: 0.213 },
+        { min: 1141275, max: Infinity, rate: 0.218 },
+      ],
+      creditRate: 0.087,
+      // Bill 16 (SNL 2026 c.14): $11,188 for half the year and $15,000 for the other half.
+      basicPersonalAmount: 13094,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.063, nonEligible: 0.032 },
+      // Reduction cut to $842 (NL Reg. 18/26) to offset the higher basic personal amount.
+      lowIncomeReduction: { base: 842, threshold: 24191, phaseOutRate: 0.16 },
+      notes: ["Newfoundland and Labrador raised its basic personal amount to $15,000 from July 2026, giving $13,094 for the 2026 year, and lowered its low-income reduction to match."],
+    },
+    {
+      name: "Northwest Territories",
+      slug: "northwest-territories",
+      abbreviation: "NT",
+      brackets: [
+        { min: 0, max: 53003, rate: 0.059 },
+        { min: 53003, max: 106009, rate: 0.086 },
+        { min: 106009, max: 172346, rate: 0.122 },
+        { min: 172346, max: Infinity, rate: 0.1405 },
+      ],
+      creditRate: 0.059,
+      basicPersonalAmount: 18198,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.115, nonEligible: 0.06 },
+    },
+    {
+      name: "Nova Scotia",
+      slug: "nova-scotia",
+      abbreviation: "NS",
+      brackets: [
+        { min: 0, max: 30995, rate: 0.0879 },
+        { min: 30995, max: 61991, rate: 0.1495 },
+        { min: 61991, max: 97417, rate: 0.1667 },
+        { min: 97417, max: 157124, rate: 0.175 },
+        { min: 157124, max: Infinity, rate: 0.21 },
+      ],
+      creditRate: 0.0879,
+      basicPersonalAmount: 11932,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.0885, nonEligible: 0.015 },
+      lowIncomeReduction: { base: 300, threshold: 15000, phaseOutRate: 0.05 },
+    },
+    {
+      name: "Nunavut",
+      slug: "nunavut",
+      abbreviation: "NU",
+      brackets: [
+        { min: 0, max: 55801, rate: 0.04 },
+        { min: 55801, max: 111602, rate: 0.07 },
+        { min: 111602, max: 181439, rate: 0.09 },
+        { min: 181439, max: Infinity, rate: 0.115 },
+      ],
+      creditRate: 0.04,
+      basicPersonalAmount: 19659,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.0551, nonEligible: 0.0261 },
+    },
+    {
+      name: "Ontario",
+      slug: "ontario",
+      abbreviation: "ON",
+      brackets: [
+        { min: 0, max: 53891, rate: 0.0505 },
+        { min: 53891, max: 107785, rate: 0.0915 },
+        { min: 107785, max: 150000, rate: 0.1116 },
+        { min: 150000, max: 220000, rate: 0.1216 },
+        { min: 220000, max: Infinity, rate: 0.1316 },
+      ],
+      creditRate: 0.0505,
+      basicPersonalAmount: 12989,
+      payrollCredits: true,
+      surtax: [
+        { threshold: 5818, rate: 0.2 },
+        { threshold: 7446, rate: 0.36 },
+      ],
+      dividendCredit: { eligible: 0.1, nonEligible: 0.029863 },
+      ontario: {
+        taxReductionBasic: 300,
+        lift: { max: 875, employmentRate: 0.0505, threshold: 32500, phaseOutRate: 0.05 },
+      },
+    },
+    {
+      name: "Prince Edward Island",
+      slug: "pei",
+      abbreviation: "PE",
+      // PEI Budget 2026 added a 20% bracket over $200,000 from January 1, 2026.
+      brackets: [
+        { min: 0, max: 33928, rate: 0.095 },
+        { min: 33928, max: 65820, rate: 0.1347 },
+        { min: 65820, max: 106890, rate: 0.166 },
+        { min: 106890, max: 142520, rate: 0.1762 },
+        { min: 142520, max: 200000, rate: 0.19 },
+        { min: 200000, max: Infinity, rate: 0.2 },
+      ],
+      creditRate: 0.095,
+      basicPersonalAmount: 15000,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.105, nonEligible: 0.013 },
+      lowIncomeReduction: { base: 350, threshold: 23000, phaseOutRate: 0.05 },
+      notes: ["PEI added a 20% bracket on taxable income over $200,000 starting in 2026 and raised its basic personal amount to $15,000."],
+    },
+    {
+      name: "Quebec",
+      slug: "quebec",
+      abbreviation: "QC",
+      brackets: [
+        { min: 0, max: 54345, rate: 0.14 },
+        { min: 54345, max: 108680, rate: 0.19 },
+        { min: 108680, max: 132245, rate: 0.24 },
+        { min: 132245, max: Infinity, rate: 0.2575 },
+      ],
+      creditRate: 0.14,
+      basicPersonalAmount: 18952,
+      payrollCredits: false,
+      dividendCredit: { eligible: 0.117, nonEligible: 0.0342 },
+      quebec: {
+        workerDeduction: { rate: 0.06, max: 1450 },
+        healthServicesFund: {
+          threshold: 18500,
+          tiers: [
+            { upTo: 64355, rate: 0.01, maxContribution: 150 },
+            { upTo: Infinity, rate: 0.01, maxContribution: 1000 },
+          ],
+        },
+      },
+      notes: ["Quebec cut the QPP base rate to 5.3% (6.3% total for employees) and lowered QPIP premiums for 2026."],
+    },
+    {
+      name: "Saskatchewan",
+      slug: "saskatchewan",
+      abbreviation: "SK",
+      brackets: [
+        { min: 0, max: 54532, rate: 0.105 },
+        { min: 54532, max: 155805, rate: 0.125 },
+        { min: 155805, max: Infinity, rate: 0.145 },
+      ],
+      creditRate: 0.105,
+      basicPersonalAmount: 20381,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.11, nonEligible: 0.02519 },
+    },
+    {
+      name: "Yukon",
+      slug: "yukon",
+      abbreviation: "YT",
+      brackets: [
+        { min: 0, max: 58523, rate: 0.064 },
+        { min: 58523, max: 117045, rate: 0.09 },
+        { min: 117045, max: 181440, rate: 0.109 },
+        { min: 181440, max: 500000, rate: 0.128 },
+        { min: 500000, max: Infinity, rate: 0.15 },
+      ],
+      creditRate: 0.064,
+      // Yukon mirrors the federal basic personal amount, including its high-income reduction.
+      basicPersonalAmount: 16452,
+      bpaPhaseOut: { start: 181440, end: 258482, reducedAmount: 14829 },
+      employmentAmount: 1501,
+      payrollCredits: true,
+      dividendCredit: { eligible: 0.1202, nonEligible: 0.0067 },
+    },
+  ],
+  sources: [
+    "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4127-jan/t4127-01-26e.pdf",
+    "https://www.canada.ca/content/dam/cra-arc/formspubs/pub/t4127-jul/t4127-jul-26e.pdf",
+    "https://www2.gov.bc.ca/gov/content/taxes/income-taxes/personal/tax-rates",
+    "https://cdn-contenu.quebec.ca/cdn-contenu/adm/min/finances/publications-adm/parametres/AUTEN_IncomeTax2026.pdf",
+    "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html",
+    "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/employment-insurance-ei/ei-premium-rates-maximums.html",
+  ],
 };
 
-// ─── CPP / QPP ──────────────────────────────────────────────────────
-export const cpp: CPPData = {
-  maxPensionableEarnings: 71300,
-  basicExemption: 3500,
-  employeeRate: 0.0595,
-  selfEmployedRate: 0.119,
-  cpp2MaxEarnings: 81200,
-  cpp2EmployeeRate: 0.04,
-  cpp2SelfEmployedRate: 0.08,
-};
-
-export const qpp: CPPData = {
-  maxPensionableEarnings: 71300,
-  basicExemption: 3500,
-  employeeRate: 0.064,
-  selfEmployedRate: 0.128,
-  cpp2MaxEarnings: 81200,
-  cpp2EmployeeRate: 0.04,
-  cpp2SelfEmployedRate: 0.08,
-};
-
-// ─── EI ─────────────────────────────────────────────────────────────
-export const ei: EIData = {
-  maxInsurableEarnings: 65700,
-  employeeRate: 0.0164,
-  employerMultiplier: 1.4,
-};
-
-export const eiQuebec: EIData = {
-  maxInsurableEarnings: 65700,
-  employeeRate: 0.01280, // Reduced rate for Quebec (QPIP)
-  employerMultiplier: 1.4,
-};
-
-// QPIP (Quebec Parental Insurance Plan)
-export const qpip = {
-  maxInsurableEarnings: 98000,
-  employeeRate: 0.00494,
-  selfEmployedRate: 0.00878,
-};
-
-// ─── Provincial Tax Data ────────────────────────────────────────────
-
-export const provinces: ProvinceTaxData[] = [
-  {
-    name: "Alberta",
-    slug: "alberta",
-    abbreviation: "AB",
-    brackets: [
-      { min: 0, max: 148269, rate: 0.10 },
-      { min: 148269, max: 177922, rate: 0.12 },
-      { min: 177922, max: 237230, rate: 0.13 },
-      { min: 237230, max: 355845, rate: 0.14 },
-      { min: 355845, max: Infinity, rate: 0.15 },
-    ],
-    basicPersonalAmount: 22323,
-  },
-  {
-    name: "British Columbia",
-    slug: "bc",
-    abbreviation: "BC",
-    brackets: [
-      { min: 0, max: 47937, rate: 0.0506 },
-      { min: 47937, max: 95875, rate: 0.077 },
-      { min: 95875, max: 110076, rate: 0.105 },
-      { min: 110076, max: 133664, rate: 0.1229 },
-      { min: 133664, max: 181232, rate: 0.147 },
-      { min: 181232, max: 252752, rate: 0.168 },
-      { min: 252752, max: Infinity, rate: 0.205 },
-    ],
-    basicPersonalAmount: 12580,
-  },
-  {
-    name: "Manitoba",
-    slug: "manitoba",
-    abbreviation: "MB",
-    brackets: [
-      { min: 0, max: 47000, rate: 0.108 },
-      { min: 47000, max: 100000, rate: 0.1275 },
-      { min: 100000, max: Infinity, rate: 0.174 },
-    ],
-    basicPersonalAmount: 15780,
-  },
-  {
-    name: "New Brunswick",
-    slug: "new-brunswick",
-    abbreviation: "NB",
-    brackets: [
-      { min: 0, max: 49958, rate: 0.094 },
-      { min: 49958, max: 99916, rate: 0.14 },
-      { min: 99916, max: 185064, rate: 0.16 },
-      { min: 185064, max: Infinity, rate: 0.195 },
-    ],
-    basicPersonalAmount: 13044,
-  },
-  {
-    name: "Newfoundland and Labrador",
-    slug: "newfoundland",
-    abbreviation: "NL",
-    brackets: [
-      { min: 0, max: 43198, rate: 0.087 },
-      { min: 43198, max: 86395, rate: 0.145 },
-      { min: 86395, max: 154244, rate: 0.158 },
-      { min: 154244, max: 215943, rate: 0.178 },
-      { min: 215943, max: 275870, rate: 0.198 },
-      { min: 275870, max: 551739, rate: 0.208 },
-      { min: 551739, max: 1103478, rate: 0.213 },
-      { min: 1103478, max: Infinity, rate: 0.218 },
-    ],
-    basicPersonalAmount: 10818,
-  },
-  {
-    name: "Northwest Territories",
-    slug: "northwest-territories",
-    abbreviation: "NT",
-    brackets: [
-      { min: 0, max: 50597, rate: 0.059 },
-      { min: 50597, max: 101198, rate: 0.086 },
-      { min: 101198, max: 164525, rate: 0.122 },
-      { min: 164525, max: Infinity, rate: 0.1405 },
-    ],
-    basicPersonalAmount: 17373,
-  },
-  {
-    name: "Nova Scotia",
-    slug: "nova-scotia",
-    abbreviation: "NS",
-    brackets: [
-      { min: 0, max: 29590, rate: 0.0879 },
-      { min: 29590, max: 59180, rate: 0.1495 },
-      { min: 59180, max: 93000, rate: 0.1667 },
-      { min: 93000, max: 150000, rate: 0.175 },
-      { min: 150000, max: Infinity, rate: 0.21 },
-    ],
-    basicPersonalAmount: 8481,
-  },
-  {
-    name: "Nunavut",
-    slug: "nunavut",
-    abbreviation: "NU",
-    brackets: [
-      { min: 0, max: 53268, rate: 0.04 },
-      { min: 53268, max: 106537, rate: 0.07 },
-      { min: 106537, max: 173205, rate: 0.09 },
-      { min: 173205, max: Infinity, rate: 0.115 },
-    ],
-    basicPersonalAmount: 18767,
-  },
-  {
-    name: "Ontario",
-    slug: "ontario",
-    abbreviation: "ON",
-    brackets: [
-      { min: 0, max: 52886, rate: 0.0505 },
-      { min: 52886, max: 105775, rate: 0.0915 },
-      { min: 105775, max: 150000, rate: 0.1116 },
-      { min: 150000, max: 220000, rate: 0.1216 },
-      { min: 220000, max: Infinity, rate: 0.1316 },
-    ],
-    basicPersonalAmount: 11865,
-    surtax: [
-      { threshold: 4991, rate: 0.20 },
-      { threshold: 6387, rate: 0.36 },
-    ],
-  },
-  {
-    name: "Prince Edward Island",
-    slug: "pei",
-    abbreviation: "PE",
-    brackets: [
-      { min: 0, max: 32656, rate: 0.0965 },
-      { min: 32656, max: 64313, rate: 0.1363 },
-      { min: 64313, max: Infinity, rate: 0.1665 },
-    ],
-    basicPersonalAmount: 13500,
-    surtax: [
-      { threshold: 12500, rate: 0.10 },
-    ],
-  },
-  {
-    name: "Quebec",
-    slug: "quebec",
-    abbreviation: "QC",
-    brackets: [
-      { min: 0, max: 51780, rate: 0.14 },
-      { min: 51780, max: 103545, rate: 0.19 },
-      { min: 103545, max: 126000, rate: 0.24 },
-      { min: 126000, max: Infinity, rate: 0.2575 },
-    ],
-    basicPersonalAmount: 18056,
-  },
-  {
-    name: "Saskatchewan",
-    slug: "saskatchewan",
-    abbreviation: "SK",
-    brackets: [
-      { min: 0, max: 52057, rate: 0.105 },
-      { min: 52057, max: 148734, rate: 0.125 },
-      { min: 148734, max: Infinity, rate: 0.145 },
-    ],
-    basicPersonalAmount: 18491,
-  },
-  {
-    name: "Yukon",
-    slug: "yukon",
-    abbreviation: "YT",
-    brackets: [
-      { min: 0, max: 57375, rate: 0.064 },
-      { min: 57375, max: 114750, rate: 0.09 },
-      { min: 114750, max: 158468, rate: 0.109 },
-      { min: 158468, max: 500000, rate: 0.128 },
-      { min: 500000, max: Infinity, rate: 0.15 },
-    ],
-    basicPersonalAmount: 16129,
-  },
-];
+export default data;

@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://calctax.ca',
-  integrations: [svelte(), sitemap()],
+  integrations: [svelte(), sitemap({ filter: (page) => !page.endsWith('/widget/') && !page.endsWith('/widget') })],
 
   vite: {
     plugins: [tailwindcss()]

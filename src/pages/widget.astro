@@ -1,0 +1,36 @@
+---
+// Chrome-free calculator for other sites to embed in an iframe.
+import "../styles/global.css";
+import IncomeTaxCalculator from "../components/calculators/IncomeTaxCalculator.svelte";
+---
+
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://calctax.ca/income-tax-calculator" />
+    <title>Canadian income tax calculator — CalcTax</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500;700&family=Atkinson+Hyperlegible+Next:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .widget .blank-sentence {
+        font-size: clamp(1.6rem, 1rem + 3vw, 2.4rem);
+      }
+    </style>
+  </head>
+  <body class="bg-sheet">
+    <main class="widget px-4 sm:px-6 py-6">
+      <IncomeTaxCalculator client:load variant="widget" />
+      <p class="mt-6 text-sm text-ink-3">
+        Calculator by <a href="https://calctax.ca" target="_blank" rel="noopener" class="text-brand underline">CalcTax.ca</a>.
+        Your numbers stay in your browser.
+      </p>
+    </main>
+  </body>
+</html>

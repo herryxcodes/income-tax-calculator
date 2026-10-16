@@ -2,6 +2,7 @@
 title: "2025 Canadian Tax Brackets: Federal and Provincial Rates Explained"
 description: "Complete guide to all 5 federal tax brackets for 2025 (including the new 14.5% blended rate) and provincial rates for every province. See how your income is taxed."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Tax Season 2025"
 tagColor: "red"
 calculatorLink: "/income-tax-calculator"
@@ -20,9 +21,9 @@ Canada uses five federal income tax brackets. Your taxable income is the amount 
 |---|---|
 | Up to $57,375 | 14.5% (blended) |
 | $57,375 to $114,750 | 20.5% |
-| $114,750 to $158,468 | 26% |
-| $158,468 to $220,000 | 29% |
-| Over $220,000 | 33% |
+| $114,750 to $177,882 | 26% |
+| $177,882 to $253,414 | 29% |
+| Over $253,414 | 33% |
 
 The federal basic personal amount for 2025 is **$16,129**. This means the first $16,129 of your income is effectively tax-free at the federal level. The basic personal amount is applied as a non-refundable tax credit, reducing your federal tax by $16,129 multiplied by the lowest bracket rate.
 
@@ -36,7 +37,7 @@ In previous years, the lowest federal bracket was taxed at a flat 15%. Bill C-4 
 - **July 1 to December 31:** 14%
 - **Blended rate for the full year:** 14.5%
 
-In practice, this means every Canadian taxpayer with taxable income above the basic personal amount saves a small amount compared to 2024. On the maximum income in the first bracket ($57,375), the savings amount to roughly $287 compared to the old 15% rate.
+In practice, this means every Canadian taxpayer with taxable income above the basic personal amount saves a small amount compared to 2024. The half-point cut is worth $287 on a full first bracket ($57,375), but non-refundable credits are also calculated at 14.5%, so an employee earning $57,375 pays about $178 less federal tax than at the old 15% rate.
 
 Starting in 2026, the full 14% rate will apply for the entire year.
 
@@ -52,7 +53,7 @@ Suppose you earned $90,000 in taxable income in 2025. Your federal tax would be 
 2. **$16,129 to $57,375** -- Taxed at 14.5% = $5,980.67
 3. **$57,375 to $90,000** -- Taxed at 20.5% = $6,688.13
 
-Your total federal tax would be approximately **$12,669**, which works out to an effective (average) federal rate of about 14.1% -- well below the 20.5% marginal rate you technically fall into.
+Your total federal tax would be approximately **$12,669** before other credits (such as CPP, EI and the Canada employment amount), which works out to an effective (average) federal rate of about 14.1% -- well below the 20.5% marginal rate you technically fall into.
 
 The takeaway: earning more money and landing in a higher bracket will never cause you to take home less overall. Only the dollars above each threshold are taxed at the higher rate.
 
@@ -64,25 +65,25 @@ On top of federal tax, every province and territory levies its own income tax wi
 
 ### Ontario
 
-Ontario has five provincial brackets. The rates range from 5.05% on the first $52,886 up to **13.16%** on income over $220,000. Ontario also applies a surtax when provincial tax exceeds certain thresholds, which can push the effective top rate slightly higher.
+Ontario has five provincial brackets. The rates range from 5.05% on the first $52,886 up to **13.16%** on income over $220,000. Ontario also applies a surtax when provincial tax exceeds certain thresholds, which pushes the effective top provincial rate to about 20.53%.
 
 Combined federal and Ontario top marginal rate: approximately **53.53%**.
 
 ### Alberta
 
-Alberta has a relatively flat provincial structure compared to other provinces. Rates start at 10% and the top bracket rate is **15%** on income over $355,845.
+Alberta has a relatively flat provincial structure compared to other provinces. Rates start at 8% (a new bracket for 2025 on the first $60,000) and the top bracket rate is **15%** on income over $362,961.
 
 Combined federal and Alberta top marginal rate: approximately **48%**.
 
 ### British Columbia
 
-BC has seven brackets, with rates starting at 5.06% and topping out at **20.5%** on income over $252,752.
+BC has seven brackets, with rates starting at 5.06% and topping out at **20.5%** on income over $259,829.
 
 Combined federal and BC top marginal rate: approximately **53.50%**.
 
 ### Quebec
 
-Quebec operates its own tax collection system through Revenu Quebec. Provincial rates start at 14% and the top rate is **25.75%** on income over $126,000. However, Quebec residents receive a federal tax abatement of 16.5%, which offsets part of the federal tax.
+Quebec operates its own tax collection system through Revenu Quebec. Provincial rates start at 14% and the top rate is **25.75%** on income over $129,590. However, Quebec residents receive a federal tax abatement of 16.5%, which offsets part of the federal tax.
 
 Combined federal and Quebec top marginal rate: approximately **53.31%**.
 
@@ -103,7 +104,7 @@ While you cannot change the bracket rates, there are several legitimate ways to 
 
 ### What is the basic personal amount for 2025?
 
-The federal basic personal amount for 2025 is $16,129. This is the amount of income you can earn before any federal income tax applies. Each province also has its own basic personal amount, which varies. For example, Alberta's is approximately $22,323, while Ontario's is approximately $11,865.
+The federal basic personal amount for 2025 is $16,129. This is the amount of income you can earn before any federal income tax applies. Each province also has its own basic personal amount, which varies. For example, Alberta's is $22,323, while Ontario's is $12,747.
 
 ### Does earning more money ever result in less take-home pay?
 

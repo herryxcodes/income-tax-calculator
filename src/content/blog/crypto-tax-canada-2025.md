@@ -2,6 +2,7 @@
 title: "Crypto Tax Canada 2025: How to Report Bitcoin and Ethereum to the CRA"
 description: "CRA treats crypto as a commodity. Selling, trading, or spending crypto triggers tax. Capital gains vs business income, ACB tracking, and why CRA is increasing audits."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Crypto"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
@@ -92,8 +93,6 @@ Don't wait until April to sort this out. Pulling records from exchanges that may
 For all of these, you then have a new ACB for the received crypto. If you later sell those mined or staked coins at a higher price, you have an additional capital gain (or loss) to report.
 
 ## CRA Is Paying Attention
-
-Starting in the 2024 and 2025 tax years, the CRA has been including cryptocurrency-specific questions on tax returns. They're asking whether you acquired, disposed of, or held crypto during the year.
 
 Canadian exchanges are cooperating with the CRA, and international information-sharing agreements mean that offshore exchanges aren't the shield they used to be. The CRA has specifically flagged crypto as an enforcement priority. Unreported crypto income is treated the same as any other unreported income -- penalties, interest, and potential prosecution in serious cases.
 

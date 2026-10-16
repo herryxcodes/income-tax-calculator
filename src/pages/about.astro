@@ -6,13 +6,13 @@ import Base from "../layouts/Base.astro";
   title="About CalcTax — Free Canadian Tax Calculators"
   description="CalcTax.ca provides free, privacy-first income tax calculators for Canadians. Learn how our calculations work and where our data comes from."
 >
-  <div class="max-w-2xl mx-auto px-4 py-16 prose">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-14"><div class="prose">
     <h1>About CalcTax</h1>
 
     <p>
       CalcTax.ca is a free tax calculator built for Canadians. We provide
       fast, accurate income tax estimates for all 13 provinces and territories
-      — with no signup, no ads, and no data collection.
+      — with no signup and no data collection.
     </p>
 
     <h2>Why We Built This</h2>
@@ -29,15 +29,19 @@ import Base from "../layouts/Base.astro";
       same progressive tax bracket math that the CRA uses:
     </p>
     <ul>
-      <li>Federal income tax across all 5 brackets (including the 2025 blended 14.5% rate)</li>
-      <li>Provincial/territorial income tax with province-specific brackets and surtaxes</li>
-      <li>CPP/QPP contributions (base + enhanced CPP2 on higher earnings)</li>
-      <li>EI premiums (with Quebec's reduced rate)</li>
-      <li>QPIP for Quebec residents</li>
-      <li>Dividend gross-up and tax credits (eligible and ineligible)</li>
-      <li>Capital gains at 50% inclusion</li>
-      <li>RRSP and FHSA deductions</li>
+      <li>Federal tax across all five brackets, including the 14.5% blended lowest rate for 2025 and 14% from 2026</li>
+      <li>Provincial and territorial tax, including Ontario's surtax, health premium, tax reduction and LIFT credit, and the low-income reductions other provinces offer</li>
+      <li>Non-refundable credits: the basic personal amount (with the high-income reduction), the Canada employment amount, and credits for CPP/QPP, EI and QPIP</li>
+      <li>CPP/QPP contributions, including CPP2, with the enhanced part deducted from income as on a real return</li>
+      <li>EI premiums, Quebec's lower EI rate and QPIP</li>
+      <li>Quebec's federal abatement and deduction for workers</li>
+      <li>Self-employment income: both halves of CPP/QPP and the deduction for the employer half</li>
+      <li>Dividend gross-up and tax credits, capital gains at the 50% inclusion rate, and RRSP and FHSA deductions</li>
     </ul>
+    <p>
+      Results are checked by an automated test suite against amounts worked out by hand from the CRA and provincial
+      tax forms. If you find a number that doesn't match your return, please <a href="/contact">tell us</a>.
+    </p>
 
     <h2>Our Data Sources</h2>
     <p>
@@ -49,25 +53,25 @@ import Base from "../layouts/Base.astro";
       <li><strong>Revenu Qu&eacute;bec</strong> — Quebec-specific rates (QPP, QPIP, provincial brackets)</li>
     </ul>
     <p>
-      Rates are verified against multiple sources and updated for each tax year.
-      Our 2025 rates reflect all changes as of March 2026, including the federal
-      rate reduction introduced by Bill C-4.
+      Rates are verified against multiple sources and updated for each tax year. Figures for a year that hasn't
+      been officially published yet are marked as projected until the CRA and the provinces confirm them. You can
+      see every number we use on the <a href="/2026-canadian-tax-data">tax data</a> pages.
     </p>
 
     <h2>Limitations</h2>
     <p>
-      CalcTax provides <strong>estimates only</strong>. Our calculators apply the
-      basic personal amount tax credit but do not account for all possible credits,
-      deductions, or individual circumstances. For a complete tax assessment,
+      CalcTax provides <strong>estimates only</strong> for a single person under 65 with no dependants. The
+      calculators don't include credits such as tuition, medical expenses, donations or amounts for a spouse or
+      dependants, or situations like part-year residency. For a complete tax assessment,
       consult a qualified tax professional. See our
       <a href="/disclaimer">full disclaimer</a>.
     </p>
 
     <h2>How We Earn Revenue</h2>
     <p>
-      CalcTax earns revenue through affiliate partnerships. After you use our
-      calculators, we may recommend relevant products like tax filing software.
-      If you sign up through our link, we receive a referral commission at no
+      CalcTax earns revenue through referral and affiliate links. After you use our
+      calculators, we may suggest relevant products like tax filing software.
+      If you sign up through our link, we may receive a referral bonus or commission at no
       extra cost to you. Affiliate relationships never influence calculator
       results. See our <a href="/disclosure">affiliate disclosure</a> for details.
     </p>
@@ -77,5 +81,5 @@ import Base from "../layouts/Base.astro";
       Have a question, found an error, or interested in partnering with us?
       Reach out at <a href="/contact">our contact page</a>.
     </p>
-  </div>
+  </div></div>
 </Base>

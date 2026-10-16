@@ -2,13 +2,14 @@
 title: "2025 Tax Deadline Canada: Key Dates, Penalties, and What Happens If You File Late"
 description: "The 2025 tax filing deadline is April 30, 2026. Self-employed deadline is June 15, 2026. Learn the penalties for late filing and how to avoid them."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Deadlines"
 tagColor: "red"
 calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-The 2025 Canadian tax filing deadline is **April 30, 2026** for most Canadians. Self-employed individuals have until **June 15, 2026** to file, but any balance owing is still due April 30. The RRSP contribution deadline for the 2025 tax year was March 3, 2026. Late filing penalties start at 5% of your balance owing plus 1% for each month you're late, up to 12 months.
+The 2025 Canadian tax filing deadline is **April 30, 2026** for most Canadians. Self-employed individuals have until **June 15, 2026** to file, but any balance owing is still due April 30. The RRSP contribution deadline for the 2025 tax year was March 2, 2026. Late filing penalties start at 5% of your balance owing plus 1% for each month you're late, up to 12 months.
 
 Here's a complete breakdown of every deadline, what happens if you miss them, and how to avoid penalties.
 
@@ -30,9 +31,9 @@ However, there is an important catch: **any balance owing is still due on April 
 
 If you run your own business or freelance, use our **[self-employed tax calculator](/self-employed-tax-calculator)** to figure out what you owe before the April 30 payment deadline.
 
-### March 3, 2026 -- RRSP Contribution Deadline (Now Passed)
+### March 2, 2026 -- RRSP Contribution Deadline (Now Passed)
 
-The deadline to contribute to your RRSP and claim the deduction on your 2025 return was **March 3, 2026**. If you missed it, those contributions will count toward your 2026 tax year instead.
+The deadline to contribute to your RRSP and claim the deduction on your 2025 return was **March 2, 2026**. If you missed it, those contributions will count toward your 2026 tax year instead.
 
 If you did contribute before the deadline and want to see how it affects your refund, try our **[RRSP calculator](/rrsp-calculator)** to see the tax savings.
 
@@ -51,7 +52,7 @@ That means if you owe $5,000 and file six months late, you are looking at a pena
 
 ### Repeated Late Filing
 
-If the CRA charged you a late filing penalty in any of the three previous tax years, the penalties double:
+If the CRA charged you a late filing penalty for 2022, 2023, or 2024 and sent you a demand to file, the penalties double:
 
 - **10% of your balance owing** as an immediate penalty
 - **2% of your balance owing for each full month** late, up to 20 months

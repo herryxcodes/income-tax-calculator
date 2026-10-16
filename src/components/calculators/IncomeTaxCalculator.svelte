@@ -1,20 +1,29 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import {
     calculateTax,
     calculateAllProvinces,
-    getProvinceBySlug,
     formatCurrency,
     formatPercent,
+    getTaxYear,
+    DEFAULT_TAX_YEAR,
     type TaxInput,
-    type TaxResult,
   } from "../../lib/tax-engine";
-  import { provinces } from "../../data/tax-rates/2025/index";
-  import { parseInput, formatInputDisplay, enforceMaxDigits } from "../../lib/input-utils";
+  import BlankMoney from "../ui/BlankMoney.svelte";
+  import BlankSelect from "../ui/BlankSelect.svelte";
+  import MoneyInput from "../ui/MoneyInput.svelte";
+  import YearToggle from "../ui/YearToggle.svelte";
+  import DollarSplit from "../ui/DollarSplit.svelte";
+  import Worksheet from "../ui/Worksheet.svelte";
+  import FilingCTA from "../ui/FilingCTA.svelte";
 
-  // Props
-  let { initialProvince = "ontario" }: { initialProvince?: string } = $props();
+  let {
+    initialProvince = "ontario",
+    variant = "full",
+  }: { initialProvince?: string; variant?: "full" | "widget" } = $props();
 
-  // Input state
+  let year = $state(DEFAULT_TAX_YEAR);
+  let provinceSlug = $state(initialProvince);
   let employmentIncome = $state(0);
   let selfEmploymentIncome = $state(0);
   let otherIncome = $state(0);
@@ -23,11 +32,13 @@
   let ineligibleDividends = $state(0);
   let rrspContribution = $state(0);
   let fhsaContribution = $state(0);
-  let selectedProvince = $state(initialProvince);
-  let showAdvanced = $state(false);
+  let showMore = $state(false);
   let showComparison = $state(false);
+  let copied = $state(false);
 
-  // Build input object
+  let yearData = $derived(getTaxYear(year));
+  let provinceOptions = $derived(yearData.provinces.map((p) => ({ value: p.slug, label: p.name })));
+
   let input: TaxInput = $derived({
     employmentIncome,
     selfEmploymentIncome,
@@ -37,561 +48,254 @@
     ineligibleDividends,
     rrspContribution,
     fhsaContribution,
-    provinceSlug: selectedProvince,
+    provinceSlug,
+    year,
+  });
+  let result = $derived(calculateTax(input));
+  let hasIncome = $derived(result.cashIncome > 0);
+  let otherTypesTotal = $derived(selfEmploymentIncome + otherIncome + capitalGains + eligibleDividends + ineligibleDividends);
+  let comparison = $derived(
+    showComparison ? calculateAllProvinces(input).sort((a, b) => b.afterTaxIncome - a.afterTaxIncome) : []
+  );
+  let bestTakeHome = $derived(comparison[0]?.afterTaxIncome ?? 0);
+  let earned = $derived(employmentIncome + selfEmploymentIncome);
+  let rrspEstimate = $derived(Math.min(yearData.limits.rrsp, Math.round(earned * 0.18)));
+
+  const params: [string, (v: number) => void, () => number][] = [
+    ["income", (v) => (employmentIncome = v), () => employmentIncome],
+    ["se", (v) => (selfEmploymentIncome = v), () => selfEmploymentIncome],
+    ["other", (v) => (otherIncome = v), () => otherIncome],
+    ["gains", (v) => (capitalGains = v), () => capitalGains],
+    ["ediv", (v) => (eligibleDividends = v), () => eligibleDividends],
+    ["idiv", (v) => (ineligibleDividends = v), () => ineligibleDividends],
+    ["rrsp", (v) => (rrspContribution = v), () => rrspContribution],
+    ["fhsa", (v) => (fhsaContribution = v), () => fhsaContribution],
+  ];
+
+  onMount(() => {
+    const q = new URLSearchParams(window.location.search);
+    for (const [key, set] of params) {
+      const n = Number(q.get(key));
+      if (q.has(key) && Number.isFinite(n) && n > 0) set(n);
+    }
+    const y = Number(q.get("year"));
+    if (yearData && getTaxYearSafe(y)) year = y;
+    const prov = q.get("prov");
+    if (prov && yearData.provinces.some((p) => p.slug === prov)) provinceSlug = prov;
+    if (selfEmploymentIncome || otherIncome || capitalGains || eligibleDividends || ineligibleDividends) showMore = true;
   });
 
-  // Calculate results reactively
-  let province = $derived(getProvinceBySlug(selectedProvince));
-  let result: TaxResult | null = $derived(
-    province ? calculateTax(input, province) : null
-  );
-  let allResults: TaxResult[] = $derived(
-    showComparison ? calculateAllProvinces(input) : []
-  );
-  let sortedResults = $derived(
-    [...allResults].sort((a, b) => a.totalTax - b.totalTax)
-  );
-
-  // Share URL
-  function copyShareUrl() {
-    const params = new URLSearchParams();
-    if (employmentIncome) params.set("income", String(employmentIncome));
-    if (otherIncome) params.set("other", String(otherIncome));
-    if (capitalGains) params.set("gains", String(capitalGains));
-    if (eligibleDividends) params.set("ediv", String(eligibleDividends));
-    if (ineligibleDividends) params.set("idiv", String(ineligibleDividends));
-    if (rrspContribution) params.set("rrsp", String(rrspContribution));
-    if (fhsaContribution) params.set("fhsa", String(fhsaContribution));
-    params.set("prov", selectedProvince);
-    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-    navigator.clipboard.writeText(url);
-    shareButtonText = "Copied!";
-    setTimeout(() => (shareButtonText = "Share"), 2000);
+  function getTaxYearSafe(y: number) {
+    try {
+      return getTaxYear(y);
+    } catch {
+      return null;
+    }
   }
 
-  let shareButtonText = $state("Share");
-
-  // Load from URL params on mount
-  $effect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    if (params.has("income")) employmentIncome = Number(params.get("income"));
-    if (params.has("other")) otherIncome = Number(params.get("other"));
-    if (params.has("gains")) capitalGains = Number(params.get("gains"));
-    if (params.has("ediv")) eligibleDividends = Number(params.get("ediv"));
-    if (params.has("idiv")) ineligibleDividends = Number(params.get("idiv"));
-    if (params.has("rrsp")) rrspContribution = Number(params.get("rrsp"));
-    if (params.has("fhsa")) fhsaContribution = Number(params.get("fhsa"));
-    if (params.has("prov")) selectedProvince = params.get("prov")!;
-  });
-
-  // Track which field is being edited (don't format while typing)
-  let activeField: string | null = $state(null);
-
-  function handleInput(field: string, setter: (v: number) => void) {
-    return (e: Event) => {
-      const el = e.target as HTMLInputElement;
-      const enforced = enforceMaxDigits(el.value);
-      if (enforced !== el.value.replace(/[$,\s]/g, "")) {
-        el.value = enforced;
-      }
-      setter(parseInput(enforced));
-    };
-  }
-
-  function handleFocus(field: string) {
-    return () => { activeField = field; };
-  }
-
-  function handleBlur(field: string, value: number) {
-    return (e: Event) => {
-      activeField = null;
-      (e.target as HTMLInputElement).value = formatInputDisplay(value);
-    };
-  }
-
-  function displayValue(field: string, value: number): string {
-    if (activeField === field) return value ? String(value) : "";
-    return formatInputDisplay(value);
+  async function copyLink() {
+    const q = new URLSearchParams();
+    for (const [key, , get] of params) if (get()) q.set(key, String(get()));
+    q.set("prov", provinceSlug);
+    q.set("year", String(year));
+    const url = `${window.location.origin}${window.location.pathname}?${q}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      copied = true;
+      setTimeout(() => (copied = false), 2000);
+    } catch {
+      window.prompt("Copy this link", url);
+    }
   }
 </script>
 
-<div class="calculator-wrapper">
-  <!-- Input Section -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <div class="space-y-5">
-      <h2 class="text-lg font-semibold text-slate-900 font-display">Your Income</h2>
+<div>
+  <YearToggle bind:year />
+  {#if yearData.status === "projected"}
+    <p class="mt-3 max-w-2xl text-[0.95rem] text-ink-2 border-l-4 border-l-provincial pl-3">
+      {yearData.statusNote}
+    </p>
+  {/if}
 
-      <!-- Province Selector -->
-      <div>
-        <label for="province" class="block text-sm font-medium text-slate-700 mb-1">
-          Province / Territory
-        </label>
-        <select
-          id="province"
-          bind:value={selectedProvince}
-          class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-        >
-          {#each provinces as prov}
-            <option value={prov.slug}>{prov.name}</option>
-          {/each}
-        </select>
-      </div>
-
-      <!-- Employment Income -->
-      <div>
-        <label for="employment" class="block text-sm font-medium text-slate-700 mb-1">
-          Employment Income
-        </label>
-        <div class="relative">
-          <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-          <input
-            id="employment"
-            type="text"
-            inputmode="decimal"
-            value={displayValue("employment", employmentIncome)}
-            oninput={handleInput("employment", (v) => employmentIncome = v)}
-            onfocus={handleFocus("employment")}
-            onblur={handleBlur("employment", employmentIncome)}
-            placeholder="75,000"
-            class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-          />
-        </div>
-      </div>
-
-      <!-- Self-employment callout -->
-      <div class="bg-orange-50 rounded-xl p-3 border border-orange-100">
-        <p class="text-xs text-orange-800">
-          Have a side hustle or freelance income on top of your job?
-          <a href="/self-employed-tax-calculator" class="font-semibold underline hover:text-orange-900">Use our Self-Employed Calculator</a>
-          — enter your business revenue and expenses, plus your T4 employment income, and see your combined tax with both halves of CPP.
+  <div class="mt-8">
+    <p class="blank-sentence text-ink">
+      I earn <BlankMoney bind:value={employmentIncome} id="salary" label="Yearly employment income" /> a year
+      in <BlankSelect bind:value={provinceSlug} id="province" label="Province or territory" options={provinceOptions} />.
+    </p>
+    <div aria-live="polite">
+      {#if hasIncome}
+        <p class="blank-sentence text-ink mt-3">I take home {formatCurrency(result.afterTaxIncome)}.</p>
+        <p class="text-lg sm:text-xl text-ink-2 mt-4 max-w-2xl">
+          That's {formatCurrency(result.afterTaxIncome / 12)} a month, after {formatCurrency(result.totalTax)} in
+          income tax and payroll contributions{otherTypesTotal > 0 ? `, counting the ${formatCurrency(otherTypesTotal)} of other income you added below` : ""}.
         </p>
-      </div>
+      {:else}
+        <p class="text-lg sm:text-xl text-ink-2 mt-4">Type your yearly salary to see your take-home pay.</p>
+      {/if}
+    </div>
+  </div>
 
-      <!-- RRSP -->
+  {#if hasIncome}
+    <DollarSplit {result} />
+  {/if}
+
+  {#if variant === "widget"}
+    <p class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <a
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener"
+        href={`https://calctax.ca/${provinceSlug}-income-tax-calculator?income=${employmentIncome}&prov=${provinceSlug}&year=${year}`}
+      >See every line on CalcTax.ca</a>
+      <span class="text-sm text-ink-3">Estimate for a single person with employment income only.</span>
+    </p>
+  {:else}
+  <div class="mt-12 grid gap-10 lg:grid-cols-12">
+    <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24 lg:self-start">
       <div>
-        <label for="rrsp" class="block text-sm font-medium text-slate-700 mb-1">
-          RRSP Contribution
-          <span class="text-slate-400 font-normal">(optional)</span>
-        </label>
-        <div class="relative flex gap-2">
-          <div class="relative flex-1">
-            <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-            <input
-              id="rrsp"
-              type="text"
-              inputmode="decimal"
-              value={displayValue("rrsp", rrspContribution)}
-              oninput={handleInput("rrsp", (v) => rrspContribution = v)}
-              onfocus={handleFocus("rrsp")}
-              onblur={handleBlur("rrsp", rrspContribution)}
-              placeholder="0"
-              class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-            />
-          </div>
-          <button
-            type="button"
-            onclick={() => { if (employmentIncome > 0) rrspContribution = Math.min(32490, employmentIncome * 0.18); }}
-            disabled={employmentIncome <= 0}
-            class="px-4 py-2.5 rounded-xl text-sm font-semibold transition
-              {employmentIncome > 0
-                ? 'bg-teal-600 text-white hover:bg-teal-700 cursor-pointer'
-                : 'bg-slate-100 text-slate-400 cursor-not-allowed'}"
-          >
-            Max
-          </button>
-        </div>
-        <p class="text-xs text-slate-400 mt-1">2025 max: $32,490 or 18% of income</p>
+        <h2 class="font-extrabold text-lg text-ink">Deductions</h2>
+        <p class="text-ink-2 text-[0.95rem]">Contributions you can deduct lower your taxable income.</p>
       </div>
 
-      <!-- FHSA Contribution -->
-      <div>
-        <label for="fhsa" class="block text-sm font-medium text-slate-700 mb-1">
-          FHSA Contribution
-          <span class="text-slate-400 font-normal">(optional)</span>
-        </label>
-        <div class="relative flex gap-2">
-          <div class="relative flex-1">
-            <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-            <input
-              id="fhsa"
-              type="text"
-              inputmode="decimal"
-              value={displayValue("fhsa", fhsaContribution)}
-              oninput={handleInput("fhsa", (v) => fhsaContribution = v)}
-              onfocus={handleFocus("fhsa")}
-              onblur={handleBlur("fhsa", fhsaContribution)}
-              placeholder="0"
-              class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-            />
-          </div>
-          <button
-            type="button"
-            onclick={() => fhsaContribution = 8000}
-            class="px-4 py-2.5 rounded-xl text-sm font-semibold bg-teal-600 text-white hover:bg-teal-700 cursor-pointer transition"
-          >
-            Max
-          </button>
-        </div>
-        <p class="text-xs text-slate-400 mt-1">First Home Savings Account — $8,000/year max</p>
-      </div>
-
-      <!-- Advanced Toggle -->
-      <button
-        type="button"
-        onclick={() => (showAdvanced = !showAdvanced)}
-        class="text-sm text-teal-600 hover:text-teal-800 font-medium flex items-center gap-1"
+      <MoneyInput
+        bind:value={rrspContribution}
+        id="rrsp"
+        label="RRSP contribution"
+        tag="20800"
+        hint={`Your limit is 18% of last year's earned income, up to ${formatCurrency(yearData.limits.rrsp)}, plus any unused room on your notice of assessment.`}
       >
-        <span class="transform transition-transform {showAdvanced ? 'rotate-90' : ''}">&rsaquo;</span>
-        {showAdvanced ? "Hide" : "Show"} more income types
-      </button>
+        {#snippet action()}
+          <button
+            type="button"
+            class="btn btn-quiet !rounded-[4px] !px-3"
+            disabled={earned <= 0}
+            onclick={() => (rrspContribution = rrspEstimate)}
+            title="Fill in 18% of this year's earned income, up to the limit"
+          >18%</button>
+        {/snippet}
+      </MoneyInput>
 
-      {#if showAdvanced}
-        <div class="space-y-4 pl-3 border-l-2 border-teal-100">
-          <div>
-            <label for="capitalGains" class="block text-sm font-medium text-slate-700 mb-1">Capital Gains</label>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-              <input
-                id="capitalGains"
-                type="text"
-                inputmode="decimal"
-                value={displayValue("capitalGains", capitalGains)}
-                oninput={handleInput("capitalGains", (v) => capitalGains = v)}
-                onfocus={handleFocus("capitalGains")}
-                onblur={handleBlur("capitalGains", capitalGains)}
-                placeholder="0"
-                class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-              />
-            </div>
-            <p class="text-xs text-slate-400 mt-1">50% inclusion rate applies</p>
-          </div>
+      <MoneyInput
+        bind:value={fhsaContribution}
+        id="fhsa"
+        label="FHSA contribution"
+        tag="20805"
+        hint={`First Home Savings Account: up to ${formatCurrency(yearData.limits.fhsaAnnual)} a year, plus up to ${formatCurrency(yearData.limits.fhsaCarryForwardMax)} of unused room from last year.`}
+      />
 
-          <div>
-            <label for="eligibleDiv" class="block text-sm font-medium text-slate-700 mb-1">Eligible Dividends</label>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-              <input
-                id="eligibleDiv"
-                type="text"
-                inputmode="decimal"
-                value={displayValue("eligibleDiv", eligibleDividends)}
-                oninput={handleInput("eligibleDiv", (v) => eligibleDividends = v)}
-                onfocus={handleFocus("eligibleDiv")}
-                onblur={handleBlur("eligibleDiv", eligibleDividends)}
-                placeholder="0"
-                class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-              />
-            </div>
-          </div>
+      <div class="border-t border-rule pt-5">
+        <button
+          type="button"
+          class="flex items-center gap-2 font-extrabold text-lg text-ink"
+          aria-expanded={showMore}
+          aria-controls="more-income"
+          onclick={() => (showMore = !showMore)}
+        >
+          <svg class="w-3.5 h-3.5 transition-transform motion-reduce:transition-none {showMore ? 'rotate-90' : ''}" viewBox="0 0 8 12" aria-hidden="true"><path d="M1.5 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+          Other income
+        </button>
+        <p class="text-ink-2 text-[0.95rem] mt-1">Side business, investments, rental or pension income.</p>
+      </div>
 
-          <div>
-            <label for="ineligibleDiv" class="block text-sm font-medium text-slate-700 mb-1">Ineligible Dividends</label>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-              <input
-                id="ineligibleDiv"
-                type="text"
-                inputmode="decimal"
-                value={displayValue("ineligibleDiv", ineligibleDividends)}
-                oninput={handleInput("ineligibleDiv", (v) => ineligibleDividends = v)}
-                onfocus={handleFocus("ineligibleDiv")}
-                onblur={handleBlur("ineligibleDiv", ineligibleDividends)}
-                placeholder="0"
-                class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="otherIncome" class="block text-sm font-medium text-slate-700 mb-1">Other Income</label>
-            <div class="relative">
-              <span class="absolute left-3 top-2.5 text-slate-400">$</span>
-              <input
-                id="otherIncome"
-                type="text"
-                inputmode="decimal"
-                value={displayValue("otherIncome", otherIncome)}
-                oninput={handleInput("otherIncome", (v) => otherIncome = v)}
-                onfocus={handleFocus("otherIncome")}
-                onblur={handleBlur("otherIncome", otherIncome)}
-                placeholder="0"
-                class="w-full rounded-xl border border-slate-200 pl-7 pr-4 py-2.5 text-slate-900 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition"
-              />
-            </div>
-            <p class="text-xs text-slate-400 mt-1">Rental, interest, pension, EI benefits, etc.</p>
-          </div>
+      {#if showMore}
+        <div id="more-income" class="space-y-5">
+          <MoneyInput
+            bind:value={selfEmploymentIncome}
+            id="se"
+            label="Self-employment income (after expenses)"
+            tag="13500"
+            hint="Freelance, gig or side-business profit. You pay both halves of CPP on it."
+          />
+          <MoneyInput bind:value={capitalGains} id="gains" label="Capital gains" tag="12700" hint="Enter the full gain. Half of it is taxable." />
+          <MoneyInput bind:value={eligibleDividends} id="ediv" label="Eligible dividends" hint="The actual amount received, usually from public Canadian companies (T5 box 24)." />
+          <MoneyInput bind:value={ineligibleDividends} id="idiv" label="Other than eligible dividends" hint="Usually from private corporations (T5 box 10)." />
+          <MoneyInput bind:value={otherIncome} id="other" label="Interest, rental and other income" hint="Fully taxable income with no CPP or EI, such as interest, net rental income or pension." />
+          <p class="text-sm text-ink-2">
+            Running a business? The <a class="text-brand underline" href="/self-employed-tax-calculator">self-employed calculator</a>
+            works from revenue and expenses and estimates your instalments.
+          </p>
         </div>
       {/if}
     </div>
 
-    <!-- Results Section -->
-    <div>
-      {#if result && result.totalIncome > 0}
-        <div class="bg-white border border-slate-200/70 rounded-2xl p-6 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_6px_24px_rgba(0,0,0,0.03)]">
-          <h2 class="text-lg font-semibold text-slate-900 font-display">
-            Your 2025 Tax Estimate
-            <span class="text-sm font-normal text-slate-500">({result.province.name})</span>
-          </h2>
-
-          <!-- Big numbers -->
-          <div class="grid grid-cols-2 gap-3">
-            <div class="bg-gradient-to-br from-red-50/80 to-white rounded-xl p-4 border border-red-100/50">
-              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Total Tax</p>
-              <p class="text-2xl font-bold text-red-600 font-mono tracking-tight">{formatCurrency(result.totalTax)}</p>
-            </div>
-            <div class="bg-gradient-to-br from-emerald-50/80 to-white rounded-xl p-4 border border-emerald-100/50">
-              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">After-Tax Income</p>
-              <p class="text-2xl font-bold text-emerald-600 font-mono tracking-tight">{formatCurrency(result.afterTaxIncome)}</p>
-            </div>
-            {#if result.taxableIncome !== result.totalIncome}
-              <div class="bg-white rounded-xl p-4 border border-slate-100">
-                <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Taxable Income</p>
-                <p class="text-xl font-bold text-slate-900 font-mono">{formatCurrency(result.taxableIncome)}</p>
-                <p class="text-[10px] text-slate-400 mt-0.5">After RRSP/FHSA deductions</p>
-              </div>
-            {/if}
-            <div class="bg-white rounded-xl p-4 border border-slate-100">
-              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Effective Rate</p>
-              <p class="text-xl font-bold text-slate-900 font-mono">{formatPercent(result.averageRate)}</p>
-            </div>
-            <div class="bg-white rounded-xl p-4 border border-slate-100">
-              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Marginal Rate</p>
-              <p class="text-xl font-bold text-slate-900 font-mono">{formatPercent(result.marginalRate)}</p>
-            </div>
-          </div>
-
-          <!-- Tax Breakdown -->
-          <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Tax Breakdown</h3>
-            <div class="space-y-2 text-sm">
-              {#if result.taxableIncome !== result.totalIncome}
-                <div class="flex justify-between text-slate-500 text-xs pb-1 mb-1 border-b border-dashed border-slate-200">
-                  <span>Total Income</span>
-                  <span>{formatCurrency(result.totalIncome)}</span>
-                </div>
-                <div class="flex justify-between text-green-700 text-xs pb-1 mb-1 border-b border-dashed border-slate-200">
-                  <span>RRSP/FHSA Deductions</span>
-                  <span>-{formatCurrency(result.totalIncome - result.taxableIncome)}</span>
-                </div>
-                <div class="flex justify-between text-slate-700 text-xs pb-2 mb-1 border-b border-slate-200 font-medium">
-                  <span>Taxable Income</span>
-                  <span>{formatCurrency(result.taxableIncome)}</span>
-                </div>
-              {/if}
-              <div class="flex justify-between">
-                <span class="text-slate-600">Federal Tax</span>
-                <span class="font-medium">{formatCurrency(result.federalTax)}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-600">{result.province.name} Tax</span>
-                <span class="font-medium">{formatCurrency(result.provincialTax)}</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-600">{province?.slug === "quebec" ? "QPP" : "CPP"} Contributions</span>
-                <span class="font-medium">{formatCurrency(result.cppContributions + result.cpp2Contributions)}</span>
-              </div>
-              {#if result.cpp2Contributions > 0}
-                <div class="flex justify-between pl-4">
-                  <span class="text-slate-400 text-xs">Includes enhanced CPP on income above $71,300</span>
-                </div>
-              {/if}
-              <div class="flex justify-between">
-                <span class="text-slate-600">EI Premiums</span>
-                <span class="font-medium">{formatCurrency(result.eiPremiums)}</span>
-              </div>
-              {#if result.qpipPremiums > 0}
-                <div class="flex justify-between">
-                  <span class="text-slate-600">QPIP Premiums</span>
-                  <span class="font-medium">{formatCurrency(result.qpipPremiums)}</span>
-                </div>
-              {/if}
-              <div class="border-t pt-2 flex justify-between font-semibold">
-                <span>Total Tax</span>
-                <span class="text-red-600">{formatCurrency(result.totalTax)}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bracket Breakdown (Federal + Provincial) -->
-          <div class="bg-white rounded-xl p-4 shadow-sm">
-            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Federal Tax Brackets</h3>
-            <table class="w-full text-xs">
-              <thead>
-                <tr class="border-b border-slate-200 text-slate-500">
-                  <th class="text-left py-1.5 font-medium">Bracket</th>
-                  <th class="text-right py-1.5 font-medium">Rate</th>
-                  <th class="text-right py-1.5 font-medium">Taxable</th>
-                  <th class="text-right py-1.5 font-medium">Tax</th>
-                </tr>
-              </thead>
-              <tbody>
-                {#each result.federalBrackets as b}
-                  {#if b.taxableInBracket > 0}
-                    <tr class="border-b border-slate-50">
-                      <td class="py-1.5 text-slate-600">
-                        {formatCurrency(b.min)} – {b.max === Infinity ? '...' : formatCurrency(b.max)}
-                      </td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{(b.rate * 100).toFixed(1)}%</td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{formatCurrency(b.taxableInBracket)}</td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{formatCurrency(b.taxInBracket)}</td>
-                    </tr>
-                  {/if}
-                {/each}
-              </tbody>
-            </table>
-
-            <h3 class="text-sm font-semibold text-slate-700 mt-4 mb-3">{result.province.name} Tax Brackets</h3>
-            <table class="w-full text-xs">
-              <thead>
-                <tr class="border-b border-slate-200 text-slate-500">
-                  <th class="text-left py-1.5 font-medium">Bracket</th>
-                  <th class="text-right py-1.5 font-medium">Rate</th>
-                  <th class="text-right py-1.5 font-medium">Taxable</th>
-                  <th class="text-right py-1.5 font-medium">Tax</th>
-                </tr>
-              </thead>
-              <tbody>
-                {#each result.provincialBrackets as b}
-                  {#if b.taxableInBracket > 0}
-                    <tr class="border-b border-slate-50">
-                      <td class="py-1.5 text-slate-600">
-                        {formatCurrency(b.min)} – {b.max === Infinity ? '...' : formatCurrency(b.max)}
-                      </td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{(b.rate * 100).toFixed(2)}%</td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{formatCurrency(b.taxableInBracket)}</td>
-                      <td class="py-1.5 text-right font-mono text-slate-700">{formatCurrency(b.taxInBracket)}</td>
-                    </tr>
-                  {/if}
-                {/each}
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Visual bar: tax vs take-home -->
-          <div class="bg-white rounded-xl p-4 border border-slate-100">
-            <h3 class="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Income Split</h3>
-            <div class="w-full h-6 rounded-lg overflow-hidden flex bg-slate-100">
-              <div
-                class="bg-gradient-to-r from-red-400 to-red-500 h-full transition-all duration-500 ease-out flex items-center justify-center"
-                style="width: {Math.max(result.averageRate * 100, 8).toFixed(1)}%"
-              >
-                {#if result.averageRate > 0.15}
-                  <span class="text-[10px] font-medium text-white/90 font-mono">{formatPercent(result.averageRate)}</span>
-                {/if}
-              </div>
-              <div
-                class="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full transition-all duration-500 ease-out flex items-center justify-center"
-                style="width: {((1 - result.averageRate) * 100).toFixed(1)}%"
-              >
-                <span class="text-[10px] font-medium text-white/90 font-mono">{formatPercent(1 - result.averageRate)}</span>
-              </div>
-            </div>
-            <div class="flex justify-between text-xs text-slate-400 mt-2">
-              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-red-400"></span> Tax</span>
-              <span class="flex items-center gap-1.5">Take-home <span class="w-2 h-2 rounded-sm bg-emerald-400"></span></span>
-            </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="flex gap-3">
-            <button
-              type="button"
-              onclick={copyShareUrl}
-              class="flex-1 bg-white border border-slate-200 text-slate-700 rounded-xl px-4 py-2 text-sm font-medium hover:bg-slate-50 transition"
-            >
-              {shareButtonText}
-            </button>
-            <button
-              type="button"
-              onclick={() => (showComparison = !showComparison)}
-              class="flex-1 bg-teal-600 text-white rounded-xl px-4 py-2 text-sm font-medium hover:bg-teal-700 transition"
-            >
-              {showComparison ? "Hide" : "Compare"} All Provinces
-            </button>
-          </div>
-
-          <!-- Wealthsimple Tax CTA -->
-          <a
-            href="https://www.wealthsimple.com/invite/P9UCSW"
-            target="_blank"
-            rel="noopener sponsored"
-            class="block bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
-          >
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm font-semibold text-slate-900 group-hover:text-green-700 transition">Ready to file your return?</p>
-                <p class="text-xs text-slate-500 mt-0.5">File your 2025 taxes free with Wealthsimple Tax · <span class="text-slate-400">Affiliate</span></p>
-              </div>
-              <span class="text-green-600 text-sm font-semibold whitespace-nowrap">File Free &rarr;</span>
-            </div>
-          </a>
+    <div class="lg:col-span-7 space-y-5">
+      {#if hasIncome}
+        <Worksheet {result} />
+        <div class="flex flex-wrap gap-3">
+          <button type="button" class="btn btn-primary" onclick={() => (showComparison = !showComparison)} aria-expanded={showComparison}>
+            {showComparison ? "Hide province comparison" : "Compare all provinces"}
+          </button>
+          <button type="button" class="btn btn-quiet" onclick={copyLink}>
+            {copied ? "Link copied" : "Copy link to this calculation"}
+          </button>
         </div>
+        <FilingCTA />
       {:else}
-        <div class="bg-slate-50/50 rounded-2xl p-10 text-center border border-slate-100 border-dashed">
-          <div class="w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-4">
-            <svg class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <p class="text-slate-500 text-lg font-medium">Enter your income to see your tax estimate</p>
-          <p class="text-slate-400 text-sm mt-2">Your data never leaves your browser</p>
+        <div class="sheet p-8 border-dashed">
+          <p class="font-bold text-ink">Your return will appear here, line by line.</p>
+          <p class="text-ink-2 mt-1">
+            Each amount is tagged with the CRA line or T4 box it comes from, so you can check it against your own slips.
+          </p>
         </div>
       {/if}
     </div>
   </div>
 
-  <!-- Province Comparison Table -->
-  {#if showComparison && sortedResults.length > 0}
-    <div class="mt-8">
-      <h2 class="text-lg font-semibold text-slate-900 font-display mb-4">All Provinces Compared</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
+  {#if showComparison && comparison.length}
+    <section class="mt-12" aria-labelledby="compare-heading">
+      <h2 id="compare-heading" class="font-extrabold text-2xl text-ink">The same income in every province</h2>
+      <p class="text-ink-2 mt-1">Sorted by take-home pay for {year}. Select a province to switch to it.</p>
+      <div class="sheet mt-5 overflow-x-auto">
+        <table class="w-full text-[0.95rem] min-w-[640px]">
           <thead>
-            <tr class="border-b-2 border-slate-200">
-              <th class="text-left py-3 px-3 font-semibold text-slate-700">Province</th>
-              <th class="text-right py-3 px-3 font-semibold text-slate-700">Total Tax</th>
-              <th class="text-right py-3 px-3 font-semibold text-slate-700">After-Tax</th>
-              <th class="text-right py-3 px-3 font-semibold text-slate-700">Avg Rate</th>
-              <th class="text-right py-3 px-3 font-semibold text-slate-700">Marginal</th>
+            <tr class="text-left text-ink-2 border-b-2 border-ink">
+              <th class="py-3 px-4 font-bold">Province or territory</th>
+              <th class="py-3 px-4 font-bold">Take-home</th>
+              <th class="py-3 px-4 font-bold text-right">Tax and contributions</th>
+              <th class="py-3 px-4 font-bold text-right">Average</th>
+              <th class="py-3 px-4 font-bold text-right">Marginal</th>
             </tr>
           </thead>
           <tbody>
-            {#each sortedResults as r}
-              <tr
-                class="border-b border-slate-100 {r.province.slug === selectedProvince
-                  ? 'bg-teal-50 font-medium'
-                  : 'hover:bg-slate-50'}"
-              >
-                <td class="py-2.5 px-3">
-                  {r.province.name}
-                  {#if r.province.slug === selectedProvince}
-                    <span class="text-teal-600 text-xs ml-1">(selected)</span>
-                  {/if}
+            {#each comparison as r (r.province.slug)}
+              {@const selected = r.province.slug === provinceSlug}
+              <tr class="border-b border-rule-soft last:border-b-0 {selected ? 'bg-field' : ''}">
+                <td class="py-2.5 px-4">
+                  <button
+                    type="button"
+                    class="text-left {selected ? 'font-bold text-ink' : 'text-brand underline decoration-brand/30 hover:decoration-brand'}"
+                    onclick={() => (provinceSlug = r.province.slug)}
+                    aria-current={selected ? "true" : undefined}
+                  >{r.province.name}</button>
                 </td>
-                <td class="py-2.5 px-3 text-right font-mono">{formatCurrency(r.totalTax)}</td>
-                <td class="py-2.5 px-3 text-right font-mono">{formatCurrency(r.afterTaxIncome)}</td>
-                <td class="py-2.5 px-3 text-right font-mono">{formatPercent(r.averageRate)}</td>
-                <td class="py-2.5 px-3 text-right font-mono">{formatPercent(r.marginalRate)}</td>
+                <td class="py-2.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <span class="figure w-24 shrink-0">{formatCurrency(r.afterTaxIncome)}</span>
+                    <span class="hidden sm:block h-2 rounded-full bg-field-strong flex-1 min-w-16" aria-hidden="true">
+                      <span class="block h-2 rounded-full bg-kept" style="width: {((r.afterTaxIncome / bestTakeHome) * 100).toFixed(1)}%"></span>
+                    </span>
+                  </div>
+                </td>
+                <td class="py-2.5 px-4 text-right figure">{formatCurrency(r.totalTax)}</td>
+                <td class="py-2.5 px-4 text-right figure">{formatPercent(r.averageRate, 1)}</td>
+                <td class="py-2.5 px-4 text-right figure">{formatPercent(r.marginalRate, 1)}</td>
               </tr>
             {/each}
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   {/if}
 
-  <!-- Disclaimer -->
-  <div class="mt-6 bg-slate-50 rounded-xl p-3 text-xs text-slate-400 leading-relaxed">
-    <p>
-      These calculations are <strong>estimates</strong> for informational purposes only,
-      based on 2025 CRA-published tax rates. This calculator does not include every
-      available tax credit, deduction, or special circumstance. Your actual tax liability
-      may differ. <a href="/disclaimer" class="underline hover:text-slate-600">Full disclaimer</a>.
-      Consult a qualified tax professional before making financial decisions.
-    </p>
-    <p class="mt-1">
-      Your data stays in your browser — nothing is sent to any server.
-    </p>
-  </div>
+  {/if}
+
+  {#if variant === "full"}
+  <p class="mt-10 max-w-3xl text-sm text-ink-3 leading-relaxed">
+    Estimates for a single person under 65 with no dependants, using {year} rates{yearData.status === "projected" ? " (partly projected)" : ""}.
+    Includes the basic personal amount, Canada employment amount, CPP/QPP and EI credits, the dividend tax credit,
+    provincial surtaxes, health premiums and low-income reductions. It doesn't include other credits such as tuition,
+    medical expenses, donations or amounts for a spouse or dependants. Your numbers stay in your browser.
+    <a class="underline" href="/disclaimer">Read the disclaimer</a>.
+  </p>
+  {/if}
 </div>

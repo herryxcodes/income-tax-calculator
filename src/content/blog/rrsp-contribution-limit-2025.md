@@ -1,16 +1,17 @@
 ---
 title: "RRSP Contribution Limit 2025: $32,490 Maximum Explained"
-description: "The 2025 RRSP contribution limit is $32,490 or 18% of earned income. The deadline was March 3, 2026. How RRSP deductions work and how to check your room."
+description: "The 2025 RRSP contribution limit is $32,490 or 18% of earned income. The deadline was March 2, 2026. How RRSP deductions work and how to check your room."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "RRSP"
 tagColor: "green"
 calculatorLink: "/rrsp-calculator"
 draft: false
 ---
 
-The 2025 RRSP contribution limit is **$32,490** or **18% of your 2024 earned income**, whichever is lower. The deadline to contribute for the 2025 tax year was **March 3, 2026** — it has passed. Unused RRSP room carries forward indefinitely, so any room you didn't use is still available. You can check your current room on CRA My Account or your most recent Notice of Assessment.
+The 2025 RRSP contribution limit is **$32,490** or **18% of your 2024 earned income**, whichever is lower. The deadline to contribute for the 2025 tax year was **March 2, 2026** — it has passed. Unused RRSP room carries forward indefinitely, so any room you didn't use is still available. You can check your current room on CRA My Account or your most recent Notice of Assessment.
 
-Contributions made after March 3, 2026 count toward the 2026 tax year. Here's how RRSP room works, what counts as earned income, and how much you'll actually save in taxes.
+Contributions made after March 2, 2026 count toward the 2026 tax year. Here's how RRSP room works, what counts as earned income, and how much you'll actually save in taxes.
 
 ## How Much Room Do You Actually Have?
 
@@ -43,9 +44,9 @@ The logic is straightforward: the government figures you're already saving for r
 
 Every dollar you contribute to an RRSP reduces your taxable income by one dollar. The actual tax savings depend on your marginal tax rate.
 
-- Earning $60,000 in Ontario with a marginal rate around 29.65%: a $10,000 RRSP contribution saves you roughly **$2,965** in tax
-- Earning $100,000 in Ontario with a marginal rate around 43.41%: that same $10,000 saves you about **$4,341**
-- Earning $150,000 in Ontario with a marginal rate around 46.41%: $10,000 saves you **$4,641**
+- Earning $60,000 in Ontario with a marginal rate of 29.65%: a $10,000 RRSP contribution saves you **$2,375** in tax (less than 29.65% of $10,000, because the deduction pulls part of your income down into lower brackets)
+- Earning $100,000 in Ontario with a marginal rate of 31.48%: that same $10,000 saves you **$3,026**
+- Earning $150,000 in Ontario with a marginal rate of 43.41%: $10,000 saves you **$4,341**
 
 The higher your income, the more each RRSP dollar is worth in tax savings. This is why high-income earners tend to benefit most from RRSP contributions compared to other registered accounts.
 
@@ -61,7 +62,7 @@ The annual RRSP dollar limit has been climbing steadily:
 | 2024 | $31,560 |
 | 2025 | $32,490 |
 
-These limits are indexed to the average wage growth in Canada, so they tend to go up by roughly $900 to $1,000 each year.
+These limits are indexed to the average wage growth in Canada, so they go up each year. The limit for 2026 is $33,810.
 
 ## The Over-Contribution Rule
 
@@ -79,7 +80,7 @@ This strategy is useful for income splitting in retirement. If one partner earns
 
 RRSPs aren't completely locked away until age 65. Two government programs let you withdraw early without paying tax:
 
-**Home Buyers' Plan (HBP):** Withdraw up to **$60,000** from your RRSP for a qualifying first home purchase. You must repay the amount over 15 years, starting the second year after withdrawal.
+**Home Buyers' Plan (HBP):** Withdraw up to **$60,000** from your RRSP for a qualifying first home purchase. You must repay the amount over 15 years, normally starting the second year after withdrawal (if your first withdrawal was made from 2022 through 2028, repayments start in the fifth year instead).
 
 **Lifelong Learning Plan (LLP):** Withdraw up to **$20,000** for full-time education or training. Repayment happens over 10 years.
 
@@ -87,7 +88,7 @@ In both cases, if you miss a repayment, the scheduled amount gets added to your 
 
 ## Deadline Reminder for Next Year
 
-For the 2026 tax year, the RRSP contribution deadline will fall within the first 60 days of 2027. The exact date will be announced by the CRA, but it's typically around March 1. If you're planning to [maximize your RRSP deduction](/rrsp-calculator), don't wait until the last week — transfers and purchases can take a few business days to settle.
+For the 2026 tax year, the RRSP contribution deadline is the 60th day of 2027, which is Monday, March 1, 2027. If you're planning to [maximize your RRSP deduction](/rrsp-calculator), don't wait until the last week — transfers and purchases can take a few business days to settle.
 
 You can estimate how RRSP contributions will affect your overall [income tax bill](/income-tax-calculator) before deciding how much to put in.
 

@@ -2,6 +2,7 @@
 title: "Home Office Tax Deduction Canada 2025: Employee vs Self-Employed"
 description: "How to claim home office expenses on your 2025 tax return. Different rules for employees (T2200 required) and self-employed (T2125). Calculation method explained."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Self-Employed"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
@@ -38,7 +39,7 @@ Employees can deduct the work-use portion of:
 - Office supplies consumed during the year
 - Home maintenance and minor repairs
 
-What employees **cannot** claim:
+What salaried employees **cannot** claim (commission employees can also claim a share of property taxes and home insurance):
 
 - Mortgage interest or principal
 - Property taxes
@@ -114,8 +115,8 @@ One more thing: you don't submit your T2200 or your receipts with your tax retur
 | Utilities | Yes | Yes |
 | Internet | Yes (work portion) | Yes (work portion) |
 | Rent | Yes | Yes |
-| Property tax | No | Yes |
-| Home insurance | No | Yes |
+| Property tax | No (yes for commission employees) | Yes |
+| Home insurance | No (yes for commission employees) | Yes |
 | Mortgage interest | No | Yes |
 | CCA on home | No | Yes (not recommended) |
 

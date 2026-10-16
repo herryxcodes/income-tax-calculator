@@ -2,6 +2,7 @@
 title: "Capital Gains Tax Canada 2025: The Inclusion Rate Saga Explained"
 description: "The proposed increase to 66.67% was deferred and then cancelled. For 2025, the capital gains inclusion rate is 50% for everyone. Here's how it works."
 publishDate: 2026-03-27
+updatedDate: 2026-10-15
 tag: "Capital Gains"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
@@ -32,7 +33,7 @@ A quick recap for anyone who spent 2024 confused. The federal budget proposed in
 
 The legislation never passed. Parliament prorogued. The proposal was deferred, then abandoned in early 2025. For tax years 2024 and 2025, the inclusion rate remains at 50% across the board. No threshold. No two-tier system.
 
-If you filed your 2024 return using the higher rate (some tax software applied it provisionally), you may be eligible for an adjustment. Check with your accountant or refile.
+If you filed your 2024 return using the higher rate, you may be eligible for an adjustment. Check with your accountant or ask the CRA to change your return.
 
 ## What Triggers a Capital Gain
 
@@ -61,11 +62,11 @@ You must report the sale of your principal residence on your tax return, even th
 
 ## Lifetime Capital Gains Exemption
 
-If you sell qualifying small business shares, you can shelter up to **$1.25 million** in capital gains in 2025 (up from approximately $1.016 million in prior years). This is a significant tax break -- at a 50% inclusion rate and a 50% marginal rate, that's roughly $312,500 in tax savings.
+If you sell qualifying small business shares, you can shelter up to **$1.25 million** in capital gains in 2025 (up from $1,016,836 for sales before June 25, 2024). This is a significant tax break -- at a 50% inclusion rate and a 50% marginal rate, that's roughly $312,500 in tax savings.
 
 To qualify, the shares must be of a Canadian-controlled private corporation (CCPC) that meets specific tests regarding active business use of its assets. This isn't something you figure out on your own. Get professional advice before claiming it.
 
-Qualifying farm and fishing property also has its own lifetime exemption, also $1.25 million for 2025.
+Qualifying farm and fishing property is also eligible, but it shares the same $1.25 million lifetime limit -- it's one combined exemption, not a second one.
 
 ## Capital Losses and How to Use Them
 
