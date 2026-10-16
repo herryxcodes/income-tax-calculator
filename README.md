@@ -44,6 +44,10 @@ Then set `status: "final"`, remove `statusNote`, update the tests in `src/lib/ta
 
 To add 2028, copy the 2027 file, update the values, and add it to `TAX_YEARS`.
 
+## Blog
+
+Posts in `src/content/blog/` cover the 2026 tax year and use year-free URLs (`/blog/ontario-income-tax`, not `-2025`), so each year you update the title, figures and `updatedDate` without changing the URL. Old `-2025` URLs are 301-redirected in `public/_redirects` (Cloudflare Pages). Take worked examples from the tax engine rather than calculating them by hand, so the blog matches the calculators.
+
 ## Tests
 
 - `src/lib/tax-engine.test.ts` — golden values worked out by hand from the CRA and Revenu Québec forms, with the arithmetic in comments, plus top and mid-bracket marginal rates.

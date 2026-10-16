@@ -527,8 +527,10 @@ export function calculateTax(input: TaxInput): TaxResult {
   const core = calculateCore(input, data, province);
 
   // Marginal rate: extra income tax on one more dollar of ordinary income.
+  // Rounded to 8 decimals to drop floating-point noise from subtracting two
+  // large totals (at $5M of income the raw difference is off by ~3e-10).
   const next = calculateCore({ ...input, otherIncome: nonNegative(input.otherIncome) + 1 }, data, province);
-  const marginalRate = next.incomeTax - core.incomeTax;
+  const marginalRate = Math.round((next.incomeTax - core.incomeTax) * 1e8) / 1e8;
 
   return {
     year: data.year,
@@ -622,7 +624,11 @@ export function formatCurrency(amount: number): string {
 }
 
 export function formatPercent(rate: number, digits = 2): string {
-  return (rate * 100).toFixed(digits) + "%";
+  // Round half up on the decimal value. toFixed alone turns Quebec's top rate,
+  // 0.53305 (stored as 0.53304999…), into "53.30%" instead of "53.31%".
+  const factor = 10 ** digits;
+  const scaled = rate * 100 * factor;
+  return (Math.round(scaled + Math.sign(scaled) * 1e-9) / factor).toFixed(digits) + "%";
 }
 
 /** Statutory rate without trailing zeros: 0.145 → "14.5%", 0.33 → "33%", 0.0505 → "5.05%". */

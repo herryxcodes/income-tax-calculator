@@ -1,8 +1,8 @@
 ---
-title: "Home Office Tax Deduction Canada 2025: Employee vs Self-Employed"
-description: "How to claim home office expenses on your 2025 tax return. Different rules for employees (T2200 required) and self-employed (T2125). Calculation method explained."
+title: "Home Office Tax Deduction Canada 2026: Employee vs Self-Employed"
+description: "How to claim home office expenses on your 2026 tax return. Different rules for employees (T2200 required) and self-employed (T2125). Calculation method explained."
 publishDate: 2026-03-27
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tag: "Self-Employed"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
@@ -11,7 +11,7 @@ draft: false
 
 Working from home can lower your tax bill, but the rules are different depending on whether you're an employee or self-employed. The CRA uses two completely separate systems, different forms, different eligible expenses, and different limits. Getting them confused can mean a rejected claim or leaving money on the table.
 
-Here's how both work for the 2025 tax year.
+Here's how both work for the 2026 tax year.
 
 ## Employees: T2200 and Form T777
 
@@ -19,15 +19,15 @@ If you're an employee who works from home, your deduction flows through a specif
 
 ### Step 1: Get Form T2200
 
-You need a signed **Form T2200** (Declaration of Conditions of Employment) from your employer before you claim anything. This form confirms that your employer required you to work from home and didn't fully reimburse you for the expenses. No T2200, no deduction. The CRA is firm on this.
+You need a signed **Form T2200** (Declaration of Conditions of Employment) from your employer before you claim anything. This form confirms that your employer required you to work from home (a formal telework arrangement you agreed to with your employer counts) and didn't fully reimburse you for the expenses. No T2200, no deduction. The CRA is firm on this.
 
 Request it early. HR departments don't always move quickly, and you don't want to be chasing paperwork in April.
 
-A quick note: the **$2/day flat-rate method** that was available during COVID (2020-2022) is gone. For 2025, you must use the detailed method. If your tax software still shows a flat-rate option, it's outdated.
+A quick note: the **$2/day flat-rate method** that was available during COVID (2020-2022) is gone. For 2026, as for every year since 2023, you must use the detailed method. If your tax software still shows a flat-rate option, it's outdated.
 
 ### Step 2: Confirm You Qualify
 
-You must have worked from home **more than 50% of the time for at least four consecutive weeks** during 2025. You don't need to have been remote all year. Even one qualifying stretch opens the door. A hybrid schedule where you're home three days a week for several months easily clears the bar.
+You must have worked from home **more than 50% of the time for at least four consecutive weeks** during 2026. You don't need to have been remote all year. Even one qualifying stretch opens the door. A hybrid schedule where you're home three days a week for several months easily clears the bar.
 
 ### Step 3: Know What You Can Claim
 
@@ -44,7 +44,7 @@ What salaried employees **cannot** claim (commission employees can also claim a 
 - Mortgage interest or principal
 - Property taxes
 - Home insurance
-- Furniture (with rare exceptions if your employer required a specific purchase and didn't reimburse you)
+- Furniture, equipment, or other capital expenses
 
 The distinction between renters and homeowners hits hard here. Renters can claim a portion of their rent, which is often their largest single expense. A renter paying $2,200/month with a 10% workspace percentage can claim $2,640 per year. Homeowners are limited to utilities, internet, and maintenance -- typically a smaller total.
 
@@ -122,6 +122,6 @@ One more thing: you don't submit your T2200 or your receipts with your tax retur
 
 ## Related Guides
 
-- [Work From Home Tax Deduction 2025](/blog/work-from-home-tax-deduction-2025) -- The detailed method, common mistakes, and filing tips for employees
-- [Self-Employed Tax Guide Canada 2025](/blog/self-employed-tax-guide-canada-2025) -- Full guide to CPP, deductions, and deadlines
-- [Gig Worker Taxes Canada 2025](/blog/gig-worker-taxes-canada-2025) -- Platform workers and home office claims
+- [Work From Home Tax Deduction 2026](/blog/work-from-home-tax-deduction) -- The detailed method, common mistakes, and filing tips for employees
+- [Self-Employed Tax Guide Canada 2026](/blog/self-employed-tax-guide-canada) -- Full guide to CPP, deductions, and deadlines
+- [Gig Worker Taxes 2026](/blog/gig-worker-taxes-canada) -- Platform workers and home office claims

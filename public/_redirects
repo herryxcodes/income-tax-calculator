@@ -1,0 +1,32 @@
+# Cloudflare Pages permanent redirects.
+# Blog posts moved to year-free URLs in October 2026 so they can be updated each tax year.
+/blog/2025-canadian-tax-brackets /blog/canadian-tax-brackets/ 301
+/blog/2025-canadian-tax-brackets/ /blog/canadian-tax-brackets/ 301
+/blog/2025-tax-deadline-canada /blog/tax-deadline-canada/ 301
+/blog/2025-tax-deadline-canada/ /blog/tax-deadline-canada/ 301
+/blog/9-tax-changes-2025 /blog/tax-changes-canada/ 301
+/blog/9-tax-changes-2025/ /blog/tax-changes-canada/ 301
+/blog/alberta-income-tax-2025 /blog/alberta-income-tax/ 301
+/blog/alberta-income-tax-2025/ /blog/alberta-income-tax/ 301
+/blog/bc-income-tax-2025 /blog/bc-income-tax/ 301
+/blog/bc-income-tax-2025/ /blog/bc-income-tax/ 301
+/blog/capital-gains-tax-canada-2025 /blog/capital-gains-tax-canada/ 301
+/blog/capital-gains-tax-canada-2025/ /blog/capital-gains-tax-canada/ 301
+/blog/crypto-tax-canada-2025 /blog/crypto-tax-canada/ 301
+/blog/crypto-tax-canada-2025/ /blog/crypto-tax-canada/ 301
+/blog/fhsa-guide-2025 /blog/fhsa-guide/ 301
+/blog/fhsa-guide-2025/ /blog/fhsa-guide/ 301
+/blog/gig-worker-taxes-canada-2025 /blog/gig-worker-taxes-canada/ 301
+/blog/gig-worker-taxes-canada-2025/ /blog/gig-worker-taxes-canada/ 301
+/blog/ontario-income-tax-2025 /blog/ontario-income-tax/ 301
+/blog/ontario-income-tax-2025/ /blog/ontario-income-tax/ 301
+/blog/quebec-income-tax-2025 /blog/quebec-income-tax/ 301
+/blog/quebec-income-tax-2025/ /blog/quebec-income-tax/ 301
+/blog/rrsp-contribution-limit-2025 /blog/rrsp-contribution-limit/ 301
+/blog/rrsp-contribution-limit-2025/ /blog/rrsp-contribution-limit/ 301
+/blog/self-employed-tax-guide-canada-2025 /blog/self-employed-tax-guide-canada/ 301
+/blog/self-employed-tax-guide-canada-2025/ /blog/self-employed-tax-guide-canada/ 301
+/blog/tfsa-contribution-room-2025 /blog/tfsa-contribution-room/ 301
+/blog/tfsa-contribution-room-2025/ /blog/tfsa-contribution-room/ 301
+/blog/work-from-home-tax-deduction-2025 /blog/work-from-home-tax-deduction/ 301
+/blog/work-from-home-tax-deduction-2025/ /blog/work-from-home-tax-deduction/ 301

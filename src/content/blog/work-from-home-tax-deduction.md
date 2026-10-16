@@ -1,21 +1,21 @@
 ---
-title: "Work From Home Tax Deduction 2025: The Flat-Rate Method Is Gone"
-description: "The $2/day flat-rate method ended after 2022. For 2025, you must use the detailed method with a T2200 from your employer. Here's how it works."
+title: "Work From Home Tax Deduction 2026: The Flat-Rate Method Is Gone"
+description: "The $2/day flat-rate method ended after 2022. For 2026, you must use the detailed method with a T2200 from your employer. Here's how it works."
 publishDate: 2026-03-27
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tag: "Tax Basics"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-The flat-rate method is dead. If you're filing your 2025 taxes and expecting to claim $2 per day with no receipts and no paperwork, that option no longer exists. It was a temporary COVID-era measure available for the 2020, 2021, and 2022 tax years only. For 2023, 2024, and 2025, the CRA requires the detailed method -- which means real documentation, real math, and a signed form from your employer.
+The flat-rate method is dead. If you're filing your 2026 taxes and expecting to claim $2 per day with no receipts and no paperwork, that option no longer exists. It was a temporary COVID-era measure available for the 2020, 2021, and 2022 tax years only. For 2023 and every year since, including 2026, the CRA requires the detailed method -- which means real documentation, real math, and a signed form from your employer.
 
 The good news: if you do the work, the detailed method usually produces a bigger deduction anyway.
 
 ## You Need a T2200 From Your Employer
 
-Before you claim anything, you need Form T2200 (Declaration of Conditions of Employment) signed by your employer. This form confirms that your employer required you to work from home and that they didn't reimburse you for the expenses you're claiming. No T2200, no deduction. Full stop.
+Before you claim anything, you need Form T2200 (Declaration of Conditions of Employment) signed by your employer. This form confirms that your employer required you to work from home and that they didn't reimburse you for the expenses you're claiming. The requirement doesn't have to be in your employment contract: if you voluntarily entered into a formal telework arrangement with your employer, the CRA treats you as required to work from home. No T2200, no deduction. Full stop.
 
 Ask your employer for this early. Some HR departments drag their feet, and you don't want to be chasing signatures the night before your filing deadline. If your employer refuses or doesn't provide one, you cannot claim work-from-home expenses as an employee.
 
@@ -23,9 +23,9 @@ Self-employed? Different rules apply to you entirely. You claim home office expe
 
 ## Who Qualifies
 
-You must have worked from home more than 50% of the time for a period of at least four consecutive weeks during 2025. This doesn't mean you need to have worked from home all year. Even a single four-week stretch where you were home more than half the time can open the door.
+You must have worked from home more than 50% of the time for a period of at least four consecutive weeks during 2026. This doesn't mean you need to have worked from home all year. Even a single four-week stretch where you were home more than half the time can open the door.
 
-If your employer called you back to the office full-time in February 2025, you likely don't qualify. But if you had a hybrid arrangement where you were home three days a week for several months, you probably do.
+If you worked in the office full-time all year, you don't qualify. But if you had a hybrid arrangement where you were home three days a week for several months, you probably do.
 
 ## What You Can Deduct
 
@@ -43,7 +43,7 @@ And here's what you **cannot** deduct as a salaried employee (commission employe
 - Mortgage interest or principal payments
 - Property taxes
 - Home insurance
-- Furniture (with narrow exceptions if your employer specifically required it and didn't reimburse you)
+- Furniture, computers, or other equipment and capital expenses
 - Internet costs if your employer already provides or reimburses your connection
 
 The distinction between renters and homeowners matters here. Renters can claim a portion of rent, which is often their largest single deduction. Homeowners cannot claim mortgage costs, which limits the total claim significantly.
@@ -74,13 +74,13 @@ Keep all receipts. Utility bills, rent receipts, internet invoices, office suppl
 
 **Claiming without a T2200.** The CRA will reject the deduction. Don't assume you can file it and sort out the paperwork later.
 
-**Using the old flat-rate method.** Tax software from previous years might still show this option. It won't be accepted for 2025. Make sure your software is updated.
+**Using the old flat-rate method.** Tax software from previous years might still show this option. It won't be accepted for 2026. Make sure your software is updated.
 
 **Overclaiming the workspace percentage.** Be honest about the square footage. If you claim half your apartment is a home office, the CRA may ask questions.
 
 **Forgetting to prorate shared spaces.** If your workspace doubles as a dining room, you need to account for that.
 
-**Not claiming at all.** Many employees who work from home two or three days a week don't realize they qualify. If you hit the 50%-for-four-weeks threshold, it's worth doing the calculation. Even a $1,000 deduction saves you roughly $185 to $550 in tax depending on your marginal rate (2025 combined federal and provincial rates run from 18.5% to 54.8%).
+**Not claiming at all.** Many employees who work from home two or three days a week don't realize they qualify. If you hit the 50%-for-four-weeks threshold, it's worth doing the calculation. Even a $1,000 deduction saves you roughly $180 to $548 in tax depending on your marginal rate (2026 combined federal and provincial bracket rates run from 18% to 54.8%).
 
 **[See your marginal tax rate -->](/income-tax-calculator)**
 
@@ -90,6 +90,6 @@ The detailed method takes more effort than the old $2/day shortcut, but it typic
 
 ## Related Guides
 
-- [Self-Employed Tax Guide Canada 2025](/blog/self-employed-tax-guide-canada-2025)
-- [9 Tax Changes for 2025](/blog/9-tax-changes-2025)
-- [2025 Tax Deadline Canada](/blog/2025-tax-deadline-canada)
+- [Self-Employed Tax Guide Canada 2026](/blog/self-employed-tax-guide-canada)
+- [Tax Changes for 2026](/blog/tax-changes-canada)
+- [2026 Tax Deadline Canada](/blog/tax-deadline-canada)

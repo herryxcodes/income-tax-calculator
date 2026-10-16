@@ -2,14 +2,14 @@
 title: "Marginal vs Effective Tax Rate: What's the Difference?"
 description: "Why earning $1 more doesn't tax ALL your income at a higher rate. Clear explanation with examples showing how Canada's progressive tax system actually works."
 publishDate: 2026-03-27
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tag: "Tax Basics"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
 draft: false
 ---
 
-Your **marginal tax rate** is the tax rate on your next dollar of income — the highest bracket you fall into. Your **effective (average) tax rate** is your total tax paid divided by your total income. The effective rate is always lower than the marginal rate. For example, on a $90,000 salary in Ontario, your marginal rate is 29.65% but your effective income tax rate is only about 19.4% (25.5% if you count CPP and EI). Earning more never results in less take-home pay — that's a myth.
+Your **marginal tax rate** is the tax rate on your next dollar of income — the highest bracket you fall into. Your **effective (average) tax rate** is your total tax paid divided by your total income. The effective rate is always lower than the marginal rate. For example, on a $90,000 salary in Ontario in 2026, your marginal rate is 29.65% but your effective income tax rate is only about 18.9% (25.3% if you count CPP and EI). Earning more never results in less take-home pay — that's a myth.
 
 ## The Simple Definitions
 
@@ -23,39 +23,39 @@ Canada doesn't tax all your income at one rate. It taxes your income in layers. 
 
 Think of it like filling buckets. Your income fills the lowest-rate bucket first. Only after that bucket is full does income spill into the next one.
 
-Here's what the 2025 federal brackets look like:
+Here's what the 2026 federal brackets look like:
 
 | Income Range | Federal Rate |
 |---|---|
-| $0 -- $57,375 | 14.5% |
-| $57,375 -- $114,750 | 20.5% |
-| $114,750 -- $177,882 | 26% |
-| $177,882 -- $253,414 | 29% |
-| Over $253,414 | 33% |
+| $0 -- $58,523 | 14% |
+| $58,523 -- $117,045 | 20.5% |
+| $117,045 -- $181,440 | 26% |
+| $181,440 -- $258,482 | 29% |
+| Over $258,482 | 33% |
 
-Someone earning $90,000 doesn't pay 20.5% on all $90,000. They pay 14.5% on the first $57,375 and 20.5% only on the remaining $32,625.
+Someone earning $90,000 doesn't pay 20.5% on all $90,000. They pay 14% on the first $58,523 and 20.5% only on the remaining $31,477.
 
 ## A Real Example: $90,000 in Ontario
 
-Let's walk through the federal tax on a $90,000 salary in Ontario for the 2025 tax year.
+Let's walk through the federal tax on a $90,000 salary in Ontario for the 2026 tax year.
 
 **Federal tax before credits:**
 
-- First $57,375 at 14.5% = **$8,319**
-- Next $32,625 ($57,375 to $90,000) at 20.5% = **$6,688**
-- **Total federal tax before credits: $15,008**
+- First $58,523 at 14% = **$8,193**
+- Next $31,477 ($58,523 to $90,000) at 20.5% = **$6,453**
+- **Total federal tax before credits: $14,646**
 
 **Minus the basic personal amount credit:**
 
-Every Canadian gets a tax credit on the first $16,129 of income. That credit is worth 14.5% x $16,129 = **$2,339**.
+Every Canadian gets a tax credit on the first $16,452 of income (the 2026 basic personal amount). That credit is worth 14% x $16,452 = **$2,303**.
 
-**Net federal tax: about $12,669.** (The credits for CPP, EI and the Canada employment amount, plus the deduction for enhanced CPP contributions, bring the federal tax our calculator shows for a $90,000 salary down to $11,592.)
+**Net federal tax: about $12,343.** (The credits for CPP, EI and the Canada employment amount, plus the deduction for enhanced CPP contributions, bring the federal tax our calculator shows for a $90,000 salary down to $11,252.)
 
-Now add Ontario provincial tax on top (Ontario has its own brackets), and you'll end up with a combined income tax bill of $17,443 before accounting for CPP and EI.
+Now add Ontario provincial tax on top (Ontario has its own brackets), and you'll end up with a combined income tax bill of $17,034 before accounting for CPP and EI.
 
 **The marginal rate** on that $90,000 income is 20.5% federal + 9.15% Ontario = **29.65% combined**. That's what you'd pay on any additional dollar earned.
 
-**The effective rate** is about 25.5% when you include both levels of government plus CPP and EI contributions -- and only 19.4% for income tax alone. Either way, it's well below the marginal rate.
+**The effective rate** is about 25.3% when you include both levels of government plus CPP and EI contributions -- and only 18.9% for income tax alone. Either way, it's well below the marginal rate.
 
 **[See your own marginal and effective rates with our income tax calculator.](/income-tax-calculator)** Plug in your salary and province and it breaks down both numbers for you.
 
@@ -67,9 +67,9 @@ This is wrong. It has always been wrong. It will always be wrong.
 
 In a progressive tax system, only the income above the bracket threshold gets taxed at the higher rate. The rest of your income stays exactly where it was.
 
-If you earn $57,375 (the top of the first federal bracket) and get a $1,000 raise, here's what happens:
+If you earn $58,523 (the top of the first federal bracket in 2026) and get a $1,000 raise, here's what happens:
 
-- Your first $57,375 is still taxed at 14.5%. Nothing changes there.
+- Your first $58,523 is still taxed at 14%. Nothing changes there.
 - Only the extra $1,000 gets taxed at 20.5%.
 - You keep $795 of that raise after federal tax.
 
@@ -83,9 +83,9 @@ Knowing your marginal rate isn't just trivia. It directly affects financial deci
 
 This is why some people with lower incomes are better off using a TFSA instead -- they'd save the RRSP room for a year when their marginal rate is higher. **[Use our RRSP calculator](/rrsp-calculator)** to see how much an RRSP contribution would save you at your current income.
 
-**Side income and freelancing.** If you have a salaried job and earn extra money on the side, that side income gets taxed at your marginal rate, not your effective rate. On a $90,000 salary, every dollar of freelance income is taxed at roughly 29.65% combined, not the 19.4% effective income tax rate on your salary.
+**Side income and freelancing.** If you have a salaried job and earn extra money on the side, that side income gets taxed at your marginal rate, not your effective rate. On a $90,000 salary, every dollar of freelance income is taxed at roughly 29.65% combined, not the 18.9% effective income tax rate on your salary.
 
-**Capital gains and investment income.** Only 50% of capital gains are included in your income for 2025. The included portion gets added to the top of your income stack and taxed at your marginal rate.
+**Capital gains and investment income.** Only 50% of capital gains are included in your income for 2026. The included portion gets added to the top of your income stack and taxed at your marginal rate.
 
 ## Quick Reference: How to Find Your Rates
 
@@ -101,6 +101,6 @@ Your marginal rate is what matters for planning future income and deductions. Yo
 
 ## Related Guides
 
-- [2025 Canadian Tax Brackets: Federal and Provincial Rates](/blog/2025-canadian-tax-brackets)
+- [2026 Canadian Tax Brackets: Federal and Provincial Rates](/blog/canadian-tax-brackets)
 - [How Much Tax Do I Pay on My Salary in Canada?](/blog/how-much-tax-on-salary-canada)
-- [9 Tax Changes in 2025 That Affect Your Return](/blog/9-tax-changes-2025)
+- [12 Tax Changes for 2026 That Affect Your Return](/blog/tax-changes-canada)

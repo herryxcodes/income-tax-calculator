@@ -1,15 +1,15 @@
 ---
-title: "Gig Worker Taxes 2025: Uber, DoorDash, Etsy, and Airbnb"
-description: "Digital platforms now report your income directly to CRA. What this means for Uber drivers, DoorDash couriers, Etsy sellers, and Airbnb hosts filing their 2025 taxes."
+title: "Gig Worker Taxes 2026: Uber, DoorDash, Etsy, and Airbnb"
+description: "Digital platforms report your income directly to CRA. What this means for Uber drivers, DoorDash couriers, Etsy sellers, and Airbnb hosts filing their 2026 taxes."
 publishDate: 2026-03-27
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tag: "Gig Workers"
 tagColor: "orange"
 calculatorLink: "/self-employed-tax-calculator"
 draft: false
 ---
 
-CRA already knows what you earned. Starting with the 2024 calendar year, digital platforms like Uber, DoorDash, Lyft, Etsy, and Airbnb must report seller and driver income directly to the Canada Revenue Agency under new OECD-aligned reporting rules (the first reports were due January 31, 2025). If you earned money through any of these platforms in 2025, that information has been shared with CRA before you even start your tax return.
+CRA already knows what you earned. Since the 2024 calendar year, digital platforms like Uber, DoorDash, Lyft, Etsy, and Airbnb have had to report seller and driver income directly to the Canada Revenue Agency under OECD-aligned reporting rules (the first reports were due January 31, 2025). Reports are due by January 31 each year, so if you earned money through any of these platforms in 2026, that information reaches CRA by the end of January 2027 -- before you even start your tax return.
 
 The days of quietly underreporting gig income are over. Here's exactly how your taxes work as a gig worker in Canada and what you can deduct to reduce the bill.
 
@@ -27,15 +27,15 @@ As a self-employed person, you pay:
 
 **Income tax** at the same federal and provincial rates as everyone else. There's no special gig worker rate. Your net self-employment income (revenue minus deductible expenses) gets added to any other income you earned and taxed through the usual progressive brackets.
 
-**Both halves of CPP.** Employees split CPP contributions with their employer -- each pays 5.95%. As a self-employed person, you pay both sides: **11.9%** on net self-employment earnings between $3,500 and $71,300.
+**Both halves of CPP.** Employees split CPP contributions with their employer -- each pays 5.95%. As a self-employed person, you pay both sides: **11.9%** on net self-employment earnings between $3,500 and $74,600 in 2026 (up to $8,460.90), plus 8% CPP2 on earnings from $74,600 to $85,000.
 
-On $50,000 in net gig income, the CPP bill alone is roughly $5,534. That's on top of your income tax. It's the part that catches most new gig workers off guard.
+On $50,000 in net gig income, the CPP bill alone is roughly $5,534. That's on top of your income tax -- about $5,962 more if you live in Ontario, for a 2026 total of roughly $11,495. The CPP is the part that catches most new gig workers off guard.
 
 **EI is optional** for the self-employed. You can opt into the EI program, but it only gives you access to special benefits like parental leave and caregiving benefits. You won't qualify for regular EI benefits even if you pay in. Most gig workers skip it.
 
 ## Filing Deadline and Payment Deadline
 
-Self-employed Canadians get an extended filing deadline: **June 15, 2026** for the 2025 tax year. But any balance owing is still due by **April 30, 2026**. If you owe money and pay after April 30, CRA charges interest even if you file before June 15.
+Self-employed Canadians get an extended filing deadline: **June 15, 2027** for the 2026 tax year. But any balance owing is still due by **April 30, 2027**. If you owe money and pay after April 30, CRA charges interest even if you file before June 15.
 
 Set money aside throughout the year. A good rule of thumb is **25-30%** of your net gig income for combined income tax and CPP. Use the [self-employed tax calculator](/self-employed-tax-calculator) to get a more precise number based on your province and total income.
 
@@ -57,7 +57,7 @@ Deductible vehicle costs include:
 - Parking fees incurred while working
 - Lease payments or capital cost allowance (CCA) if you own the vehicle
 
-If you drove 30,000 km total in 2025 and 18,000 were for gig work, your business-use percentage is 60%. Apply that 60% to your total gas, insurance, and maintenance costs.
+If you drove 30,000 km total in 2026 and 18,000 were for gig work, your business-use percentage is 60%. Apply that 60% to your total gas, insurance, and maintenance costs.
 
 Beyond the vehicle, you can also deduct your **phone and data plan** (business-use portion) and any other supplies you needed for the job.
 
@@ -108,21 +108,22 @@ There's an exception for ride-sharing. **Uber and Lyft drivers** should register
 
 ## Platform Reporting: What CRA Receives
 
-Under the new reporting rules, platforms send CRA details about each seller or service provider, including:
+Under the reporting rules, platforms send CRA details about each seller or service provider, including:
 
 - Your name and address
 - Your tax identification number (SIN or business number)
-- Total gross revenue paid to you during the year
-- Any fees or commissions the platform withheld
+- The total amounts paid or credited to you, broken down by quarter
+- Any fees, commissions, or taxes the platform withheld or charged
+- For short-term rentals, the address of each listing and the number of days it was rented
 
 This information gets matched against your tax return. If the income you report is significantly lower than what the platform reported, expect a letter from CRA -- or an adjustment to your return.
 
 The best approach is straightforward: report everything, deduct what you're entitled to, and file on time. Gig income isn't going to slip through the cracks anymore.
 
-**[Calculate your total tax for 2025 →](/income-tax-calculator)**
+**[Calculate your total tax for 2026 →](/income-tax-calculator)**
 
 ## Related Guides
 
-- [Self-Employed Tax Guide Canada 2025: Deductions, CPP, and Filing](/blog/self-employed-tax-guide-canada-2025)
-- [9 Tax Changes for 2025 That Affect Your Return](/blog/9-tax-changes-2025)
-- [2025 Tax Deadline Canada: Key Dates and Penalties](/blog/2025-tax-deadline-canada)
+- [Self-Employed Tax Guide Canada 2026: CPP, Deductions, and Deadlines](/blog/self-employed-tax-guide-canada)
+- [Tax Changes for 2026 That Affect Your Return](/blog/tax-changes-canada)
+- [2026 Tax Deadline Canada: Key Dates and Penalties](/blog/tax-deadline-canada)

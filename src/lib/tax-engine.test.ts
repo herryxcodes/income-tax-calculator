@@ -5,7 +5,7 @@
 // behaviour — don't update the number without redoing the arithmetic.
 
 import { describe, it, expect } from "vitest";
-import { calculateTax, emptyInput, topMarginalRate, ontarioHealthPremium, type TaxInput } from "./tax-engine";
+import { calculateTax, emptyInput, topMarginalRate, ontarioHealthPremium, formatPercent, type TaxInput } from "./tax-engine";
 
 const run = (slug: string, year: number, inputs: Partial<TaxInput>) =>
   calculateTax({ ...emptyInput(slug, year), ...inputs });
@@ -338,4 +338,15 @@ describe("Independent cross-check: 22 scenarios", () => {
       expect(r.totalTax).toBeCloseTo(total, 1);
     });
   }
+});
+
+describe("formatPercent", () => {
+  it("rounds half up on the decimal value, not the binary one", () => {
+    // 25.75% + 33% × (1 − 16.5%) = 53.305%, published as 53.31%
+    expect(formatPercent(topMarginalRate("quebec", 2026))).toBe("53.31%");
+    expect(formatPercent(0.29655)).toBe("29.66%");
+    expect(formatPercent(0.2965)).toBe("29.65%");
+    expect(formatPercent(0.1, 1)).toBe("10.0%");
+    expect(formatPercent(0)).toBe("0.00%");
+  });
 });

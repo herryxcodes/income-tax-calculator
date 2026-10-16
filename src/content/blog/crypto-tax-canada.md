@@ -1,8 +1,8 @@
 ---
-title: "Crypto Tax Canada 2025: How to Report Bitcoin and Ethereum to the CRA"
-description: "CRA treats crypto as a commodity. Selling, trading, or spending crypto triggers tax. Capital gains vs business income, ACB tracking, and why CRA is increasing audits."
+title: "Crypto Tax Canada 2026: How to Report Bitcoin and Ethereum to the CRA"
+description: "CRA treats crypto as a commodity. Selling, trading, or spending crypto triggers tax on your 2026 return. Capital gains vs business income, ACB tracking, and the new crypto reporting rules coming for exchanges."
 publishDate: 2026-03-27
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tag: "Crypto"
 tagColor: "gray"
 calculatorLink: "/income-tax-calculator"
@@ -68,13 +68,15 @@ Now you sell 1 BTC for $70,000.
 - Capital gain: $20,000
 - Taxable capital gain (50%): $10,000
 
-That $10,000 gets added to your income and taxed at your marginal rate. If you're in a 40% bracket, you'd owe $4,000 on that sale.
+That $10,000 gets added to your income and taxed at your marginal rate. If you live in Ontario and earn $75,000 from your job in 2026, that sale adds **$2,965** to your tax bill -- about 14.8% of the gain.
+
+If the CRA decided you were trading as a business, all $20,000 would be taxable as self-employment income: $5,693 of income tax plus $800 of CPP contributions, or $6,493 in total. That's more than double.
 
 This gets complicated fast when you have dozens of purchases at different prices across multiple exchanges over several years. Which brings us to record-keeping.
 
 ## Record-Keeping Is Non-Negotiable
 
-The CRA expects you to track every single transaction. Date, time, amount of crypto, cost in CAD at the time, proceeds in CAD at the time of disposition. For every trade.
+The CRA expects you to track every single transaction. Date, time, amount of crypto, cost in CAD at the time, proceeds in CAD at the time of disposition. For every trade. Keep those records for at least six years.
 
 If you've been active in crypto for years and haven't been tracking, you need to reconstruct your history. Most major exchanges let you download transaction histories. From there, tools like Koinly, CoinTracker, or CoinPanda can calculate your ACB and generate tax reports. A well-maintained spreadsheet works too, but it gets unwieldy past a few dozen transactions.
 
@@ -82,11 +84,11 @@ Don't wait until April to sort this out. Pulling records from exchanges that may
 
 ## Mining, Staking, and DeFi
 
-**Mining** is generally treated as business income by the CRA. The fair market value of the crypto at the time you receive it is fully taxable as income. The costs of mining -- electricity, hardware depreciation, internet -- can be deducted as business expenses. If your mining is truly at a hobby level (you mined a tiny amount casually), there's an argument for different treatment, but the CRA's default position is that mining income is business income. **[Estimate your mining tax with the self-employed calculator -->](/self-employed-tax-calculator)**
+**Mining** is generally treated as business income by the CRA. Its guidance says that in most cases mining counts as carrying on a business because of the scale and resources involved, and the value of the crypto you mine is included in business income when you earn it. The costs of mining -- electricity, hardware depreciation, internet -- can be deducted as business expenses. **[Estimate your mining tax with the self-employed calculator -->](/self-employed-tax-calculator)**
 
-**Staking rewards** are likely taxable as income when received. The CRA hasn't published definitive guidance specifically on staking, but the consensus among tax professionals is that staking rewards are taxed similarly to interest income -- at their fair market value when they hit your wallet.
+**Staking rewards** are taxable as income. The CRA says rewards from staking on a centralized platform are generally income at the time they're credited to your wallet on that platform, so you report their value when they arrive.
 
-**Airdrops** are taxable at fair market value when received, even if you didn't ask for them. If you receive tokens worth $500 through an airdrop, that's $500 of income.
+**Airdrops** are generally treated as income at fair market value when received, even if you didn't ask for them. The CRA hasn't published specific guidance on airdrops, so if you receive a large one, check with a tax professional.
 
 **DeFi yields** -- liquidity pool rewards, yield farming, lending interest -- are likely taxable as income when received. The specific treatment depends on the nature of the arrangement, but expect to pay tax on the fair market value of what you receive.
 
@@ -95,6 +97,8 @@ For all of these, you then have a new ACB for the received crypto. If you later 
 ## CRA Is Paying Attention
 
 Canadian exchanges are cooperating with the CRA, and international information-sharing agreements mean that offshore exchanges aren't the shield they used to be. The CRA has specifically flagged crypto as an enforcement priority. Unreported crypto income is treated the same as any other unreported income -- penalties, interest, and potential prosecution in serious cases.
+
+More reporting is on the way. Canada is implementing the OECD's Crypto-Asset Reporting Framework (CARF), under which crypto platforms will report their users' identities and transactions to the CRA, and the CRA will swap that information with dozens of other countries. The legislation to put it in place was still before Parliament as of October 2026, and the CRA has said platform reporting is set to begin in 2028. CARF doesn't change what you report on your 2026 return -- crypto dispositions have always been reportable -- but it will make unreported trades much easier to spot.
 
 If you have unreported crypto from prior years, consider a voluntary disclosure to the CRA before they come to you. The penalties are significantly reduced when you self-report.
 
@@ -114,6 +118,6 @@ If you have unreported crypto from prior years, consider a voluntary disclosure 
 
 ## Related Guides
 
-- [Capital Gains Tax Canada 2025](/blog/capital-gains-tax-canada-2025)
-- [2025 Tax Deadline Canada](/blog/2025-tax-deadline-canada)
-- [9 Tax Changes for 2025](/blog/9-tax-changes-2025)
+- [Capital Gains Tax Canada 2026](/blog/capital-gains-tax-canada)
+- [2026 Tax Deadline Canada](/blog/tax-deadline-canada)
+- [Tax Changes for 2026](/blog/tax-changes-canada)
