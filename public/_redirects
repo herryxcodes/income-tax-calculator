@@ -1,4 +1,4 @@
-# Cloudflare Pages permanent redirects.
+# Cloudflare Pages redirects.
 # Blog posts moved to year-free URLs in October 2026 so they can be updated each tax year.
 /blog/2025-canadian-tax-brackets /blog/canadian-tax-brackets/ 301
 /blog/2025-canadian-tax-brackets/ /blog/canadian-tax-brackets/ 301
@@ -30,3 +30,8 @@
 /blog/tfsa-contribution-room-2025/ /blog/tfsa-contribution-room/ 301
 /blog/work-from-home-tax-deduction-2025 /blog/work-from-home-tax-deduction/ 301
 /blog/work-from-home-tax-deduction-2025/ /blog/work-from-home-tax-deduction/ 301
+
+# Temporary: the projected 2027 tax data page was removed in October 2026.
+# Delete these lines when 2027 is added back to src/data/tax-rates.
+/2027-canadian-tax-data /2026-canadian-tax-data/ 302
+/2027-canadian-tax-data/ /2026-canadian-tax-data/ 302

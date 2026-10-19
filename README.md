@@ -28,9 +28,10 @@ npx vitest run     # tax engine tests
 One file per year in `src/data/tax-rates/<year>/index.ts`, all following `src/data/tax-rates/types.ts`. The registry and the year the calculators open on (`DEFAULT_TAX_YEAR`) are in `src/data/tax-rates/index.ts`.
 
 - **2025** and **2026** are final. 2026 values come from the CRA payroll formulas (T4127) and provincial publications, because the 2026 T1 forms come out in January 2027.
-- **2027 is projected** (`status: "projected"`). The site labels it as an estimate everywhere. The header comment in `2027/index.ts` lists which values are already confirmed and how the rest were projected.
 
-### Updating 2027 when official numbers are released
+### Adding 2027
+
+Add 2027 once the official numbers are out, rather than projecting them. A projected 2027 file was removed in October 2026; `git show be44a68:src/data/tax-rates/2027/index.ts` is a starting point, and its header comment lists which values were already confirmed.
 
 | When | What | Where to find it |
 |---|---|---|
@@ -40,9 +41,7 @@ One file per year in `src/data/tax-rates/<year>/index.ts`, all following `src/da
 | Fall 2026 | Nova Scotia, Newfoundland and Labrador (including the NL low-income reduction amount) | Provincial finance departments; T4127 |
 | After Oct 24, 2026 | BC (election could change 2027 rates) | BC Ministry of Finance |
 
-Then set `status: "final"`, remove `statusNote`, update the tests in `src/lib/tax-engine.test.ts` that cover 2027, and when the 2026 filing season ends move `DEFAULT_TAX_YEAR` to 2027.
-
-To add 2028, copy the 2027 file, update the values, and add it to `TAX_YEARS`.
+Copy the 2026 file to `2027/index.ts`, update the values, add it to `TAX_YEARS`, add 2027 tests to `src/lib/tax-engine.test.ts`, and remove the temporary `/2027-canadian-tax-data` redirect from `public/_redirects`. If you publish a year before every figure is confirmed, set `status: "projected"` with a `statusNote`; the site then labels it as an estimate everywhere. When the 2026 filing season ends, move `DEFAULT_TAX_YEAR` to 2027.
 
 ## Blog
 

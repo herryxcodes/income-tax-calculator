@@ -27,8 +27,8 @@ const run = (overrides: Partial<TaxInput>, slug = "ontario", year = 2025) =>
   calculateTax({ ...emptyInput(slug, year), ...overrides });
 
 describe("tax year data", () => {
-  it("covers 2025, 2026 and 2027", () => {
-    expect(TAX_YEARS.map((y) => y.year)).toEqual([2025, 2026, 2027]);
+  it("covers 2025 and 2026", () => {
+    expect(TAX_YEARS.map((y) => y.year)).toEqual([2025, 2026]);
   });
 
   for (const data of TAX_YEARS) {

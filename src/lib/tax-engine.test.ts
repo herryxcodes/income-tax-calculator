@@ -136,20 +136,6 @@ describe("2026 Ontario, $60,000 self-employment income", () => {
   });
 });
 
-describe("2027 projected rules", () => {
-  it("uses the 4.75% CPP base rate (5.75% employee rate)", () => {
-    const r = run("ontario", 2027, { employmentIncome: 50_000 });
-    // (50,000 − 3,500) × 5.75% = 2,673.75; base credit 46,500 × 4.75% = 2,208.75
-    expect(r.cppContributions).toBeCloseTo(2_673.75, cents);
-    expect(r.federal.creditAmounts.cppQpp).toBeCloseTo(2_208.75, cents);
-  });
-
-  it("uses the confirmed 2027 EI rate", () => {
-    const r = run("ontario", 2027, { employmentIncome: 100_000 });
-    expect(r.eiPremiums).toBeCloseTo(70_800 * 0.0164, cents); // 1,161.12
-  });
-});
-
 describe("Top combined marginal rates", () => {
   // Federal 33% plus the provincial top rate, adjusted for Ontario's surtax
   // (× 1.56) and Quebec's abatement (federal × 0.835).
@@ -297,7 +283,7 @@ describe("2026 marginal rates match TaxTips.ca's published tables", () => {
   }
 });
 
-describe("Independent cross-check: 22 scenarios", () => {
+describe("Independent cross-check: 21 scenarios", () => {
   // Expected values were computed by a separate implementation written only from
   // the CRA/Revenu Québec forms and published parameters (it never saw this
   // engine), and agree with the engine to the cent on every field.
@@ -320,7 +306,6 @@ describe("Independent cross-check: 22 scenarios", () => {
     ["2026 NS salary 18k (low-income reduction)", "nova-scotia", 2026, { employmentIncome: 18_000 }, 0, 274.5, 862.75, 293.4, 0, 1_430.65],
     ["2026 NB salary 25k (low-income reduction)", "new-brunswick", 2026, { employmentIncome: 25_000 }, 750.44, 161.84, 1_279.25, 407.5, 0, 2_599.02],
     ["2026 MB salary 20k (Family Tax Benefit)", "manitoba", 2026, { employmentIncome: 20_000 }, 103.5, 284.3, 981.75, 326, 0, 1_695.54],
-    ["2027 ON salary 75k (projected)", "ontario", 2027, { employmentIncome: 75_000 }, 8_108.87, 4_391.26, 4_111.25, 1_161.12, 0, 17_772.5],
     ["2025 QC salary 60k", "quebec", 2025, { employmentIncome: 60_000 }, 4_667.93, 5_760.16, 3_616, 786, 296.4, 15_126.49],
     ["2026 SK salary 100k + RRSP 10k", "saskatchewan", 2026, { employmentIncome: 100_000, rrspContribution: 10_000 }, 11_251.6, 7_391.02, 4_646.45, 1_123.07, 0, 24_412.13],
     ["2026 ON salary 120k + gains 20k + FHSA 8k", "ontario", 2026, { employmentIncome: 120_000, capitalGains: 20_000, fhsaContribution: 8_000 }, 18_022.14, 9_733.76, 4_646.45, 1_123.07, 0, 33_525.42],
